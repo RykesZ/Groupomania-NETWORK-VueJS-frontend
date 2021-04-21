@@ -8,16 +8,16 @@
             <input type="password" name="password" id="password" placeholder="Mot de passe" required><br>
             <button type="submit" class="login">Connexion</button><br>
             <a href="#">Mot de passe oublié ?</a><br>
-            <button class="signin" @click="overlayToggle()">Créer un compte</button>
+            <button class="accountCreate" @click="overlayToggle()">Créer un compte</button>
         </div>
         <div class="overlay" v-show="overlay">
-            <SigninMenu @close-pop-up="overlayToggle()"/>
+            <SignupMenu @close-pop-up="overlayToggle()"/>
         </div>
     </div>
 </template>
 
 <script>
-import SigninMenu from "./SigninMenu.vue"
+import SignupMenu from "./SignupMenu.vue"
 export default {
     name: 'LoginMenu',
     data() {
@@ -33,7 +33,7 @@ export default {
     props: {
     },
     components: {
-        SigninMenu
+        SignupMenu
     }
 }
 </script>
@@ -81,7 +81,7 @@ button {
             background-color: darken($groupomaniaColor, 10%);
         }
     }
-    &.signin {
+    &.accountCreate {
         background-color: $blueColor;
         margin-top: 30px;
         width: 200px;

@@ -5,9 +5,9 @@
         </button>
         <input type="text" name="prenom" id="prenom" placeholder="Prénom" required><br>
         <input type="text" name="nom" id="nom" placeholder="Nom" required><br>
-        <input type="email" name="email" id="emailSignin" placeholder="Adresse e-mail" required><br>
-        <input type="password" name="password" id="passwordSignin" placeholder="Mot de passe" required><br>
-        <input type="password" name="passwordVerif" id="passwordSigninVerif" placeholder="Ré-entrez le mot de passe" required>
+        <input type="email" name="email" id="emailSignup" placeholder="Adresse e-mail" required><br>
+        <input type="password" name="password" id="passwordSignup" placeholder="Mot de passe" required><br>
+        <input type="password" name="passwordVerif" id="passwordSignupVerif" placeholder="Ré-entrez le mot de passe" required>
         <p>Date de naissance :</p>
         <div class="dateNaissance">
             <select name="jourNaissance" id="jourNaissance" aria-label="Jour" title="Jour" required>
@@ -40,7 +40,7 @@
 
 <script>
 export default {
-    name: 'SigninMenu',
+    name: 'SignupMenu',
     methods: {
         closePopUp() {
             this.$emit('close-pop-up')
