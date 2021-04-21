@@ -1,3 +1,11 @@
+<!--<template>
+  <div id="nav">
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link>
+  </div>
+  <router-view/>
+</template>-->
+
 <template>
 <section >
   <div>
@@ -33,3 +41,4 @@ body {
   justify-content: center;
 }
 </style>
+
