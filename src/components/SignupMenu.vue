@@ -5,26 +5,17 @@
         </button>
         <ChampForm v-for="champ in info" :key="champ" :type="champ.type" :name="champ.name" :id="champ.id" :placeholder="champ.placeholder" :required="champ.required"/>
         <p>Date de naissance :</p>
-        <div class="dateNaissance">
-            <input type="date" id="dateNaissance" name="dateNaissance" :value="currentDate" min="1901-01-01" :max="currentDate">
-        </div>
+        <BirthdayForm/>
         <p>Genre :</p>
-        <div class="genre">
-            <div class="optionGenre">
-                <label for="femme">Femme</label>
-                <input type="radio" name="genre" id="femme" value="F" required>
-            </div>
-            <div class="optionGenre">
-                <label for="homme">Homme</label>
-                <input type="radio" name="genre" id="homme" value="H" required>
-            </div>
-        </div>
+        <GenderForm/>
         <button type="submit" class="signup">Je m'inscris !</button>
     </div>
 </template>
 
 <script>
-import ChampForm from "./ChampForm.vue"
+import BirthdayForm from './IdentityForm/BirthdayForm.vue'
+import ChampForm from "./IdentityForm/ChampForm.vue"
+import GenderForm from "./IdentityForm/GenderForm.vue"
 export default {
     name: 'SignupMenu',
     methods: {
@@ -44,12 +35,9 @@ export default {
         }
     },
     components: {
-        ChampForm
-    },
-    computed: {
-        currentDate() {
-            return new Date().getDate()
-        }
+        ChampForm,
+        BirthdayForm,
+        GenderForm
     }
 }
 </script>
