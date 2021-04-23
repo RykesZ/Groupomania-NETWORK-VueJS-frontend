@@ -3,25 +3,10 @@
         <button class="exitCross" @click="closePopUp">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
-        <input type="text" name="prenom" id="prenom" placeholder="Prénom" required><br>
-        <input type="text" name="nom" id="nom" placeholder="Nom" required><br>
-        <input type="email" name="email" id="emailSignup" placeholder="Adresse e-mail" required><br>
-        <input type="password" name="password" id="passwordSignup" placeholder="Mot de passe" required><br>
-        <input type="password" name="passwordVerif" id="passwordSignupVerif" placeholder="Ré-entrez le mot de passe" required>
+        <ChampForm v-for="champ in info" :key="champ" :type="champ.type" :name="champ.name" :id="champ.id" :placeholder="champ.placeholder" :required="champ.required"/>
         <p>Date de naissance :</p>
         <div class="dateNaissance">
-            <select name="jourNaissance" id="jourNaissance" aria-label="Jour" title="Jour" required>
-                <option disabled value="0">Jour</option>
-                <option value="1">1</option>
-            </select>
-            <select name="moisNaissance" id="moisNaissance" aria-label="Mois" title="Mois" required>
-                <option disabled value="0">Mois</option>
-                <option value="1">Janvier</option>
-            </select>
-            <select name="annéeNaissance" id="anneeNaissance" aria-label="Année" title="Année" required>
-                <option disabled value="0">Année</option>
-                <option value="1">1901</option>
-            </select>
+            <input type="date" id="dateNaissance" name="dateNaissance" :value="currentDate" min="1901-01-01" :max="currentDate">
         </div>
         <p>Genre :</p>
         <div class="genre">
@@ -39,11 +24,31 @@
 </template>
 
 <script>
+import ChampForm from "./ChampForm.vue"
 export default {
     name: 'SignupMenu',
     methods: {
         closePopUp() {
             this.$emit('close-pop-up')
+        }
+    },
+    data() {
+        return {
+            info: [
+                {type: "text", name: "prenom", id: "prenom", placeholder: "Prénom", required: true},
+                {type: "text", name: "nom", id: "nom", placeholder: "Nom", required: true},
+                {type: "email", name: "email", id: "emailSignup", placeholder: "Adresse e-mail", required: true},
+                {type: "password", name: "password", id: "passwordSignup", placeholder: "Mot de passe", required: true},
+                {type: "password", name: "passwordVerif", id: "passwordSignupVerif", placeholder: "Ré-entrez le mot de passe", required: true}
+            ]
+        }
+    },
+    components: {
+        ChampForm
+    },
+    computed: {
+        currentDate() {
+            return new Date().getDate()
         }
     }
 }
@@ -66,7 +71,7 @@ export default {
     }
     .dateNaissance {
         display: flex;
-        select {
+        #dateNaissance {
             padding: 10px;
             margin: 10px;
             border: 1px solid rgba(122, 122, 122, 0.5);
@@ -77,15 +82,6 @@ export default {
             }
             &:hover {
                 cursor: pointer;
-            }
-            &#jourNaissance {
-                width: 50px;
-            }
-            &#moisNaissance {
-                width: 100px;
-            }
-            &#anneeNaisance {
-                width: 100px;
             }
         }
     }
