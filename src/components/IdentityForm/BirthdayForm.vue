@@ -16,9 +16,5 @@ export default {
 </script>
 
 <style lang="scss">
-.dateNaissance {
-    input {
-        font-family: Arial, sans-serif;
-    }
-}
+
 </style>

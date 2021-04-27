@@ -1,14 +1,11 @@
 <template>
     <div class="panelsContainer">
-        <div class="logo" v-show="!overlay">
-            <img src="../assets/icons/Logo.png" alt="Logo Groupomania">
-        </div>
+        <LogoHome />
         <div class="panel" v-show="!overlay">
-            <input type="email" name="email" id="emailLogin" placeholder="Adresse e-mail" required><br>
-            <input type="password" name="password" id="password" placeholder="Mot de passe" required><br>
-            <button type="submit" class="login">Connexion</button><br>
+            <ChampForm v-for="champ in info" :key="champ" :type="champ.type" :name="champ.name" :id="champ.id" :placeholder="champ.placeholder" :required="champ.required"/>
+            <BigButton :type="loginButton.type" :class="loginButton.classe" :text="loginButton.text" /><br>
             <a href="#">Mot de passe oublié ?</a><br>
-            <button class="accountCreate" @click="overlayToggle()">Créer un compte</button>
+            <BigButton :type="signupButton.type" :class="signupButton.classe" :text="signupButton.text" @click="overlayToggle()"/>
         </div>
         <div class="overlay" v-show="overlay">
             <SignupMenu @close-pop-up="overlayToggle()"/>
@@ -18,11 +15,20 @@
 
 <script>
 import SignupMenu from "./SignupMenu.vue"
+import LogoHome from "./icons/LogoHome.vue"
+import ChampForm from "./IdentityForm/ChampForm.vue"
+import BigButton from "./Buttons/BigButton.vue"
 export default {
     name: 'LoginMenu',
     data() {
         return {
-            overlay: false
+            overlay: false,
+            info: [
+                {type: "email", name: "email", id: "emailLogin", placeholder: "Adresse e-mail", required: true},
+                {type: "password", name: "password", id: "passwordLogin", placeholder: "Mot de passe", required: true}
+            ],
+            loginButton: {type: "submit", classe: "login", text: "Connexion"},
+            signupButton: {type: "", classe: "accountCreate", text: "Créer un compte"}
         }
     },
     methods: {
@@ -33,78 +39,13 @@ export default {
     props: {
     },
     components: {
-        SignupMenu
+        SignupMenu,
+        LogoHome,
+        ChampForm,
+        BigButton
     }
 }
 </script>
 
 <style lang="scss">
-input {
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid rgba(122, 122, 122, 0.5);
-    background-color: #FFE8E0;
-    border-radius: 10px;
-    width: 240px;
-    height: 20px;
-    font-size: 0.875em;
-    &:focus {
-        outline: none;
-    }
-}
-.panelsContainer {
-    .panel {
-        background: #9BBBCC;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        border-radius: 10px;
-        width: 280px;
-        height: 328px;
-        padding: 10px;
-        justify-content: center;
-    }
-}
-
-button {
-    padding: 10px;
-    border: none;
-    border-radius: 10px;
-    font-weight: bold;
-    color: #FFFFFF;
-    font-size: 1.25em;
-    &.login {
-        background-color: $groupomaniaColor;
-        margin: 10px 0;
-        width: 240px;
-        height: 38px;
-        line-height: 0px;
-        &:hover {
-            background-color: darken($groupomaniaColor, 10%);
-        }
-    }
-    &.accountCreate {
-        background-color: $blueColor;
-        margin-top: 30px;
-        width: 200px;
-        height: 70px;
-        &:hover {
-            background-color: darken($blueColor, 10%);
-        }
-    }
-    &:focus {
-        outline: none;
-    }
-    &:hover {
-        cursor: pointer;
-    }
-}
-a {
-    text-decoration: none;
-    color: #360900;
-    &:hover {
-        text-decoration: underline;
-    }
-}
-.logo {
- justify-content: center;
-}
 </style>
