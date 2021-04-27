@@ -39,9 +39,12 @@ button {
     &.exitCross {
         align-self: flex-end;
         padding: 0;
-        background-color: rgba(0, 0, 0, 0);
+        color: black;
         & + input {
             margin-top: 0;
         }
+    }
+    &.invisibleButton {
+        background-color: rgba(0, 0, 0, 0);
     }
 }

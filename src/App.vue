@@ -1,18 +1,18 @@
 <template>
 <section >
   <div>
-    <Home />
+    <Fil />
   </div>
 </section>
   
 </template>
 
 <script>
-import Home from '@/views/Home.vue'
+import Fil from '@/views/Fil.vue'
 export default {
   name: 'App',
   components: {
-    Home
+    Fil
   }
 }
 </script>
