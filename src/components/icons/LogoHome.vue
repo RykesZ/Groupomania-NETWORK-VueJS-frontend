@@ -1,5 +1,5 @@
 <template>
-    <div class="logoHome" v-show="!overlay">
+    <div class="logoHome">
         <img src="@/assets/icons/Logo.png" alt="Logo Groupomania">
     </div>
 </template>

@@ -1,28 +1,20 @@
 <template>
-    <div class="panelsContainer">
-        <LogoHome />
-        <div class="panel" v-show="!overlay">
+        <Panel>
             <ChampForm v-for="champ in info" :key="champ" :type="champ.type" :name="champ.name" :id="champ.id" :placeholder="champ.placeholder" :required="champ.required"/>
-            <BigButton :type="loginButton.type" :class="loginButton.classe" :text="loginButton.text" /><br>
-            <a href="#">Mot de passe oublié ?</a><br>
-            <BigButton :type="signupButton.type" :class="signupButton.classe" :text="signupButton.text" @click="overlayToggle()"/>
-        </div>
-        <div class="overlay" v-show="overlay">
-            <SignupMenu @close-pop-up="overlayToggle()"/>
-        </div>
-    </div>
+            <BigButton :type="loginButton.type" :class="loginButton.classe" :text="loginButton.text" />
+            <a href="#">Mot de passe oublié ?</a>
+            <BigButton :type="signupButton.type" :class="signupButton.classe" :text="signupButton.text" @click="$emit('emit-overlay-toggle')"/>
+        </Panel>
 </template>
 
 <script>
-import SignupMenu from "./SignupMenu.vue"
-import LogoHome from "./icons/LogoHome.vue"
-import ChampForm from "./IdentityForm/ChampForm.vue"
-import BigButton from "./Buttons/BigButton.vue"
+import ChampForm from "@/components/IdentityForm/ChampForm.vue"
+import BigButton from "@/components/Buttons/BigButton.vue"
+import Panel from "@/components/Frames/Panel.vue"
 export default {
     name: 'LoginMenu',
     data() {
         return {
-            overlay: false,
             info: [
                 {type: "email", name: "email", id: "emailLogin", placeholder: "Adresse e-mail", required: true},
                 {type: "password", name: "password", id: "passwordLogin", placeholder: "Mot de passe", required: true}
@@ -32,17 +24,12 @@ export default {
         }
     },
     methods: {
-        overlayToggle() {
-            this.overlay = !this.overlay
-        }
-    },
-    props: {
+        emits: ['emit-overlay-toggle']
     },
     components: {
-        SignupMenu,
-        LogoHome,
         ChampForm,
-        BigButton
+        BigButton,
+        Panel
     }
 }
 </script>

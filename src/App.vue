@@ -1,18 +1,18 @@
 <template>
 <section >
   <div>
-    <LoginMenu />
+    <Home />
   </div>
 </section>
   
 </template>
 
 <script>
-import LoginMenu from './components/LoginMenu.vue'
+import Home from '@/views/Home.vue'
 export default {
   name: 'App',
   components: {
-    LoginMenu
+    Home
   }
 }
 </script>

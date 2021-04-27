@@ -1,7 +1,5 @@
 <template>
-    <div class="dateNaissance">
-            <input type="date" id="dateNaissance" name="dateNaissance" :value="currentDate" min="1901-01-01" :max="currentDate">
-        </div>
+    <input type="date" id="dateNaissance" name="dateNaissance" :value="currentDate" min="1901-01-01" :max="currentDate">
 </template>
 
 <script>

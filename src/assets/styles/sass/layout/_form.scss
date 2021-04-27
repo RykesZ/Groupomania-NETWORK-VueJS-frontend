@@ -12,45 +12,33 @@ input {
     }
 }
 
-.panelOverlay {
-    background: #9BBBCC;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-    width: 280px;
-    height: 543px;
-    position: relative;
-    padding: 10px;
-    padding-top: 30px;
+.panel {
     p {
         margin: 0px;
         margin-left: 10px;
-        text-align: left;
+        align-self: flex-start;
     }
-    .dateNaissance {
-        display: flex;
-        #dateNaissance {
-            padding: 10px;
-            margin: 10px;
-            border: 1px solid rgba(122, 122, 122, 0.5);
-            background-color: #FFE8E0;
-            border-radius: 10px;
-            &:focus {
+    #dateNaissance {
+        padding: 10px;
+        margin: 10px;
+        border: 1px solid rgba(122, 122, 122, 0.5);
+        background-color: #FFE8E0;
+        border-radius: 10px;
+        font-family: Arial, sans-serif;
+        &:focus {
             outline: none;
-            }
-            &:hover {
-                cursor: pointer;
-            }
         }
-        input {
-            font-family: Arial, sans-serif;
+        &:hover {
+            cursor: pointer;
         }
     }
     .genre {
         display: flex;
-        text-align: left;
+        flex-direction: row;
+        justify-content: center;
         .optionGenre {
-            padding: 10px;
-            margin: 10px;
+            padding: 10px 0 10px 0;
+            margin: 10px 0 10px 0;
             border: 1px solid rgba(122, 122, 122, 0.5);
             background-color: #FFE8E0;
             border-radius: 10px;
@@ -60,6 +48,9 @@ input {
             display: flex;
             align-items: center;
             justify-content: center;
+            & + .optionGenre {
+                margin-left: 40px;
+            }
             input {
                 width: auto;
                 line-height: 0px;
@@ -70,11 +61,11 @@ input {
             }
             label {
                 display: inline-block;
-                padding: 1em;
+                padding-right: 1em;
                 &:hover {
                     cursor: pointer;
                 }
             }
-    }
+        }
     }
 }
