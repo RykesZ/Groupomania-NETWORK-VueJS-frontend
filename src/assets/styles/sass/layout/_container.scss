@@ -11,3 +11,90 @@
     padding: 10px;
     padding-bottom: 20px;
 }
+
+.publication {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: $fondPanneaux2;
+    .headLine {
+        display: flex;
+        flex-direction: row;
+        .infoPubli {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-left: 9px;
+            p {
+                margin: 1px;
+            }
+            .identity {
+                font-size: 1.2em;
+                font-weight: bold;
+                color: $text;
+            }
+            .datetime {
+                font-size: 0.8em;
+                color: $textPlaceHolder
+            }
+        }
+    }
+    .textPubli {
+        text-align: left;
+        font-size: 1em;
+        color: $text;
+    }
+    .media {
+
+    }
+    .numberSocials {
+        display: flex;
+        flex-direction: row;
+        justify-content:flex-end;
+        align-items: baseline;
+        color: $textPlaceHolder;
+        font-size: small;
+        padding-bottom: 5px;
+        border-bottom: 1px solid $strokeChamps;
+        .material-icons {
+            position: relative;
+            top: 0.2em;
+        }
+        .numberOfLikes {
+            margin-left: 3px;
+        }
+        .numberOfComms {
+            margin-left: auto;
+            color: $socials;
+            font-size: 0.9em;
+        }
+        .numberOfShares {
+            margin-left: 5px;
+        }
+    }
+    .actionSocials {
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: space-around;
+        margin-top: 5px;
+        font-size: 0.9em;
+        button {
+            color: $socials;
+        }
+        .material-icons {
+            position: relative;
+            top: 0.3em;
+            &.like {
+                top: 0.2em;
+            }
+        }
+    }
+}
+
+.publicationBar {
+    display: flex;
+    padding: 10px;
+    background-color: $fondPanneaux2;
+}

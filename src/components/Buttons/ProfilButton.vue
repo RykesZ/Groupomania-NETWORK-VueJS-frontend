@@ -1,6 +1,6 @@
 <template>
     <button class="profilButton invisibleButton">
-        <span class="material-icons">account_circle</span>
+        <span class="material-icons md-48">account_circle</span>
     </button>
 </template>
 

@@ -47,4 +47,12 @@ button {
     &.invisibleButton {
         background-color: rgba(0, 0, 0, 0);
     }
+    &.publicationBarButton {
+        background-color: $fondChampEcriture;
+        color: $text;
+        font-size: 0.8em;
+        width: 100%;
+        text-align: left;
+        font-weight: normal;
+    }
 }

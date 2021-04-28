@@ -1,7 +1,10 @@
 .header {
+    position: sticky;
     display: flex;
     flex-direction: column;
-    border: 2px solid $strokeChamps;
+    //align-items: flex-start;
+    border-bottom: 2px solid $strokeChamps;
+    background-color: $fondEcran;
     .buttonsRow {
         display: flex;
         flex-direction: row;
