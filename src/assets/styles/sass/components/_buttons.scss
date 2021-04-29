@@ -75,4 +75,11 @@ button {
     &.mediaButton {
         border-radius: 0px;
     }
+    &.updateButton {
+        color: $textDesactive;
+        background-color: $desactive;
+        width: 90%;
+        align-self: center;
+        margin: 10px 30px;
+    }
 }

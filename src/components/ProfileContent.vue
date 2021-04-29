@@ -1,7 +1,7 @@
 <template>
     <div class="profileContainer">
         <div class="PPIdentity">
-            <ProfilePicture />
+            <ProfilePicture filename="ItaloMeloPP.jpg"/>
             <div class="identity">
                 <ChampForm v-for="champ in info1" :key="champ" :type="champ.type" :name="champ.name" :id="champ.id" :placeholder="champ.placeholder" :required="champ.required"/>
             </div>
@@ -14,8 +14,9 @@
             <BirthdayForm/>
             <p>Genre :</p>
             <GenderForm/>
-            <BigButton :type="updateButton.type" :class="updateButton.classe" :text="updateButton.text"/>
         </div>
+        <BigButton :type="updateButton.type" :class="updateButton.classe" :text="updateButton.text"/>
+        <a href="#">Me désinscrire</a>
     </div>
 </template>
 
