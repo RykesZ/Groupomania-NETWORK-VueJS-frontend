@@ -55,4 +55,24 @@ button {
         text-align: left;
         font-weight: normal;
     }
+    &.publicationOptions {
+        color: $socials;
+        justify-self: flex-end;
+        margin-left: auto;
+    }
+    &.backToThreadButton {
+        color: $text;
+    }
+    &.publishButton {
+        color: $textDesactive;
+        background-color: $desactive;
+        justify-self: flex-end;
+        margin-left: auto;
+        width: 90px;
+        margin-right: 10px;
+        font-size: 1em;
+    }
+    &.mediaButton {
+        border-radius: 0px;
+    }
 }

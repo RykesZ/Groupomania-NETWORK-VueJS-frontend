@@ -98,3 +98,97 @@
     padding: 10px;
     background-color: $fondPanneaux2;
 }
+
+.headerCreatePublication {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 2px solid $strokeChamps;
+    width: auto;
+}
+
+.publicatorInfos {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 10px;
+    .identity {
+        margin-left: 5px;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: $text;
+    }
+}
+
+.commentContainer {
+    display: flex;
+    margin-top: 10px;
+    .commentFrame {
+        background-color: $miniMenu;
+        border-radius: 10px;
+        padding: 5px;
+        margin-right: 10px;
+        .infoPubli {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-left: 5px;
+            p {
+                margin: 1px;
+            }
+            .identity {
+                font-size: 1em;
+                font-weight: bold;
+                color: $text;
+            }
+            .datetime {
+                font-size: 0.6em;
+                color: $textPlaceHolder
+            }
+        }
+        .commentText {
+            font-size: 0.8em;
+            margin: 0 5px 0 5px;
+            text-align: left;
+        }
+    }
+    
+}
+
+.profileContainer {
+    display: flex;
+    flex-direction: column;
+    .PPIdentity {
+        display: flex;
+        justify-content: flex-start;
+        .PPContainer {
+            width: 30%;
+            height: 30%;
+            align-self: center;
+            margin: 0 10px 0 30px;
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+        .identity {
+            display: flex;
+            flex-direction: column;
+            width: 70%;
+            input {
+                margin: 10px 30px 10px 5px;
+                width: auto;
+            }
+        }
+    }
+    .logIds {
+        display: flex;
+        flex-direction: column;
+        input {
+            margin: 10px 30px;
+            width: auto;
+        }
+    }
+}

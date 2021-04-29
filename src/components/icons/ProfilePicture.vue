@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="PPContainer">
         <img :src="require(`@/assets/icons/${filename}`)" alt="Image de Profil">
     </div>
 </template>
