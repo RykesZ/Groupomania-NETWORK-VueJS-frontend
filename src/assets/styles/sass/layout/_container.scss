@@ -12,6 +12,12 @@
     padding-bottom: 20px;
 }
 
+.homePanel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .publication {
     display: flex;
     flex-direction: column;
@@ -44,9 +50,6 @@
         text-align: left;
         font-size: 1em;
         color: $text;
-    }
-    .media {
-
     }
     .numberSocials {
         display: flex;
