@@ -252,3 +252,13 @@
         }
     }
 }
+
+.commentPanel {
+    display: flex;
+    flex-direction: column;
+    .commentBar {
+        display: flex;
+        padding: 10px;
+        background-color: $fondPanneaux2;
+    }
+}

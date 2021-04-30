@@ -23,6 +23,7 @@
     </div>
     <div v-show="commentSwitch" class="commentsBloc">
         <Comment :commentText="commentText"/>
+        <CommentBar/>
     </div>
 </div>
 
@@ -34,6 +35,7 @@ import LikeButton from "@/components/Buttons/LikeButton.vue"
 import CommentButton from "@/components/Buttons/CommentButton.vue"
 import ShareButton from "@/components/Buttons/ShareButton.vue"
 import Comment from "@/components/Comment.vue"
+import CommentBar from "@/components/Frames/CommentBar.vue"
 export default {
     name: 'Publication',
     data() {
@@ -65,7 +67,8 @@ export default {
         LikeButton,
         CommentButton,
         ShareButton,
-        Comment
+        Comment,
+        CommentBar
     }
 }
 </script>

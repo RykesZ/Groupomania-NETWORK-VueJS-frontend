@@ -82,4 +82,12 @@ button {
         align-self: center;
         margin: 10px 30px;
     }
+    &.commentBarButton {
+        background-color: $fondChampEcriture;
+        color: $textPlaceHolder;
+        font-size: 0.8em;
+        width: 100%;
+        text-align: left;
+        font-weight: normal;
+    }
 }
