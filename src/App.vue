@@ -1,18 +1,24 @@
 <template>
 <section >
   <div>
-    <Home />
+    <router-view></router-view>
   </div>
 </section>
   
 </template>
 
 <script>
-import Home from '@/views/Home.vue'
+//import Home from '@/views/Home.vue'
+//import Fil from '@/views/Fil.vue'
+//import Profil from '@/views/Profil.vue'
+//import CreatePublication from '@/views/CreatePublication.vue'
 export default {
   name: 'App',
   components: {
-    Home
+    //Home,
+    //Fil,
+    //Profil,
+    //CreatePublication
   }
 }
 </script>

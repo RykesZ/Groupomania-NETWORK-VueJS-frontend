@@ -1,7 +1,7 @@
 <template>
         <Panel>
             <ChampForm v-for="champ in info" :key="champ" :type="champ.type" :name="champ.name" :id="champ.id" :placeholder="champ.placeholder" :required="champ.required"/>
-            <BigButton :type="loginButton.type" :class="loginButton.classe" :text="loginButton.text" />
+            <router-link to="/fil"><BigButton :type="loginButton.type" :class="loginButton.classe" :text="loginButton.text" /></router-link>
             <a href="#">Mot de passe oublié ?</a>
             <BigButton :type="signupButton.type" :class="signupButton.classe" :text="signupButton.text" @click="$emit('emit-overlay-toggle')"/>
         </Panel>

@@ -2,9 +2,9 @@
     <div class="header">
         <LogoFil/>
         <div class="buttonsRow">
-            <MainThreadButton/>
-            <ProfilButton/>
-            <LogOutButton/>
+            <router-link to="/fil"><MainThreadButton/></router-link>
+            <router-link to="/profil"><ProfilButton/></router-link>
+            <router-link to="/"><LogOutButton/></router-link>
         </div>
     </div>
 </template>

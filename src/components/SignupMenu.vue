@@ -6,7 +6,7 @@
         <BirthdayForm/>
         <p>Genre :</p>
         <GenderForm/>
-        <BigButton :type="signupButton.type" :class="signupButton.classe" :text="signupButton.text"/>
+        <router-link to="/fil"><BigButton :type="signupButton.type" :class="signupButton.classe" :text="signupButton.text"/></router-link>
     </Panel>
 </template>
 

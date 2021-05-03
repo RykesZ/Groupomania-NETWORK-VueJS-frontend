@@ -1,7 +1,7 @@
 <template>
     <div class="publicationBar">
         <ProfilePicture/>
-        <button class="publicationBarButton">Partagez vos pensées, une image, une vidéo...</button>
+        <router-link to="/create"><button class="publicationBarButton">Partagez vos pensées, une image, une vidéo...</button></router-link>
     </div>
 </template>
 
