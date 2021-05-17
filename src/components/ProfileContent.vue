@@ -36,8 +36,8 @@ export default {
             ],
             info2: [
                 {type: "email", name: "email", id: "emailSignup", placeholder: "Adresse e-mail", required: false},
-                {type: "password", name: "password", id: "passwordSignup", placeholder: "Mot de passe", required: true},
-                {type: "password", name: "passwordVerif", id: "passwordSignupVerif", placeholder: "Ré-entrez le mot de passe", required: true}
+                {type: "password", name: "password", id: "passwordSignup", placeholder: "Nouveau mot de passe", required: true},
+                {type: "password", name: "passwordVerif", id: "passwordSignupVerif", placeholder: "Ré-entrez le nouveau mot de passe", required: true}
             ],
             updateButton: {type: "submit", classe: "updateButton", text: "Mettre à jour"}
         }
