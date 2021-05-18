@@ -1,5 +1,5 @@
 <template>
-    <input type="date" id="dateNaissance" name="dateNaissance" :value="currentDate" min="1901-01-01" :max="currentDate">
+    <input type="date" id="dateNaissance" name="dateNaissance" :value="modelValue" min="1901-01-01" :max="currentDate" @input="$emit('update:modelValue', $event.target.value)">
 </template>
 
 <script>
@@ -9,7 +9,11 @@ export default {
         currentDate() {
             return new Date().getDate()
         }
-    }
+    },
+    props: {
+        modelValue: Date
+    },
+    emits: ['update:modelValue']
 }
 </script>
 

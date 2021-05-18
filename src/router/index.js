@@ -1,8 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
-//import Fil from '@/views/Fil.vue'
-//import Profil from '@/views/Profil.vue'
-//import CreatePublication from '@/views/CreatePublication.vue'
+
 
 const routes = [
   {
