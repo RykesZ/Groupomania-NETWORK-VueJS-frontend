@@ -1,6 +1,6 @@
 const api = 'http://localhost:5000/api/auth'
 
-const makeRequest = (verb, url, data) => {
+const makeRequest = (verb, url, data, token) => {
     return new Promise((resolve, reject) => {
         let request = new XMLHttpRequest();
         request.open(verb, url);
@@ -13,7 +13,12 @@ const makeRequest = (verb, url, data) => {
                 }
             }
         };
-        if (verb === 'POST' || verb === 'PUT') {
+        console.log(token);
+        if (token) {
+            request.setRequestHeader("Authorization", 'Bearer' + ' ' + token);
+        }
+        if (data) {
+            console.log(data)
             request.setRequestHeader('Content-Type', 'application/json');
             request.send(JSON.stringify(data));
         } else {
@@ -30,7 +35,22 @@ class ApiUserRoutes {
         return signupConfirmation;
     }
 
+    loginUser = async (data) => {
+        const requestPromise = makeRequest('POST', api + '/login', data);
+        const loginConfirmation = await requestPromise;
+        return loginConfirmation;
+    }
 
+    getUserInfo = async (payload) => {
+        const data = {
+            userId: payload.userId
+        }
+        console.log(payload.token);
+        console.log(data);
+        const requestPromise = makeRequest('POST', api + '/info', data, payload.token);
+        const userInfo = await requestPromise;
+        return userInfo;
+    }
 }
 
 

@@ -22,8 +22,10 @@ export default {
     methods: {
         emitOption() {
             this.$emit('select-option', { pickedOption: this.picked })
+        },
+        setPicked(picked) {
+            this.picked = picked;
         }
-        
     }
 }
 </script>

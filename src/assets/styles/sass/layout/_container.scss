@@ -181,6 +181,8 @@
                 width: 100px;
                 height: 100px;
                 object-fit: cover;
+                z-index: 0;
+                opacity: 100%;
             }
         }
         .identity {

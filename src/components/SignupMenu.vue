@@ -6,7 +6,8 @@
         <BirthdayForm v-model="birthdate"/>
         <p>Genre :</p>
         <GenderForm @select-option="pickGender"/>
-        <!--<router-link to="/fil">--><BigButton :type="signupButton.type" :class="signupButton.classe" :text="signupButton.text" @click="signupNewUser()"/><!--</router-link>-->
+        <BigButton :type="signupButton.type" :class="signupButton.classe" :text="signupButton.text" @click="signupNewUser()"/>
+        <p v-show="alert">{{ alertMessage }}</p>
     </Panel>
 </template>
 
@@ -37,12 +38,30 @@ export default {
             };
 
             if (data.password === data.passwordVerif) {
+                this.alert = false;
                 const isSignedUp = await ApiUserRoutes.signupNewUser(data);
                 console.log(isSignedUp);
-                /*if (isSignedUp.message = "user added") {
-
-                }*/
-            }   
+                if (isSignedUp.message === "user added") {
+                    const loginData = {
+                        email: this.info[2].modelValue,
+                        password: this.info[3].modelValue,
+                    };
+                    const isLoggedIn = await ApiUserRoutes.loginUser(loginData);
+                    if (isLoggedIn.userId && isLoggedIn.token) {
+                        this.$store.dispatch('setAuthData', {isLoggedIn});
+                        this.$router.push({ name: 'Fil' });
+                    } else {
+                        this.alert = true;
+                        this.alertMessage = "Erreur de login"
+                    }
+                } else {
+                    this.alert = true;
+                    this.alertMessage = "Erreur du serveur, réessayez plus tard."
+                }
+            } else {
+                this.alert = true;
+                this.alertMessage = "Les mots de passe de correspondent pas !"
+            }
         }
     },
     data() {
@@ -56,7 +75,9 @@ export default {
             ],
             signupButton: {type: "submit", classe: "signup", text: "Je m'inscris !"},
             birthdate: "",
-            gender: ""
+            gender: "",
+            alert: false,
+            alertMessage: ""
         }
     },
     components: {

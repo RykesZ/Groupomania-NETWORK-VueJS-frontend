@@ -36,6 +36,10 @@ button {
     &:hover {
         cursor: pointer;
     }
+    &.changePicture {
+        position: relative;
+        bottom: 50px;
+    }
     &.exitCross {
         align-self: flex-end;
         padding: 0;
