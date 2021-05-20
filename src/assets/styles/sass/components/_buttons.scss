@@ -39,6 +39,9 @@ button {
     &.changePicture {
         position: relative;
         bottom: 50px;
+        input {
+            display: none;
+        }
     }
     &.exitCross {
         align-self: flex-end;
@@ -79,9 +82,16 @@ button {
     &.mediaButton {
         border-radius: 0px;
     }
-    &.updateButton {
+    &.updateButtonUnactive {
         color: $textDesactive;
         background-color: $desactive;
+        width: 90%;
+        align-self: center;
+        margin: 10px 30px;
+    }
+    &.updateButtonActive {
+        color: #FFFFFF;
+        background-color: $blueColor;
         width: 90%;
         align-self: center;
         margin: 10px 30px;

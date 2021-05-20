@@ -42,14 +42,23 @@ class ApiUserRoutes {
     }
 
     getUserInfo = async (payload) => {
+        const authToken = payload.token;
         const data = {
             userId: payload.userId
         }
         console.log(payload.token);
         console.log(data);
-        const requestPromise = makeRequest('POST', api + '/info', data, payload.token);
+        const requestPromise = makeRequest('POST', api + '/info', data, authToken);
         const userInfo = await requestPromise;
         return userInfo;
+    }
+
+    updateUser = async (payload) => {
+        const authToken = payload.authToken;
+        const data = payload.data;
+        const requestPromise = makeRequest('PUT', api + '/modify', data, authToken);
+        const updateConfirmation = await requestPromise;
+        return updateConfirmation;
     }
 }
 

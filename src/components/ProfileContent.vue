@@ -1,7 +1,7 @@
 <template>
     <div class="profileContainer">
         <div class="PPIdentity">
-            <ProfilePicture :filename="imageUrl"/>
+            <ProfilePicture :filename="imageUrl" @change-file="setNewFile"/>
             <div class="identity">
                 <ChampForm v-for="(champ, i) in info1" :key="champ" :type="champ.type" :name="champ.name" :id="champ.id" :placeholder="champ.placeholder" :required="champ.required" v-model="info1[i].modelValue"/>
             </div>
@@ -15,8 +15,9 @@
             <p>Genre :</p>
             <GenderForm @select-option="pickGender" ref="genderForm"/>
         </div>
-        <BigButton :type="updateButton.type" :class="updateButton.classe" :text="updateButton.text"/>
+        <BigButton :type="updateButton.type" :class="updateButton.classe" :text="updateButton.text" @click="updateProfile"/>
         <a href="#">Me désinscrire</a>
+        <p v-show="alert">{{ alertMessage }}</p>
     </div>
 </template>
 
@@ -40,10 +41,14 @@ export default {
                 {type: "password", name: "password", id: "passwordSignup", placeholder: "Nouveau mot de passe", required: true, modelValue: ""},
                 {type: "password", name: "passwordVerif", id: "passwordSignupVerif", placeholder: "Ré-entrez le nouveau mot de passe", required: true, modelValue: ""}
             ],
-            updateButton: {type: "submit", classe: "updateButton", text: "Mettre à jour"},
+            updateButton: {type: "submit", classe: "updateButtonActive", text: "Mettre à jour"},
             birthdate: "",
             gender: "",
-            imageUrl: ""
+            imageUrl: "",
+            alert: false,
+            alertMessage: "",
+            file: {},
+            activeInputs: false
         }
     },
     components: {
@@ -68,6 +73,49 @@ export default {
         pickGender(payload) {
             this.gender = payload.pickedOption;
         },
+        setNewFile(payload) {
+            this.file = payload.file;
+        },
+        async updateProfile() {
+            const data = {
+                userId: this.userId,
+                firstname:  this.info1[0].modelValue,
+                lastname: this.info1[1].modelValue,
+                email: this.info2[0].modelValue,
+                password: this.info2[1].modelValue,
+                passwordVerif: this.info2[2].modelValue,
+                birthdate: this.birthdate,
+                gender: this.gender,
+                file: this.file
+            };
+            console.log(data);
+            //Permet de remplacer les champs vides par la valeur null, ce qui permettra à la BDD de considérer que la valeur précédente doit être conservée lors de l'update
+            for (let property in data) {
+                if (data[property] == "" || data[property] == undefined) {
+                    data[property] = null;
+                }
+            }
+
+            console.log(data);
+            const authToken = this.token;
+            console.log(authToken);
+            const payload = {data, authToken};
+
+            if (data.password === data.passwordVerif) {
+                this.alert = false;
+                const updateConfirmation = await ApiUserRoutes.updateUser(payload);
+                console.log(updateConfirmation);
+                if (updateConfirmation.message === "user updated") {
+                    //window.location.reload();
+                } else {
+                    this.alert = true;
+                    this.alertMessage = "Erreur du serveur, réessayez plus tard."
+                }
+            } else {
+                this.alert = true;
+                this.alertMessage = "Les mots de passe de correspondent pas !"
+            }
+        }
     },
     async beforeMount() {
         const authPayload = { userId: this.userId, token: this.token }
@@ -77,10 +125,8 @@ export default {
         this.info2[0].placeholder = userInfo.response.email;
         this.birthdate = userInfo.response.birthdate;
         this.gender = userInfo.response.gender;
-        console.log(this.gender);
         this.$refs.genderForm.setPicked(this.gender);
         this.imageUrl = userInfo.response.imageUrl;
-        console.log(this.imageUrl);
     }
 }
 </script>
