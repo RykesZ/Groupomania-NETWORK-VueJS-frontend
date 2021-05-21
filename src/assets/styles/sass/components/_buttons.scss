@@ -5,7 +5,7 @@ button {
     font-weight: bold;
     color: #FFFFFF;
     font-size: 1.25em;
-    &.login {
+    &.login, &.unsubscribe {
         background-color: $groupomaniaColor;
         margin: 10px 0;
         width: 240px;
@@ -15,7 +15,7 @@ button {
             background-color: darken($groupomaniaColor, 10%);
         }
     }
-    &.accountCreate, &.signup {
+    &.accountCreate, &.signup, &.back {
         background-color: $blueColor;
         width: 200px;
         &:hover {
@@ -103,5 +103,14 @@ button {
         width: 100%;
         text-align: left;
         font-weight: normal;
+    }
+}
+
+
+.fakeLink {
+    margin: 5px;
+    &:hover {
+        cursor: pointer;
+        text-decoration: underline;
     }
 }

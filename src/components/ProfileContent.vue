@@ -16,8 +16,9 @@
             <GenderForm @select-option="pickGender" ref="genderForm"/>
         </div>
         <BigButton :type="updateButton.type" :class="updateButton.classe" :text="updateButton.text" @click="updateProfile"/>
-        <a href="#">Me désinscrire</a>
+        <p class="fakeLink" @click="toggleUnsubscribe">Me désinscrire</p>
         <p v-show="alert">{{ alertMessage }}</p>
+        <Unsubscribe v-if="unsubscribePopUp" @emit-toggle-unsubscribe="toggleUnsubscribe"/>
     </div>
 </template>
 
@@ -28,6 +29,7 @@ import BirthdayForm from '@/components/IdentityForm/BirthdayForm.vue'
 import GenderForm from "@/components/IdentityForm/GenderForm.vue"
 import BigButton from "@/components/Buttons/BigButton.vue"
 import ApiUserRoutes from "@/services/ApiUserRoutes"
+import Unsubscribe from "@/components/Frames/Unsubscribe.vue"
 export default {
     name: 'ProfileContent',
     data() {
@@ -48,7 +50,8 @@ export default {
             alert: false,
             alertMessage: "",
             file: {},
-            activeInputs: false
+            activeInputs: false,
+            unsubscribePopUp: false
         }
     },
     components: {
@@ -56,7 +59,8 @@ export default {
         ChampForm,
         BirthdayForm,
         GenderForm,
-        BigButton
+        BigButton,
+        Unsubscribe
     },
     computed: {
         userId() {
@@ -106,7 +110,7 @@ export default {
                 const updateConfirmation = await ApiUserRoutes.updateUser(payload);
                 console.log(updateConfirmation);
                 if (updateConfirmation.message === "user updated") {
-                    //window.location.reload();
+                    window.location.reload();
                 } else {
                     this.alert = true;
                     this.alertMessage = "Erreur du serveur, réessayez plus tard."
@@ -115,6 +119,9 @@ export default {
                 this.alert = true;
                 this.alertMessage = "Les mots de passe de correspondent pas !"
             }
+        },
+        toggleUnsubscribe() {
+            this.unsubscribePopUp = !this.unsubscribePopUp
         }
     },
     async beforeMount() {

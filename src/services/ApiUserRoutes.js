@@ -60,6 +60,16 @@ class ApiUserRoutes {
         const updateConfirmation = await requestPromise;
         return updateConfirmation;
     }
+
+    deleteUser = async (payload) => {
+        const authToken = payload.authToken;
+        const data = {
+            userId: payload.userId
+        }
+        const requestPromise = makeRequest('DELETE', api + '/delete', data, authToken);
+        const deleteConfirmation = await requestPromise;
+        return deleteConfirmation;
+    }
 }
 
 
