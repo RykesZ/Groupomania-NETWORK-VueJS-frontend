@@ -36,18 +36,11 @@ export default {
             };
 
             const isLoggedIn = await ApiUserRoutes.loginUser(loginData);
-            if (isLoggedIn.userId && isLoggedIn.token) {
+            if (isLoggedIn.data.userId && isLoggedIn.data.token) {
                 console.log(isLoggedIn);
-                const authStored = await this.$store.dispatch('setAuthData', {isLoggedIn});
-                localStorage.setItem('userId', JSON.stringify(isLoggedIn.userId));
-                localStorage.setItem('token', JSON.stringify(isLoggedIn.token));
-                console.log(authStored);
-                if (authStored === "done") {
-                    this.$router.push({ name: 'Fil' });
-                } else if (authStored === "failed") {
-                    this.alert = true;
-                    this.alertMessage = "Identifié mais non enregistré dans le store"
-                }
+                localStorage.setItem('userId', JSON.stringify(isLoggedIn.data.userId));
+                localStorage.setItem('token', JSON.stringify(isLoggedIn.data.token));
+                this.$router.push({ name: 'Fil' });
             } else {
                 this.alert = true;
                 this.alertMessage = "Identifiants incorrects"

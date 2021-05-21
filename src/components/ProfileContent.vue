@@ -127,13 +127,14 @@ export default {
     async beforeMount() {
         const authPayload = { userId: this.userId, token: this.token }
         const userInfo = await ApiUserRoutes.getUserInfo(authPayload);
-        this.info1[0].placeholder = userInfo.response.firstname;
-        this.info1[1].placeholder = userInfo.response.lastname;
-        this.info2[0].placeholder = userInfo.response.email;
-        this.birthdate = userInfo.response.birthdate;
-        this.gender = userInfo.response.gender;
+        this.info1[0].placeholder = await userInfo.data.response.firstname;
+        this.info1[1].placeholder = await userInfo.data.response.lastname;
+        this.info2[0].placeholder = await userInfo.data.response.email;
+        this.birthdate = await userInfo.response.data.birthdate;
+        this.gender = await userInfo.data.response.gender;
         this.$refs.genderForm.setPicked(this.gender);
-        this.imageUrl = userInfo.response.imageUrl;
+        this.imageUrl = await userInfo.data.response.imageUrl;
+        console.log(userInfo);
     }
 }
 </script>

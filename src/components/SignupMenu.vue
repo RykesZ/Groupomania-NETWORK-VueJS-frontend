@@ -41,16 +41,18 @@ export default {
                 this.alert = false;
                 const isSignedUp = await ApiUserRoutes.signupNewUser(data);
                 console.log(isSignedUp);
-                if (isSignedUp.message === "user added") {
+                if (isSignedUp.data.message === "user added") {
                     const loginData = {
                         email: this.info[2].modelValue,
                         password: this.info[3].modelValue,
                     };
                     const isLoggedIn = await ApiUserRoutes.loginUser(loginData);
-                    if (isLoggedIn.userId && isLoggedIn.token) {
-                        this.$store.dispatch('setAuthData', {isLoggedIn});
-                        this.$router.push({ name: 'Fil' });
-                    } else {
+                    if (isLoggedIn.data.userId && isLoggedIn.data.token) {
+                    console.log(isLoggedIn);
+                    localStorage.setItem('userId', JSON.stringify(isLoggedIn.data.userId));
+                    localStorage.setItem('token', JSON.stringify(isLoggedIn.data.token));
+                    this.$router.push({ name: 'Fil' });
+                } else {
                         this.alert = true;
                         this.alertMessage = "Erreur de login"
                     }
