@@ -39,16 +39,32 @@ class ApiUserRoutes {
         }
     }
 
-    updateUser = async (payload) => {
+    // le paylaod contient un objet data qui contient les données à entrer dans la BDD ainsi que userId et un objet authToken qui sert à s'authentifier à placer dans les paramètres de la query
+    updateUser = async (payload, file) => {
         const data = payload.data;
+        let dataKeys = Object.keys(data);
+        let formData = new FormData();
+        console.log(dataKeys);
+        for (let i = 0; i < dataKeys.length; i++) {
+            console.log(data[dataKeys[i]]);
+            formData.append(dataKeys[i], data[dataKeys[i]]);
+        }
+        formData.append('file', file)
+        console.log(file);
+
+        console.log(payload.data);
+        console.log(payload.authToken);
         try {
-            const response = await axios.put(api + '/modify', {
+            const response = await axios.put(api + '/modify',
+                formData, {
                 params: {
                     userId: payload.data.userId,
                     token: payload.authToken
                 },
-                data 
-            });
+                headers: {
+                     'Content-Type': 'multipart/form-data'
+                }
+                });
             return response;
         } catch (error) {
             return(error);

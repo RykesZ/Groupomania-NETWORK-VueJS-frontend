@@ -14,7 +14,7 @@ export default {
     data() {
         return {
             changePicture: true,
-            file: {}
+            file: ''
         }
     },
     props: {
@@ -24,8 +24,8 @@ export default {
         ChoosePicture() {
             this.$refs.inputFile.click();
         },
-        emitNewFile(event) {
-            this.file = event.target.files[0];
+        emitNewFile() {
+            this.file = this.$refs.inputFile.files[0];
             this.$emit('change-file', { file: this.file });
         }
     }

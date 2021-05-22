@@ -36,6 +36,7 @@ export default {
             };
 
             const isLoggedIn = await ApiUserRoutes.loginUser(loginData);
+            console.log(isLoggedIn);
             if (isLoggedIn.data.userId && isLoggedIn.data.token) {
                 console.log(isLoggedIn);
                 localStorage.setItem('userId', JSON.stringify(isLoggedIn.data.userId));

@@ -90,8 +90,8 @@ export default {
                 passwordVerif: this.info2[2].modelValue,
                 birthdate: this.birthdate,
                 gender: this.gender,
-                file: this.file
             };
+            const file = this.file;
             console.log(data);
             //Permet de remplacer les champs vides par la valeur null, ce qui permettra à la BDD de considérer que la valeur précédente doit être conservée lors de l'update
             for (let property in data) {
@@ -107,10 +107,10 @@ export default {
 
             if (data.password === data.passwordVerif) {
                 this.alert = false;
-                const updateConfirmation = await ApiUserRoutes.updateUser(payload);
+                const updateConfirmation = await ApiUserRoutes.updateUser(payload, file);
                 console.log(updateConfirmation);
-                if (updateConfirmation.message === "user updated") {
-                    window.location.reload();
+                if (updateConfirmation.data.message === "user updated") {
+                    //window.location.reload();
                 } else {
                     this.alert = true;
                     this.alertMessage = "Erreur du serveur, réessayez plus tard."
@@ -130,7 +130,7 @@ export default {
         this.info1[0].placeholder = await userInfo.data.response.firstname;
         this.info1[1].placeholder = await userInfo.data.response.lastname;
         this.info2[0].placeholder = await userInfo.data.response.email;
-        this.birthdate = await userInfo.response.data.birthdate;
+        this.birthdate = await userInfo.data.response.birthdate;
         this.gender = await userInfo.data.response.gender;
         this.$refs.genderForm.setPicked(this.gender);
         this.imageUrl = await userInfo.data.response.imageUrl;
