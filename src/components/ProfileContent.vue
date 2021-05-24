@@ -49,7 +49,7 @@ export default {
             imageUrl: "",
             alert: false,
             alertMessage: "",
-            file: {},
+            file: null,
             activeInputs: false,
             unsubscribePopUp: false
         }
@@ -107,10 +107,11 @@ export default {
 
             if (data.password === data.passwordVerif) {
                 this.alert = false;
+                console.log(this.file);
                 const updateConfirmation = await ApiUserRoutes.updateUser(payload, file);
                 console.log(updateConfirmation);
                 if (updateConfirmation.data.message === "user updated") {
-                    //window.location.reload();
+                    window.location.reload();
                 } else {
                     this.alert = true;
                     this.alertMessage = "Erreur du serveur, réessayez plus tard."

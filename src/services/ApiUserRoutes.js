@@ -43,13 +43,13 @@ class ApiUserRoutes {
     updateUser = async (payload, file) => {
         const data = payload.data;
         let dataKeys = Object.keys(data);
-        let formData = new FormData();
+        const formData = new FormData();
         console.log(dataKeys);
         for (let i = 0; i < dataKeys.length; i++) {
             console.log(data[dataKeys[i]]);
             formData.append(dataKeys[i], data[dataKeys[i]]);
         }
-        formData.append('file', file)
+        formData.append('file', file);
         console.log(file);
 
         console.log(payload.data);
