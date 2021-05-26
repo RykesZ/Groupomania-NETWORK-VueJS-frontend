@@ -3,15 +3,21 @@ const axios = require('axios').default;
 
 class ApiPubliRoutes {
     getAllPublications = async (data) => {
+        console.log("until there");
         const payload = data.payload;
-        const authpayload = data.authpayload;
+        console.log(payload);
+        const authPayload = data.authPayload;
+        console.log(authPayload);
         try {
-            const response = await axios.get(api + '/',  payload, {
+            console.log("rightbeforereq");
+            const response = await axios.get(api + '/', {
                 params: {
-                    userId: authpayload.userId,
-                    token: authpayload.authToken
+                    userId: authPayload.userId,
+                    token: authPayload.token,
+                    pageNumber: payload.pageNumber
                 }
             });
+            console.log(response);
             return response;
         } catch (error) {
             return error;
