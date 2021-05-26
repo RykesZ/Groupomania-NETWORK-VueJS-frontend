@@ -45,6 +45,25 @@
                 color: $textPlaceHolder
             }
         }
+        .PPContainer {
+            display: inline-block;
+            position: relative;
+            width: 200px;
+            max-width: 50px;
+            height: 200px;
+            max-height: 50px;
+            overflow: hidden;
+            border-radius: 50%;
+            align-self: center;
+            margin: 0 10px 0 10px;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                z-index: 0;
+                opacity: 100%;
+            }
+        }
     }
     .textPubli {
         text-align: left;
@@ -71,6 +90,9 @@
             margin-left: auto;
             color: $socials;
             font-size: 0.9em;
+            &.notAButton {
+                color: $textPlaceHolder;
+            }
         }
         .numberOfShares {
             margin-left: 5px;

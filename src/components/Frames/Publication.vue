@@ -1,7 +1,7 @@
 <template>
 <div class="publication">
     <div class="headLine">
-        <ProfilePicture />
+        <ProfilePicture :filename="imageUrl"/>
         <div class="infoPubli">
             <p class="identity">{{ prenom }} {{ nom }}</p>
             <p class="datetime">Publié le {{ datePublication }} à {{ heurePublication }}</p>
@@ -13,7 +13,8 @@
     <div class="numberSocials">
         <span class="material-icons md-18">thumb_up</span>
         <span class="numberOfLikes">{{ numberOfLikes }}</span>
-        <button class="numberOfComms invisibleButton" @click="showComments"><span>voir les {{ numberOfComms }} commentaires</span></button>
+        <button class="numberOfComms invisibleButton" @click="showComments" v-if="numberOfComms > 0"><span>voir les {{ numberOfComms }} commentaires</span></button>
+        <span class="numberOfComms notAButton" v-else>Aucun commentaire</span>
         <span class="numberOfShares">{{ numberOfShares }} partages </span>
     </div>
     <div class="actionSocials">
@@ -42,30 +43,76 @@ export default {
         return {
             commentSwitch: false,
             commentators: [
-                {prenom: "Elle", nom: "Hughes", datePublication: "26/04/2021", heurePublication: "09:42", commentText: "Maecenas gravida arcu velit, eu vulputate diam sagittis vitae. Vivamus suscipit placerat nulla, sed molestie quam lobortis sed. Donec blandit semper orci a ultrices. Nullam sed mauris ante. Donec sed sem semper, vestibulum dui a, ornare nulla. Maecenas iaculis luctus nunc, in volutpat orci aliquam ut. Nulla faucibus sit amet risus in sagittis. Ut massa enim, efficitur eget aliquet vitae, maximus ac enim. Mauris lorem mauris, consectetur vitae urna in, suscipit interdum orci. Nulla auctor, mi quis fringilla cursus, leo augue cursus eros, ac tempor risus ex non lorem. Ut suscipit ornare dolor sed consequat. In pretium vestibulum dui, sagittis condimentum erat volutpat eu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Etiam mi nunc, fringilla non pharetra sed, varius non nulla. Pellentesque id pretium neque. Sed feugiat quis orci at aliquet."},
-                {prenom: "Italo", nom: "Melo", datePublication: "26/04/2021", heurePublication: "09:53", commentText: "Praesent eu tristique sem, lobortis feugiat massa. Duis sem metus, tristique eu consequat a, ornare a libero. Cras congue dui at nibh luctus tempus sed vel leo. Aliquam eget condimentum nunc. Sed sed dictum magna. Maecenas sagittis quis lectus non iaculis. Integer vitae tincidunt quam. Curabitur consequat odio nec dictum ultricies. Vestibulum non lacinia metus, eget fringilla massa. Etiam venenatis viverra ullamcorper. Ut mattis, nulla non porttitor lacinia, odio ligula efficitur justo, in consectetur erat dui ac enim. Nulla sit amet justo ac quam finibus lacinia in sit amet lorem. Maecenas vitae facilisis felis. Nullam pretium sed eros eu porta."},
-                {prenom: "Ariel", nom: "Prajatama", datePublication: "26/04/2021", heurePublication: "10:03", commentText: "Sed varius quis erat nec ultrices. Suspendisse porttitor tempus libero, non imperdiet dui porta quis. Praesent ut est nunc. Nulla facilisi. Aliquam et consectetur elit, id vulputate nulla. Pellentesque condimentum orci lorem, molestie bibendum eros blandit sed. Sed congue auctor arcu, a luctus leo sollicitudin sit amet. Mauris ut dolor vel nibh efficitur scelerisque eget ac nulla. Nullam sodales sem id ipsum interdum, at cursus lorem pulvinar. Morbi magna turpis, pulvinar et porta vitae, feugiat nec tellus."},
+                {prenom: "Prénom", nom: "Nom", datePublication: "26/04/2021", heurePublication: "09:42", commentText: "Ipsum"},
             ]
         }
     },
     props: {
-        prenom: {type: String, default: "Andréa"},
-        nom: {type: String, default: "Piacquadio"},
-        datePublication: {type: Date, default: "26/04/2021"},
-        heurePublication: {type: Date, default: "09:23"},
+        prenom: {type: String, default: "Prénom"},
+        nom: {type: String, default: "Nom"},
+        fullDatePublication: {type: Date},
         textPubli: {type: String, default: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."},
         media: {type: Object},
-        numberOfLikes: {type: Number, default: 19},
-        numberOfComms: {type: Number, default: 7},
-        numberOfShares: {type: Number, default: 17},
-    }
-    ,
+        numberOfLikes: {type: Number, default: 0},
+        numberOfComms: {type: Number, default: 0},
+        numberOfShares: {type: Number, default: 0},
+        imageUrl: {type: String}
+    },
     methods: {
         showComments() {
             this.commentSwitch = !this.commentSwitch
         }
-    }
-    ,
+    },
+    computed: {
+        datePublication() {
+            const date = this.fullDatePublication.split(' ')[0];
+            let YMD = date.split('-');
+            switch (YMD[1]) {
+                case '01':
+                    YMD[1] = "Janvier";
+                    break;
+                case '02':
+                    YMD[1] = "Février";
+                    break;
+                case '03':
+                    YMD[1] = "Mars";
+                    break;
+                case '04':
+                    YMD[1] = "Avril";
+                    break;
+                case '05':
+                    YMD[1] = "Mai";
+                    break;
+                case '06':
+                    YMD[1] = "Juin";
+                    break;
+                case '07':
+                    YMD[1] = "Juillet";
+                    break;
+                case '08':
+                    YMD[1] = "Août";
+                    break;
+                case '09':
+                    YMD[1] = "Septembre";
+                    break;
+                case '10':
+                    YMD[1] = "Octobre";
+                    break;
+                case '11':
+                    YMD[1] = "Novembre";
+                    break;
+                case '12':
+                    YMD[1] = "Décembre";
+                    break;
+            }
+            let DMY = YMD.reverse();
+            return DMY.join(' ');
+
+        },
+        heurePublication() {
+            return this.fullDatePublication.split(' ')[1];
+        }
+    },
     components: {
         ProfilePicture,
         LikeButton,
