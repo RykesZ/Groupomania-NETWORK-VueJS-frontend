@@ -1,7 +1,7 @@
 <template>
     <div class="PPContainer">
         <img :src="`${filename}`" alt="Image de Profil">
-        <button class="changePicture invisibleButton" v-show="changePicture" @click="ChoosePicture">
+        <button class="changePicture invisibleButton" @click="ChoosePicture" v-if="changePicture">
             <span class="material-icons">add_a_photo</span>
             <input type="file" accept="image/png, image/jpg, image/jpeg" ref="inputFile" @change="emitNewFile">
         </button>
@@ -13,12 +13,12 @@ export default {
     name: 'ProfilePicture',
     data() {
         return {
-            changePicture: true,
             file: ''
         }
     },
     props: {
-        filename: {type: String, default: "PP_default.png"}
+        filename: {type: String, default: "PP_default.png"},
+        changePicture: {type: Boolean, default: false}
     },
     methods: {
         ChoosePicture() {

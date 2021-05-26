@@ -1,7 +1,7 @@
 <template>
     <div class="profileContainer">
         <div class="PPIdentity">
-            <ProfilePicture :filename="imageUrl" @change-file="setNewFile"/>
+            <ProfilePicture :filename="imageUrl" @change-file="setNewFile" :changePicture="changePicture"/>
             <div class="identity">
                 <ChampForm v-for="(champ, i) in info1" :key="champ" :type="champ.type" :name="champ.name" :id="champ.id" :placeholder="champ.placeholder" :required="champ.required" v-model="info1[i].modelValue"/>
             </div>
@@ -51,7 +51,8 @@ export default {
             alertMessage: "",
             file: null,
             activeInputs: false,
-            unsubscribePopUp: false
+            unsubscribePopUp: false,
+            changePicture: true
         }
     },
     components: {

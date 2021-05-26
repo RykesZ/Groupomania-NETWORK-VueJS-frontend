@@ -19,8 +19,9 @@ export default {
         return {
             unsubscribeButton: {type: "submit", classe: "unsubscribe", text: "Oui, me désinscrire"},
             backButton: {type: "", classe: "back", text: "Non, revenir en arrière"},
-            deletePubAndComms: "",
-            alert: false
+            deletePubAndComms: null,
+            alert: false,
+            alertMessage: ""
         }
     },
     components: {
@@ -43,9 +44,11 @@ export default {
         async unsubscribe() {
             const payload = {
                 deletePubAndComm: this.deletePubAndComms,
-                userId: this.userId
+                userId: this.userId,
+                authToken: this.token
             }
             const deleteConfirmation = await ApiUserRoutes.deleteUser(payload);
+            console.log(deleteConfirmation);
             if (deleteConfirmation.message === "user deleted") {
                 this.alert = true;
                 this.alertMessage = "Désinscription confirmée. En espérant vous revoir !";

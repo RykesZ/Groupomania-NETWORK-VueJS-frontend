@@ -37,15 +37,21 @@ export default {
 
             const isLoggedIn = await ApiUserRoutes.loginUser(loginData);
             console.log(isLoggedIn);
-            if (isLoggedIn.data.userId && isLoggedIn.data.token) {
+            try {
+                if (isLoggedIn.data.userId && isLoggedIn.data.token) {
                 console.log(isLoggedIn);
                 localStorage.setItem('userId', JSON.stringify(isLoggedIn.data.userId));
                 localStorage.setItem('token', JSON.stringify(isLoggedIn.data.token));
                 this.$router.push({ name: 'Fil' });
-            } else {
+                } else {
+                    this.alert = true;
+                    this.alertMessage = "Utilisateur inconnu"
+                }
+            } catch {
                 this.alert = true;
-                this.alertMessage = "Identifiants incorrects"
+                    this.alertMessage = "Utilisateur inconnu"
             }
+            
         }
     },
     components: {
