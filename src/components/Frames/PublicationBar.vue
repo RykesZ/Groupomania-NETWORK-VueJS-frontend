@@ -1,7 +1,7 @@
 <template>
     <div class="publicationBar">
         <ProfilePicture :changePicture="changePicture" :filename="imageUrl"/>
-        <button class="publicationBarButton">Partagez vos pensées, une image, une vidéo...</button>
+        <button class="publicationBarButton" @click="goToCreatePubli">Partagez vos pensées, une image, une vidéo...</button>
     </div>
 </template>
 
@@ -14,6 +14,11 @@ export default {
         return {
             changePicture: false,
             imageUrl: ""
+        }
+    },
+    methods: {
+        goToCreatePubli() {
+            this.$router.push({ name: 'CreatePublication' });
         }
     },
     computed: {

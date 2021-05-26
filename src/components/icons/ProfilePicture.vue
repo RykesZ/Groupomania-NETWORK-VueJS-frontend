@@ -1,7 +1,7 @@
 <template>
     <div class="PPContainer">
         <img :src="`${filename}`" alt="Image de Profil">
-        <button class="changePicture invisibleButton" @click="ChoosePicture" v-if="changePicture">
+        <button class="changePicture invisibleButton" @click="choosePicture" v-if="changePicture">
             <span class="material-icons">add_a_photo</span>
             <input type="file" accept="image/png, image/jpg, image/jpeg" ref="inputFile" @change="emitNewFile">
         </button>
@@ -21,7 +21,7 @@ export default {
         changePicture: {type: Boolean, default: false}
     },
     methods: {
-        ChoosePicture() {
+        choosePicture() {
             this.$refs.inputFile.click();
         },
         emitNewFile() {

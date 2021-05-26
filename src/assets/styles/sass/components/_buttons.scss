@@ -81,6 +81,9 @@ button {
     }
     &.mediaButton {
         border-radius: 0px;
+        input {
+            display: none;
+        }
     }
     &.updateButtonUnactive {
         color: $textDesactive;
