@@ -39,7 +39,7 @@ class ApiUserRoutes {
         }
     }
 
-    // le paylaod contient un objet data qui contient les données à entrer dans la BDD ainsi que userId et un objet authToken qui sert à s'authentifier à placer dans les paramètres de la query
+    // le payload contient un objet data qui contient les données à entrer dans la BDD ainsi que userId et un objet authToken qui sert à s'authentifier à placer dans les paramètres de la query
     updateUser = async (payload, file) => {
         const data = payload.data;
         let dataKeys = Object.keys(data);

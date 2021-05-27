@@ -8,8 +8,9 @@
         </div>
         <button class="publicationOptions invisibleButton"><span class="material-icons md-18">more_horiz</span></button>
     </div>
-    <p class="textPubli">{{ textPubli }}</p>
-    <div class="media">{{ media }}</div>
+    <p class="textPubli" v-if="textPubli != null && textPubli != undefined && textPubli != 'null'">{{ textPubli }}</p>
+    <div class="media" v-if="media != null && media != '' && media != undefined && mediaType == 'image'"><img :src="`${media}`" alt="Image de Publication"></div>
+    <div class="media" v-if="media != null && media != '' && media != undefined && mediaType == 'video'"><video controls autoplay muted> <source :src="`${media}`" type="video/mp4">Sorry, your browser doesn't support embedded videos.</video></div>
     <div class="numberSocials">
         <span class="material-icons md-18">thumb_up</span>
         <span class="numberOfLikes">{{ numberOfLikes }}</span>
@@ -44,7 +45,8 @@ export default {
             commentSwitch: false,
             commentators: [
                 {prenom: "Prénom", nom: "Nom", datePublication: "26/04/2021", heurePublication: "09:42", commentText: "Ipsum"},
-            ]
+            ],
+            mediaPresent: false
         }
     },
     props: {
@@ -52,11 +54,11 @@ export default {
         nom: {type: String, default: "Nom"},
         fullDatePublication: {type: Date},
         textPubli: {type: String, default: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."},
-        media: {type: Object},
+        media: {type: String},
         numberOfLikes: {type: Number, default: 0},
         numberOfComms: {type: Number, default: 0},
         numberOfShares: {type: Number, default: 0},
-        imageUrl: {type: String}
+        imageUrl: {type: String},
     },
     methods: {
         showComments() {
@@ -107,10 +109,19 @@ export default {
             }
             let DMY = YMD.reverse();
             return DMY.join(' ');
-
         },
         heurePublication() {
             return this.fullDatePublication.split(' ')[1];
+        },
+        mediaType() {
+            const type = this.media.split('.')[1];
+            if (type == 'jpg' || type == 'png') {
+                return 'image';
+            } else if (type == 'mp4' || type == 'm4v') {
+                return 'video'
+            } else {
+                return null;
+            }
         }
     },
     components: {
@@ -120,6 +131,11 @@ export default {
         ShareButton,
         Comment,
         CommentBar
+    },
+    beforeMount() {
+        if (this.media != null || this.media != '' || this.media != undefined) {
+            this.mediaPresent = true;
+        }
     }
 }
 </script>

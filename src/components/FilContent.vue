@@ -1,6 +1,6 @@
 <template>
     <PublicationBar/>
-    <Publication v-for="publi in publiListe" :key="publi" :prenom="publi.firstname" :nom="publi.lastname" :textPubli="publi.text" :numberOfLikes="publi.likes" :numberOfComms="publi.comments" :imageUrl="publi.imageUrl" :fullDatePublication="publi.date_insertion"/>
+    <Publication v-for="publi in publiListe" :key="publi" :prenom="publi.firstname" :nom="publi.lastname" :textPubli="publi.text" :numberOfLikes="publi.likes" :numberOfComms="publi.comments" :imageUrl="publi.imageUrl" :fullDatePublication="publi.date_insertion" :media="publi.pubImageUrl"/>
 </template>
 
 <script>

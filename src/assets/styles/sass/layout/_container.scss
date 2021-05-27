@@ -70,6 +70,16 @@
         font-size: 1em;
         color: $text;
     }
+    .media {
+        display: flex;
+        justify-content: center;
+        img {
+            width: 100%;
+        }
+        video {
+            width: 100%;
+        }
+    }
     .numberSocials {
         display: flex;
         flex-direction: row;

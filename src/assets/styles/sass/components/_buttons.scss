@@ -71,8 +71,8 @@ button {
         color: $text;
     }
     &.publishButton {
-        color: $textDesactive;
-        background-color: $desactive;
+        color: #FFFFFF;
+        background-color: $blueColor;
         justify-self: flex-end;
         margin-left: auto;
         width: 90px;
