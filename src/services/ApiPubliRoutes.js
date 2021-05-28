@@ -24,7 +24,6 @@ class ApiPubliRoutes {
         }
     }
 
-
     getAllPublications = async (data) => {
         console.log("until there");
         const payload = data.payload;
@@ -46,6 +45,29 @@ class ApiPubliRoutes {
             return error;
         }
     }
+
+    likePublication = async (data, authPayload) => {
+        const pubId = data.pubId;
+        const like = data.like;
+        const formData = new FormData();
+        try {
+            const response = await axios.post(api + `/${pubId}/like/${like}`, formData, {
+                params: {
+                    userId: authPayload.userId,
+                    token: authPayload.token
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            return response;
+        } catch (error) {
+            return error;
+        }
+    }
 }
+
+
+    
 
 export default new ApiPubliRoutes();

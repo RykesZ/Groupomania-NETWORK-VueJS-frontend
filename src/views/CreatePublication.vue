@@ -6,10 +6,10 @@
     </div>
     <textarea name="textNewPubli" id="textNewPubli" cols="30" rows="20" class="zoneTextNewPubli" placeholder="Partagez vos pensées, une image, une vidéo, un lien..." form="publish" required v-model="textPubli"></textarea>
     <div class="addMedia">
-        <button class="mediaButton invisibleButton" @click="chooseVideo">
+        <!--<button class="mediaButton invisibleButton" @click="chooseVideo">
             <span class="material-icons md-48">videocam</span>Vidéo
             <input type="file" accept="video/mp4, video/mov, video/wmv" ref="inputVideoFile" @change="emitNewVideoFile">
-            </button>
+            </button>-->
         <button class="mediaButton invisibleButton" @click="choosePicture">
             <span class="material-icons md-48">image</span>Image
             <input type="file" accept="image/png, image/jpg, image/jpeg" ref="inputImageFile" @change="emitNewImageFile">
@@ -69,7 +69,7 @@ export default {
         chooseVideo() {
             this.$refs.inputVideoFile.click();
         },
-        emitNewVideoFile() {
+        /*emitNewVideoFile() {
             const newFile = this.$refs.inputVideoFile.files[0];
             if (newFile.size > 200000000) {
                 this.alert = true;
@@ -77,7 +77,7 @@ export default {
             } else {
                 this.file = newFile;
             }
-        },
+        },*/
         async sendNewPubli() {
             const data = {
                 userId: this.userId,

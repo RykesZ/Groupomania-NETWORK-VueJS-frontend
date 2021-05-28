@@ -6,7 +6,10 @@
             <p class="identity">{{ prenom }} {{ nom }}</p>
             <p class="datetime">Publié le {{ datePublication }} à {{ heurePublication }}</p>
         </div>
-        <button class="publicationOptions invisibleButton"><span class="material-icons md-18">more_horiz</span></button>
+        <button class="publicationOptions invisibleButton" v-if="userId == autorId" @click="showPubliOptions"><span class="material-icons md-18">more_horiz</span></button>
+        <div class="panelPubliOptions" v-show="publiOptionsSwitch">
+            bonjour
+        </div>
     </div>
     <p class="textPubli" v-if="textPubli != null && textPubli != undefined && textPubli != 'null'">{{ textPubli }}</p>
     <div class="media" v-if="media != null && media != '' && media != undefined && mediaType == 'image'"><img :src="`${media}`" alt="Image de Publication"></div>
@@ -19,7 +22,7 @@
         <span class="numberOfShares">{{ numberOfShares }} partages </span>
     </div>
     <div class="actionSocials">
-        <LikeButton/>
+        <LikeButton @emit-like-publi="likePublication"/>
         <CommentButton/>
         <ShareButton/>
     </div>
@@ -38,6 +41,7 @@ import CommentButton from "@/components/Buttons/CommentButton.vue"
 import ShareButton from "@/components/Buttons/ShareButton.vue"
 import Comment from "@/components/Comment.vue"
 import CommentBar from "@/components/Frames/CommentBar.vue"
+import ApiPubliRoutes from "@/services/ApiPubliRoutes"
 export default {
     name: 'Publication',
     data() {
@@ -46,23 +50,63 @@ export default {
             commentators: [
                 {prenom: "Prénom", nom: "Nom", datePublication: "26/04/2021", heurePublication: "09:42", commentText: "Ipsum"},
             ],
-            mediaPresent: false
+            mediaPresent: false,
+            numberOfLikes: 0,
+            likersList: [],
+            publiOptionsSwitch: false,
         }
     },
     props: {
         prenom: {type: String, default: "Prénom"},
         nom: {type: String, default: "Nom"},
         fullDatePublication: {type: Date},
-        textPubli: {type: String, default: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."},
+        textPubli: {type: String, default: "Lorem ipsum "},
         media: {type: String},
-        numberOfLikes: {type: Number, default: 0},
-        numberOfComms: {type: Number, default: 0},
         numberOfShares: {type: Number, default: 0},
         imageUrl: {type: String},
+        pubId: {type: Number},
+        usersLiked: {type: String, default: ''},
+        likes: {type: Number, default: 0},
+        comments: {type: Array},
+        autorId: {type: Number}
     },
     methods: {
         showComments() {
             this.commentSwitch = !this.commentSwitch
+        },
+        async likePublication() {
+            
+            const likeValue = () => {
+                console.log(this.likersList);
+                console.log(this.userId);
+                if (this.likersList.includes(this.userId.toString())) {
+                    return 0;
+                } else {
+                    return 1;
+                }
+            }
+            let like = likeValue();
+            const data = {
+                pubId: this.pubId,
+                like: like
+            };
+            const authPayload = { userId: this.userId, token: this.token };
+            console.log({"likers": this.usersLiked});
+            const likeConfirmation = await ApiPubliRoutes.likePublication(data, authPayload);
+            if (likeConfirmation.data.message == "publication liked") {
+                this.numberOfLikes += 1;
+                this.likersList.push(this.userId.toString());
+                console.log({"likersList": this.likersList});
+            } else if (likeConfirmation.data.message == "publication unliked") {
+                console.log({"likersListbefore-1": this.likersList});
+                this.numberOfLikes -= 1;
+                this.likersList.splice(this.likersList.indexOf(this.userId.toString(), 1));
+                console.log({"likersList": this.likersList});
+            }
+        },
+        showPubliOptions() {
+            this.publiOptionsSwitch = !this.publiOptionsSwitch
+
         }
     },
     computed: {
@@ -122,6 +166,22 @@ export default {
             } else {
                 return null;
             }
+        },
+        numberOfComms() {
+            try {
+                return this.comments.length;
+            } catch {
+                return 0;
+            }
+            
+        },
+        userId() {
+            let userId = JSON.parse(localStorage.getItem('userId'));
+            return userId;
+        },
+        token() {
+            let token = JSON.parse(localStorage.getItem('token'));
+            return token;
         }
     },
     components: {
@@ -136,6 +196,15 @@ export default {
         if (this.media != null || this.media != '' || this.media != undefined) {
             this.mediaPresent = true;
         }
-    }
+        this.numberOfLikes = this.likes;
+        console.log(this.usersLiked);
+        if (this.usersLiked != null) {
+            this.likersList = this.usersLiked.split(',');
+            if (this.likersList[0] == '') {
+                this.likersList.shift();
+            }
+        }
+        console.log(this.autorId)
+    },
 }
 </script>

@@ -64,6 +64,12 @@
                 opacity: 100%;
             }
         }
+        .panelPubliOptions {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            color: #FFE8E0;
+        }
     }
     .textPubli {
         text-align: left;
@@ -85,6 +91,7 @@
         flex-direction: row;
         justify-content:flex-end;
         align-items: baseline;
+        margin-top: 10px;
         color: $textPlaceHolder;
         font-size: small;
         padding-bottom: 5px;
