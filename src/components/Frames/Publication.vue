@@ -6,11 +6,15 @@
             <p class="identity">{{ prenom }} {{ nom }}</p>
             <p class="datetime">Publié le {{ datePublication }} à {{ heurePublication }}</p>
         </div>
+
+        <PublicationOptions v-show="publiOptionsSwitch" @show-publi-options="showPubliOptions" @emit-toggle-delete="toggleDelete"/>
+        <DeletePubli v-if="deletePopUp" @emit-toggle-delete="toggleDelete"/>
+        
         <button class="publicationOptions invisibleButton" v-if="userId == autorId" @click="showPubliOptions"><span class="material-icons md-18">more_horiz</span></button>
-        <div class="panelPubliOptions" v-show="publiOptionsSwitch">
-            bonjour
-        </div>
     </div>
+
+    
+
     <p class="textPubli" v-if="textPubli != null && textPubli != undefined && textPubli != 'null'">{{ textPubli }}</p>
     <div class="media" v-if="media != null && media != '' && media != undefined && mediaType == 'image'"><img :src="`${media}`" alt="Image de Publication"></div>
     <div class="media" v-if="media != null && media != '' && media != undefined && mediaType == 'video'"><video controls autoplay muted> <source :src="`${media}`" type="video/mp4">Sorry, your browser doesn't support embedded videos.</video></div>
@@ -42,6 +46,8 @@ import ShareButton from "@/components/Buttons/ShareButton.vue"
 import Comment from "@/components/Comment.vue"
 import CommentBar from "@/components/Frames/CommentBar.vue"
 import ApiPubliRoutes from "@/services/ApiPubliRoutes"
+import PublicationOptions from "@/components/Frames/PublicationOptions.vue"
+import DeletePubli from "@/components/Frames/DeletePubli.vue"
 export default {
     name: 'Publication',
     data() {
@@ -54,6 +60,8 @@ export default {
             numberOfLikes: 0,
             likersList: [],
             publiOptionsSwitch: false,
+            deletePopUp: false,
+            noScroll: false
         }
     },
     props: {
@@ -106,7 +114,11 @@ export default {
         },
         showPubliOptions() {
             this.publiOptionsSwitch = !this.publiOptionsSwitch
-
+            this.noScroll = !this.noScroll
+        },
+        toggleDelete() {
+            this.deletePopUp = !this.deletePopUp
+            this.publiOptionsSwitch = !this.publiOptionsSwitch
         }
     },
     computed: {
@@ -190,7 +202,9 @@ export default {
         CommentButton,
         ShareButton,
         Comment,
-        CommentBar
+        CommentBar,
+        PublicationOptions,
+        DeletePubli
     },
     beforeMount() {
         if (this.media != null || this.media != '' || this.media != undefined) {
@@ -206,5 +220,11 @@ export default {
         }
         console.log(this.autorId)
     },
+    watch: {
+        noScroll() {
+            document.querySelector('body').style.overflow = this.noScroll ? 'hidden' : 'scroll'
+        },
+        
+    }
 }
 </script>

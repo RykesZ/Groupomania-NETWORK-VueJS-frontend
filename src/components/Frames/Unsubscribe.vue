@@ -39,8 +39,8 @@ export default {
             return token;
         }
     },
+    emits: ['emit-toggle-unsubscribe'],
     methods: {
-        emits: ['emit-toggle-unsubscribe'],
         async unsubscribe() {
             const payload = {
                 deletePubAndComm: this.deletePubAndComms,
