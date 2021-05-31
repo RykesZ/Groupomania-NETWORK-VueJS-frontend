@@ -65,6 +65,23 @@ class ApiPubliRoutes {
             return error;
         }
     }
+
+    deletePublication = async (data, authPayload) => {
+        const pubId = data.pubId;
+        console.log({"pubId": data.pubId})
+        try {
+            const response = await axios.delete(api + `/${pubId}`, {
+                params: {
+                    userId: authPayload.userId,
+                    token: authPayload.token,
+                    pubId
+                }
+            });
+            return response;
+        } catch (error) {
+            return error;
+        }
+    }
 }
 
 

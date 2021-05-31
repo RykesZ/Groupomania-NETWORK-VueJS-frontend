@@ -8,7 +8,7 @@
         </div>
 
         <PublicationOptions v-show="publiOptionsSwitch" @show-publi-options="showPubliOptions" @emit-toggle-delete="toggleDelete"/>
-        <DeletePubli v-if="deletePopUp" @emit-toggle-delete="toggleDelete"/>
+        <DeletePubli v-if="deletePopUp" @emit-toggle-delete="toggleDelete" @emit-delete-publi="deletePubli"/>
         
         <button class="publicationOptions invisibleButton" v-if="userId == autorId" @click="showPubliOptions"><span class="material-icons md-18">more_horiz</span></button>
     </div>
@@ -119,6 +119,22 @@ export default {
         toggleDelete() {
             this.deletePopUp = !this.deletePopUp
             this.publiOptionsSwitch = !this.publiOptionsSwitch
+        },
+        async deletePubli() {
+            const data = {
+                pubId: this.pubId
+            }
+            const authPayload = {
+                userId: this.userId,
+                token: this.token
+            }
+            const deleteConfirmation = await ApiPubliRoutes.deletePublication(data, authPayload);
+            console.log(deleteConfirmation.data)
+            if (deleteConfirmation.data.message == "publication deleted") {
+                window.location.reload();
+            } else {
+                console.log(deleteConfirmation.message);
+            }
         }
     },
     computed: {

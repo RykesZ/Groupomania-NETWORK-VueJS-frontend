@@ -2,7 +2,7 @@
     <div class="deletePubliBackground">
         <Panel class="panelDeletePubli">
             <p>Êtes vous sûr(e) de vouloir supprimer cette publication ? Cette action irréversible supprimera aussi tous les commentaires qui y sont attachés.</p>
-            <BigButton type="submit" class="deletePubliButton" text="Oui, supprimer la publication" @click="deletePubli"/>
+            <BigButton type="submit" class="deletePubliButton" text="Oui, supprimer la publication" @click="$emit('emit-delete-publi')"/>
             <BigButton type="" class="back" text="Non, revenir en arrière" @click="$emit('emit-toggle-delete')"/>
             <p v-show="alert">{{ alertMessage }}</p>
         </Panel>
@@ -31,11 +31,8 @@ export default {
             return token;
         }
     },
-    emits: ['emit-toggle-delete'],
+    emits: ['emit-toggle-delete', 'emit-delete-publi'],
     methods: {
-        async deletePubli() {
-            
-        }
     }
 }
 </script>
