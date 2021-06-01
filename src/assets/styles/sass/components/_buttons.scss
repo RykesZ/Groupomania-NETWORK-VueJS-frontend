@@ -89,6 +89,17 @@ button {
         input {
             display: none;
         }
+        progress {
+            margin-left: 20px;
+        }
+        .fileName {
+            overflow:hidden; 
+            white-space:nowrap; 
+            text-overflow: ellipsis;
+            margin-left: 10px;
+            color: $text;
+            font-weight: normal;
+        }
     }
     &.updateButtonUnactive {
         color: $textDesactive;
@@ -117,7 +128,7 @@ button {
         border: 1px solid $strokeChamps;
         border-radius: 0px;
         font-size: 1em;
-        width: 50%;
+        width: 100px;
     }
 }
 

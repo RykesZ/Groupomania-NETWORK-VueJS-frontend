@@ -123,6 +123,18 @@
         video {
             width: 100%;
         }
+        .fileOptions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            input {
+                &#removeFile {
+                    max-width: 1em;
+                    width: 1em;
+                    height: 1em;
+                }
+            }
+        }
     }
     .numberSocials {
         display: flex;

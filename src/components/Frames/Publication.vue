@@ -5,9 +5,10 @@
         <div class="infoPubli">
             <p class="identity">{{ prenom }} {{ nom }}</p>
             <p class="datetime">Publié le {{ datePublication }} à {{ heurePublication }}</p>
+            <p class="datetime" v-if="datePublication != dateModification && heurePublication != heureModification">Modifié le {{ dateModification }} à {{ heureModification }}</p>
         </div>
 
-        <PublicationOptions v-show="publiOptionsSwitch" @show-publi-options="showPubliOptions" @emit-toggle-delete="toggleDelete"/>
+        <PublicationOptions v-show="publiOptionsSwitch" @show-publi-options="showPubliOptions" @emit-toggle-delete="toggleDelete" @emit-redirect-modify-publi="redirectModifyPubli"/>
         <DeletePubli v-if="deletePopUp" @emit-toggle-delete="toggleDelete" @emit-delete-publi="deletePubli"/>
         
         <button class="publicationOptions invisibleButton" v-if="userId == autorId" @click="showPubliOptions"><span class="material-icons md-18">more_horiz</span></button>
@@ -68,6 +69,7 @@ export default {
         prenom: {type: String, default: "Prénom"},
         nom: {type: String, default: "Nom"},
         fullDatePublication: {type: Date},
+        fullDateModification: {type: Date},
         textPubli: {type: String, default: "Lorem ipsum "},
         media: {type: String},
         numberOfShares: {type: Number, default: 0},
@@ -135,6 +137,10 @@ export default {
             } else {
                 console.log(deleteConfirmation.message);
             }
+        },
+        redirectModifyPubli() {
+            this.$store.dispatch('setCurrentPubId', this.pubId);
+            this.$router.push({ name: 'ModifyPublication', query: { pubId: this.pubId } });
         }
     },
     computed: {
@@ -184,6 +190,53 @@ export default {
         },
         heurePublication() {
             return this.fullDatePublication.split(' ')[1];
+        },
+        dateModification() {
+            const date = this.fullDateModification.split(' ')[0];
+            let YMD = date.split('-');
+            switch (YMD[1]) {
+                case '01':
+                    YMD[1] = "Janvier";
+                    break;
+                case '02':
+                    YMD[1] = "Février";
+                    break;
+                case '03':
+                    YMD[1] = "Mars";
+                    break;
+                case '04':
+                    YMD[1] = "Avril";
+                    break;
+                case '05':
+                    YMD[1] = "Mai";
+                    break;
+                case '06':
+                    YMD[1] = "Juin";
+                    break;
+                case '07':
+                    YMD[1] = "Juillet";
+                    break;
+                case '08':
+                    YMD[1] = "Août";
+                    break;
+                case '09':
+                    YMD[1] = "Septembre";
+                    break;
+                case '10':
+                    YMD[1] = "Octobre";
+                    break;
+                case '11':
+                    YMD[1] = "Novembre";
+                    break;
+                case '12':
+                    YMD[1] = "Décembre";
+                    break;
+            }
+            let DMY = YMD.reverse();
+            return DMY.join(' ');
+        },
+        heureModification() {
+            return this.fullDateModification.split(' ')[1];
         },
         mediaType() {
             const type = this.media.split('.')[1];

@@ -1,6 +1,6 @@
 <template>
     <div class="panelPubliOptions">
-        <button class="buttonPubliOptions">Modifier</button>
+        <button class="buttonPubliOptions" @click="$emit('emit-redirect-modify-publi')">Modifier</button>
         <button class="buttonPubliOptions" @click="$emit('emit-toggle-delete')">Supprimer</button>
         <button class="buttonPubliOptions" @click="$emit('show-publi-options')">Annuler</button>
     </div>
@@ -15,7 +15,7 @@ export default {
             
         }
     },
-    emits: ['show-publi-options'],
+    emits: ['show-publi-options', 'emit-toggle-delete', 'emit-redirect-modify-publi'],
     methods: {
         
     },

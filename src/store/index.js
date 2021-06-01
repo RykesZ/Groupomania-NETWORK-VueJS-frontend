@@ -2,9 +2,7 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    userId: "",
-    token: "",
-    test: "oui"
+    pubId: ""
   },
   mutations: {
     SET_AUTH_DATA(state, payload) {
@@ -13,6 +11,9 @@ export default createStore({
       state.token = payload.isLoggedIn.token;
       console.log(state.userId);
       console.log(state.token);
+    },
+    SET_CURRENT_PUB_ID(state, pubId) {
+      state.pubId = pubId;
     }
   },
   actions: {
@@ -25,6 +26,14 @@ export default createStore({
         return "failed";
       }
       
+    },
+    setCurrentPubId(context, pubId) {
+      try {
+        context.commit('SET_CURRENT_PUB_ID', pubId);
+        return "done";
+      } catch {
+        return "failed"
+      }
     }
   },
   modules: {

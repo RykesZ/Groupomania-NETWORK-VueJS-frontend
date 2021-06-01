@@ -24,6 +24,22 @@ class ApiPubliRoutes {
         }
     }
 
+    getOnePublication = async (data, authPayload) => {
+        const pubId = data.pubId;
+        try {
+            const response = await axios.get(api + `/${pubId}`, {
+                params: {
+                    userId: authPayload.userId,
+                    token: authPayload.token
+                }
+            });
+            console.log(response);
+            return response;
+        } catch (error) {
+            return error;
+        }
+    };
+
     getAllPublications = async (data) => {
         console.log("until there");
         const payload = data.payload;
@@ -80,6 +96,29 @@ class ApiPubliRoutes {
             return response;
         } catch (error) {
             return error;
+        }
+    }
+
+    modifyPublication = async (data, file, authPayload) => {
+        const formData = new FormData();
+        const pubId = data.pubId
+        formData.append('userId', data.userId);
+        formData.append('text', data.text);
+        formData.append('file', file);
+        try {
+            const response = await axios.put(api + `/${pubId}`,
+            formData, {
+                params: {
+                    userId: authPayload.userId,
+                    token: authPayload.token
+                },
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            return response;
+        } catch (error) {
+            return(error);
         }
     }
 }

@@ -1,10 +1,18 @@
 <template>
-    <HeaderCreatePublication @emit-send-publi="sendNewPubli"/>
+    <HeaderCreatePublication @emit-send-publi="modifyPubli"/>
     <div class="publicatorInfos">
         <ProfilePicture :filename="imageUrl"/>
         <p class="identity">{{ prenom }} {{ nom }}</p>
     </div>
     <textarea name="textNewPubli" id="textNewPubli" cols="30" rows="20" class="zoneTextNewPubli" placeholder="Partagez vos pensées, une image, une vidéo, un lien..." form="publish" required v-model="textPubli"></textarea>
+    <div class="media" v-if="imagePubliUrl != null && imagePubliUrl != '' && imagePubliUrl != undefined && file == null">
+        <p>Fichier joint :</p>
+        <img :src="`${imagePubliUrl}`" alt="Image de Publication">
+        <div class="fileOptions">
+            <input type="checkbox" name="removeFile" id="removeFile">
+            <label for="removeFile">Retirer la pièce jointe ou remplacer par une nouvelle :</label>
+        </div>
+        </div>
     <div class="addMedia">
         <!--<button class="mediaButton invisibleButton" @click="chooseVideo">
             <span class="material-icons md-48">videocam</span>Vidéo
@@ -38,6 +46,7 @@ export default {
             file: null,
             alert: false,
             alertMessage: "",
+            imagePubliUrl: null,
             uploadPercentage: 0,
             fileName: null
         }
@@ -55,6 +64,9 @@ export default {
             //return this.$store.state.token;
             let token = JSON.parse(localStorage.getItem('token'));
             return token;
+        },
+        pubId() {
+            return this.$store.state.pubId;
         }
     },
     methods: {
@@ -84,16 +96,16 @@ export default {
                 this.file = newFile;
             }
         },*/
-        async sendNewPubli() {
+        async modifyPubli() {
             const data = {
-                userId: this.userId,
+                pubId: this.pubId,
                 text: this.textPubli
             };
             const file = this.file;
             const authPayload = { userId: this.userId, token: this.token };
-            const publishConfirmation = await ApiPubliRoutes.createPublication(data, file, authPayload);
+            const publishConfirmation = await ApiPubliRoutes.modifyPublication(data, file, authPayload);
             console.log(publishConfirmation);
-            if (publishConfirmation.data.message === "publication created") {
+            if (publishConfirmation.data.message === "publication modified") {
                 this.$router.push({ name: 'Fil' });
             } else {
                 this.alert = true;
@@ -102,11 +114,16 @@ export default {
         }
     },
     async beforeMount() {
-        const authPayload = { userId: this.userId, token: this.token }
+        const authPayload = { userId: this.userId, token: this.token };
+        const data = { pubId: this.pubId};
+        console.log(data);
         const userInfo = await ApiUserRoutes.getUserInfo(authPayload);
         this.imageUrl = await userInfo.data.response.imageUrl;
         this.prenom = await userInfo.data.response.firstname;
         this.nom = await userInfo.data.response.lastname;
+        const publiInfo = await ApiPubliRoutes.getOnePublication(data, authPayload);
+        this.textPubli = await publiInfo.data.response.text;
+        this.imagePubliUrl = await publiInfo.data.response.pubImageUrl;
     }
 }
 </script>
