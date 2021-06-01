@@ -127,13 +127,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            input {
-                &#removeFile {
-                    max-width: 1em;
-                    width: 1em;
-                    height: 1em;
-                }
-            }
         }
     }
     .numberSocials {
@@ -167,6 +160,7 @@
     }
     .actionSocials {
         display: flex;
+        max-width: 100%;
         flex-direction: row;
         align-items: baseline;
         justify-content: space-around;
@@ -176,11 +170,7 @@
             color: $socials;
         }
         .material-icons {
-            position: relative;
-            top: 0.3em;
-            &.like {
-                top: 0.2em;
-            }
+            margin: 5px;
         }
     }
 }

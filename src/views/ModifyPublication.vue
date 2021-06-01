@@ -1,5 +1,5 @@
 <template>
-    <HeaderCreatePublication @emit-send-publi="modifyPubli"/>
+    <HeaderCreatePublication @emit-send-publi="modifyPubli" :text="bigButtonText"/>
     <div class="publicatorInfos">
         <ProfilePicture :filename="imageUrl"/>
         <p class="identity">{{ prenom }} {{ nom }}</p>
@@ -10,7 +10,9 @@
         <img :src="`${imagePubliUrl}`" alt="Image de Publication">
         <div class="fileOptions">
             <input type="checkbox" name="removeFile" id="removeFile">
-            <label for="removeFile">Retirer la pièce jointe ou remplacer par une nouvelle :</label>
+            <label for="removeFile">Retirer le fichier joint</label>
+            <p>-OU-</p>
+            <p>Remplacer le fichier joint :</p>
         </div>
         </div>
     <div class="addMedia">
@@ -48,7 +50,8 @@ export default {
             alertMessage: "",
             imagePubliUrl: null,
             uploadPercentage: 0,
-            fileName: null
+            fileName: null,
+            bigButtonText: "MODIFIER"
         }
     },
     components: {

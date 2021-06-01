@@ -1,5 +1,5 @@
 <template>
-    <Header/>
+    <Header :active="active"/>
     <ProfileContent/>
 </template>
 
@@ -11,6 +11,11 @@ export default {
     components: {
         Header,
         ProfileContent
+    },
+    computed: {
+        active() {
+            return "Profile"
+        }
     }
 }
 </script>

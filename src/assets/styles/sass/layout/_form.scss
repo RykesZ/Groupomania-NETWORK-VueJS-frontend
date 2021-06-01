@@ -10,6 +10,12 @@ input {
     &:focus {
         outline: none;
     }
+    &#removeFile {
+        max-width: 2em;
+        width: 1.5em;
+        height: 1.5em;
+        margin: 10px;
+    }
 }
 
 .panel {
@@ -76,7 +82,7 @@ input {
         outline: none;
     }
     width: 90%;
-    height: 100%; 
+    height: auto; 
     max-width: auto;
     margin: 5px;
     padding: 5px;

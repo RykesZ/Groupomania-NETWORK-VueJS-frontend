@@ -27,9 +27,9 @@
         <span class="numberOfShares">{{ numberOfShares }} partages </span>
     </div>
     <div class="actionSocials">
-        <LikeButton @emit-like-publi="likePublication"/>
-        <CommentButton/>
-        <ShareButton/>
+        <LikeButton @emit-like-publi="likePublication"  class="socialsPubliButton"/>
+        <CommentButton class="socialsPubliButton"/>
+        <ShareButton class="socialsPubliButton"/>
     </div>
     <div v-show="commentSwitch" class="commentsBloc">
         <Comment v-for="commentator in commentators" :key="commentator" :prenom="commentator.prenom" :nom="commentator.nom" :datePublication="commentator.datePublication" :heurePublication="commentator.heurePublication" :commentText="commentator.commentText"/>
@@ -139,6 +139,7 @@ export default {
             }
         },
         redirectModifyPubli() {
+            this.noScroll = !this.noScroll
             this.$store.dispatch('setCurrentPubId', this.pubId);
             this.$router.push({ name: 'ModifyPublication', query: { pubId: this.pubId } });
         }

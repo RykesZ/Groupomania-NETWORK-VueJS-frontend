@@ -1,5 +1,5 @@
 <template>
-    <HeaderCreatePublication @emit-send-publi="sendNewPubli"/>
+    <HeaderCreatePublication @emit-send-publi="sendNewPubli" :text="bigButtonText"/>
     <div class="publicatorInfos">
         <ProfilePicture :filename="imageUrl"/>
         <p class="identity">{{ prenom }} {{ nom }}</p>
@@ -39,7 +39,8 @@ export default {
             alert: false,
             alertMessage: "",
             uploadPercentage: 0,
-            fileName: null
+            fileName: null,
+            bigButtonText: "PUBLIER"
         }
     },
     components: {

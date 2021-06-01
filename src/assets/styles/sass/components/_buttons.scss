@@ -4,7 +4,48 @@ button {
     border-radius: 10px;
     font-weight: bold;
     color: #FFFFFF;
-    font-size: 1.25em;
+    font-size: 1em;
+    @media screen and (min-width: 680px) {
+        font-size: 1.25em;
+    }
+    @keyframes hoverIn {
+        from {
+            background-color: rgba(0, 0, 0, 0);
+            color: $socials;
+        }
+        to {
+            background-color: $fondPanneaux;
+            color: $fondChampEcriture;
+        }
+    }
+    @keyframes hoverOut {
+        from {
+            background-color: $fondPanneaux;
+            color: $fondChampEcriture;
+        }
+        to {
+            background-color: rgba(0, 0, 0, 0);
+            color: $socials;
+        }
+        
+    }
+    @keyframes hoverInHeader {
+        from {
+            background-color: rgba(0, 0, 0, 0);
+        }
+        to {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+    }
+    @keyframes hoverOutHeader {
+        from {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        to {
+            background-color: rgba(0, 0, 0, 0);
+        }
+        
+    }
     &.login, &.unsubscribe, &.deletePubliButton {
         background-color: $groupomaniaColor;
         margin: 10px 0;
@@ -71,6 +112,19 @@ button {
         color: $socials;
         justify-self: flex-end;
         margin-left: auto;
+        border-radius: 100px;
+        height: min-content;
+        align-self: center;
+        animation-name: hoverOut;
+        animation-duration: 200ms;
+        animation-fill-mode: both;
+        animation-timing-function: ease-in-out;
+        &:hover {
+            animation-name: hoverIn;
+            animation-duration: 200ms;
+            animation-fill-mode: both;
+            animation-timing-function: ease-in-out;
+        }
     }
     &.backToThreadButton {
         color: $text;
@@ -80,12 +134,22 @@ button {
         background-color: $blueColor;
         justify-self: flex-end;
         margin-left: auto;
-        width: 90px;
+        width: auto;
         margin-right: 10px;
         font-size: 1em;
     }
     &.mediaButton {
         border-radius: 0px;
+        animation-name: hoverOut;
+        animation-duration: 200ms;
+        animation-fill-mode: both;
+        animation-timing-function: ease-in-out;
+        &:hover {
+            animation-name: hoverIn;
+            animation-duration: 200ms;
+            animation-fill-mode: both;
+            animation-timing-function: ease-in-out;
+        }
         input {
             display: none;
         }
@@ -129,6 +193,22 @@ button {
         border-radius: 0px;
         font-size: 1em;
         width: 100px;
+    }
+    &.socialsPubliButton {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation-name: hoverOut;
+        animation-duration: 200ms;
+        animation-fill-mode: both;
+        animation-timing-function: ease-in-out;
+        &:hover {
+            animation-name: hoverIn;
+            animation-duration: 200ms;
+            animation-fill-mode: both;
+            animation-timing-function: ease-in-out;
+        }
     }
 }
 

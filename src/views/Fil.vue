@@ -1,5 +1,5 @@
 <template>
-    <Header/>
+    <Header :active="active"/>
     <FilContent/>
 </template>
 
@@ -11,6 +11,11 @@ export default {
     components: {
         Header,
         FilContent
+    },
+    computed: {
+        active() {
+            return "Thread"
+        }
     }
 }
 </script>
