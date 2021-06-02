@@ -284,6 +284,26 @@
     .PPIdentity {
         display: flex;
         justify-content: flex-start;
+        .profilePictureChange {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            progress {
+                max-width: 100px;
+                margin-left: 10px;
+            }
+            .fileName {
+                overflow:hidden; 
+                white-space:nowrap; 
+                text-overflow: ellipsis;
+                margin-left: 10px;
+                color: $text;
+                font-size: 1em;
+                font-weight: normal;
+            }
+        }
         .PPContainer {
             display: inline-block;
             position: relative;

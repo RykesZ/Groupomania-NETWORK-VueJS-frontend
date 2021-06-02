@@ -1,7 +1,12 @@
 <template>
     <div class="profileContainer">
         <div class="PPIdentity">
-            <ProfilePicture :filename="imageUrl" @change-file="setNewFile" :changePicture="changePicture"/>
+            <div class="profilePictureChange">
+                <ProfilePicture :filename="imageUrl" @change-file="setNewFile" :changePicture="changePicture"/>
+                <span class="fileName">{{ fileName }}</span>
+                <progress max="100" :value.prop="uploadPercentage" v-if="uploadPercentage > 0"></progress>
+            </div>
+            
             <div class="identity">
                 <ChampForm v-for="(champ, i) in info1" :key="champ" :type="champ.type" :name="champ.name" :id="champ.id" :placeholder="champ.placeholder" :required="champ.required" v-model="info1[i].modelValue"/>
             </div>
@@ -52,7 +57,9 @@ export default {
             file: null,
             activeInputs: false,
             unsubscribePopUp: false,
-            changePicture: true
+            changePicture: true,
+            uploadPercentage: 0,
+            fileName: null,
         }
     },
     components: {
@@ -80,6 +87,17 @@ export default {
         },
         setNewFile(payload) {
             this.file = payload.file;
+            this.fileName = payload.file.name;
+            this.uploadPercentage = 50;
+            setTimeout(() => {
+                this.uploadPercentage = 75;
+            },500);
+            setTimeout(() => {
+                this.uploadPercentage = 80;
+            },550);
+            setTimeout(() => {
+                this.uploadPercentage = 100;
+            },1000);
         },
         async updateProfile() {
             const data = {

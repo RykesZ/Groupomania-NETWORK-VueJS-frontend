@@ -37,9 +37,8 @@ export default {
     async beforeMount() {
         const authPayload = { userId: this.userId, token: this.token };
         console.log(authPayload);
-        const payload = {pageNumber: 1};
-        const data = { authPayload, payload };
-        const allPublis = await ApiPubliRoutes.getAllPublications(data);
+        const data = { pageNumber: 1 };
+        const allPublis = await ApiPubliRoutes.getAllPublications(data, authPayload);
         console.log(allPublis);
         this.publiListe = await allPublis.data.response;
     }

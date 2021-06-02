@@ -14,11 +14,11 @@
         <button class="publicationOptions invisibleButton" v-if="userId == autorId" @click="showPubliOptions"><span class="material-icons md-18">more_horiz</span></button>
     </div>
 
-    
-
     <p class="textPubli" v-if="textPubli != null && textPubli != undefined && textPubli != 'null'">{{ textPubli }}</p>
     <div class="media" v-if="media != null && media != '' && media != undefined && mediaType == 'image'"><img :src="`${media}`" alt="Image de Publication"></div>
     <div class="media" v-if="media != null && media != '' && media != undefined && mediaType == 'video'"><video controls autoplay muted> <source :src="`${media}`" type="video/mp4">Sorry, your browser doesn't support embedded videos.</video></div>
+
+
     <div class="numberSocials">
         <span class="material-icons md-18">thumb_up</span>
         <span class="numberOfLikes">{{ numberOfLikes }}</span>
@@ -26,11 +26,13 @@
         <span class="numberOfComms notAButton" v-else>Aucun commentaire</span>
         <span class="numberOfShares">{{ numberOfShares }} partages </span>
     </div>
+
     <div class="actionSocials">
         <LikeButton @emit-like-publi="likePublication"  class="socialsPubliButton"/>
         <CommentButton class="socialsPubliButton"/>
         <ShareButton class="socialsPubliButton"/>
     </div>
+
     <div v-show="commentSwitch" class="commentsBloc">
         <Comment v-for="commentator in commentators" :key="commentator" :prenom="commentator.prenom" :nom="commentator.nom" :datePublication="commentator.datePublication" :heurePublication="commentator.heurePublication" :commentText="commentator.commentText"/>
         <CommentBar/>
@@ -49,6 +51,7 @@ import CommentBar from "@/components/Frames/CommentBar.vue"
 import ApiPubliRoutes from "@/services/ApiPubliRoutes"
 import PublicationOptions from "@/components/Frames/PublicationOptions.vue"
 import DeletePubli from "@/components/Frames/DeletePubli.vue"
+//import ApiCommentRoutes from "@/services/ApiCommentRoutes"
 export default {
     name: 'Publication',
     data() {
@@ -62,7 +65,8 @@ export default {
             likersList: [],
             publiOptionsSwitch: false,
             deletePopUp: false,
-            noScroll: false
+            noScroll: false,
+            commListe: null
         }
     },
     props: {
@@ -77,7 +81,7 @@ export default {
         pubId: {type: Number},
         usersLiked: {type: String, default: ''},
         likes: {type: Number, default: 0},
-        comments: {type: Array},
+        numberOfComms: {type: Number, default: 0},
         autorId: {type: Number}
     },
     methods: {
@@ -142,7 +146,8 @@ export default {
             this.noScroll = !this.noScroll
             this.$store.dispatch('setCurrentPubId', this.pubId);
             this.$router.push({ name: 'ModifyPublication', query: { pubId: this.pubId } });
-        }
+        },
+
     },
     computed: {
         datePublication() {
@@ -249,14 +254,6 @@ export default {
                 return null;
             }
         },
-        numberOfComms() {
-            try {
-                return this.comments.length;
-            } catch {
-                return 0;
-            }
-            
-        },
         userId() {
             let userId = JSON.parse(localStorage.getItem('userId'));
             return userId;
@@ -289,6 +286,11 @@ export default {
             }
         }
         console.log(this.autorId)
+
+        /*const authPayload = { userId: this.userId, token: this.token };
+        const data = { pubId: this.pubId };
+        const allComms = await ApiCommentRoutes.getAllComments(data, authPayload);
+        this.commListe = await allComms.data.response;*/
     },
     watch: {
         noScroll() {

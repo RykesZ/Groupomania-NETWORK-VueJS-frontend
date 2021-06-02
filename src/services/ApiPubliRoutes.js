@@ -40,11 +40,8 @@ class ApiPubliRoutes {
         }
     };
 
-    getAllPublications = async (data) => {
+    getAllPublications = async (data, authPayload) => {
         console.log("until there");
-        const payload = data.payload;
-        console.log(payload);
-        const authPayload = data.authPayload;
         console.log(authPayload);
         try {
             console.log("rightbeforereq");
@@ -52,7 +49,7 @@ class ApiPubliRoutes {
                 params: {
                     userId: authPayload.userId,
                     token: authPayload.token,
-                    pageNumber: payload.pageNumber
+                    pageNumber: data.pageNumber
                 }
             });
             console.log(response);
@@ -86,7 +83,7 @@ class ApiPubliRoutes {
         const pubId = data.pubId;
         console.log({"pubId": data.pubId})
         try {
-            const response = await axios.delete(api + `/${pubId}`, {
+            const response = await axios.delete(api, {
                 params: {
                     userId: authPayload.userId,
                     token: authPayload.token,
