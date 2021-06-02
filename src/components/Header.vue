@@ -2,9 +2,9 @@
     <div class="header">
         <LogoFil/>
         <div class="buttonsRow">
-            <router-link to="/fil"><MainThreadButton v-if="active == 'Thread'" class="active"/><MainThreadButton v-if="active != 'Thread'"/></router-link>
-            <router-link to="/profil"><ProfilButton v-if="active == 'Profile'" class="active"/><ProfilButton v-if="active != 'Profile'"/></router-link>
-            <router-link to="/"><LogOutButton/></router-link>
+            <MainThreadButton @click="redirectMainThread" v-if="active == 'Thread'" class="active"/><MainThreadButton @click="redirectMainThread" v-if="active != 'Thread'"/>
+            <ProfilButton @click="redirectProfile" v-if="active == 'Profile'" class="active"/><ProfilButton @click="redirectProfile" v-if="active != 'Profile'"/>
+            <LogOutButton @click="redirectHome"/>
         </div>
     </div>
 </template>
@@ -25,6 +25,16 @@ export default {
     props: {
         active: String
     },
-
+    methods: {
+        redirectMainThread() {
+            this.$router.push({ name: 'Fil' });
+        },
+        redirectProfile() {
+            this.$router.push({ name: 'Profil' });
+        },
+        redirectHome() {
+            this.$router.push({ name: 'Home' });
+        },
+    }
 }
 </script>

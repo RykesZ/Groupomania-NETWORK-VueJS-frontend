@@ -27,6 +27,7 @@ class ApiCommentRoutes {
 
     getAllComments = async (data, authPayload) => {
         const pubId = data.pubId;
+        console.log(pubId);
         try {
             const response = await axios.get(api + `/${pubId}`, {
                 params: {

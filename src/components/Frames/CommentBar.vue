@@ -1,7 +1,7 @@
 <template>
 <div class="commentPanel">
     <div class="commentBar">
-        <ProfilePicture/>
+        <ProfilePicture :filename="filename"/>
         <textarea @focus="growTextArea" @blur="shrinkTextArea" name="newComment" id="newComment" cols="30" :rows="rowsNumber" class="zoneTextNewComment" placeholder="Écrivez un commentaire..."></textarea>
     </div>
     <BigButton type="submit" class="publishButton" text="PUBLIER" id="publishComment"/>
@@ -14,6 +14,9 @@ import ProfilePicture from "@/components/icons/ProfilePicture.vue"
 import BigButton from "@/components/Buttons/BigButton.vue"
 export default {
     name: 'CommentBar',
+    props: {
+        filename: {type: String}
+    },
     data() {
         return {
             rowsNumber: 1

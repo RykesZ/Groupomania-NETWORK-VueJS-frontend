@@ -22,20 +22,21 @@
     <div class="numberSocials">
         <span class="material-icons md-18">thumb_up</span>
         <span class="numberOfLikes">{{ numberOfLikes }}</span>
-        <button class="numberOfComms invisibleButton" @click="showComments" v-if="numberOfComms > 0"><span>voir les {{ numberOfComms }} commentaires</span></button>
-        <span class="numberOfComms notAButton" v-else>Aucun commentaire</span>
+        <button class="numberOfComms invisibleButton" @click="redirectPubliDetails" v-if="numberOfComms > 0 && commentSwitch == false"><span>voir les {{ numberOfComms }} commentaires</span></button>
+        <span class="numberOfComms notAButton" v-else-if="numberOfComms <= 0">Aucun commentaire</span>
+        <span class="numberOfComms notAButton" v-if="numberOfComms > 0 && commentSwitch == true">{{ numberOfComms }} commentaires</span>
         <span class="numberOfShares">{{ numberOfShares }} partages </span>
     </div>
 
     <div class="actionSocials">
-        <LikeButton @emit-like-publi="likePublication"  class="socialsPubliButton"/>
-        <CommentButton class="socialsPubliButton"/>
+        <LikeButton @emit-like-publi="likePublication" class="socialsPubliButton"/>
+        <CommentButton class="socialsPubliButton" @click="redirectPubliDetails"/>
         <ShareButton class="socialsPubliButton"/>
     </div>
 
-    <div v-show="commentSwitch" class="commentsBloc">
-        <Comment v-for="commentator in commentators" :key="commentator" :prenom="commentator.prenom" :nom="commentator.nom" :datePublication="commentator.datePublication" :heurePublication="commentator.heurePublication" :commentText="commentator.commentText"/>
-        <CommentBar/>
+    <div v-if="commentSwitch" class="commentsBloc">
+        <Comment v-for="comment in commListe" :key="comment" :prenom="comment.firstname" :nom="comment.lastname" :fullDatePublication="comment.date_insertion" :fullDateModification="comment.date_modification" :commentText="comment.text" :imageUrl="comment.imageUrl"/>
+        <CommentBar :filename="imageUrl"/>
     </div>
 </div>
 
@@ -51,15 +52,11 @@ import CommentBar from "@/components/Frames/CommentBar.vue"
 import ApiPubliRoutes from "@/services/ApiPubliRoutes"
 import PublicationOptions from "@/components/Frames/PublicationOptions.vue"
 import DeletePubli from "@/components/Frames/DeletePubli.vue"
-//import ApiCommentRoutes from "@/services/ApiCommentRoutes"
+import ApiCommentRoutes from "@/services/ApiCommentRoutes"
 export default {
     name: 'Publication',
     data() {
         return {
-            commentSwitch: false,
-            commentators: [
-                {prenom: "Prénom", nom: "Nom", datePublication: "26/04/2021", heurePublication: "09:42", commentText: "Ipsum"},
-            ],
             mediaPresent: false,
             numberOfLikes: 0,
             likersList: [],
@@ -82,12 +79,10 @@ export default {
         usersLiked: {type: String, default: ''},
         likes: {type: Number, default: 0},
         numberOfComms: {type: Number, default: 0},
-        autorId: {type: Number}
+        autorId: {type: Number},
+        commentSwitch: {type: Boolean, default: false}
     },
     methods: {
-        showComments() {
-            this.commentSwitch = !this.commentSwitch
-        },
         async likePublication() {
             
             const likeValue = () => {
@@ -145,9 +140,12 @@ export default {
         redirectModifyPubli() {
             this.noScroll = !this.noScroll
             this.$store.dispatch('setCurrentPubId', this.pubId);
-            this.$router.push({ name: 'ModifyPublication', query: { pubId: this.pubId } });
+            this.$router.push({ name: 'ModifyPublication' });
         },
-
+        redirectPubliDetails() {
+            this.$store.dispatch('setCurrentPubId', this.pubId);
+            this.$router.push({ name: 'PublicationDetails' });
+        }
     },
     computed: {
         datePublication() {
@@ -273,7 +271,7 @@ export default {
         PublicationOptions,
         DeletePubli
     },
-    beforeMount() {
+    async beforeMount() {
         if (this.media != null || this.media != '' || this.media != undefined) {
             this.mediaPresent = true;
         }
@@ -287,10 +285,11 @@ export default {
         }
         console.log(this.autorId)
 
-        /*const authPayload = { userId: this.userId, token: this.token };
+        const authPayload = { userId: this.userId, token: this.token };
         const data = { pubId: this.pubId };
         const allComms = await ApiCommentRoutes.getAllComments(data, authPayload);
-        this.commListe = await allComms.data.response;*/
+        this.commListe = await allComms.data.response;
+        console.log(this.commListe);
     },
     watch: {
         noScroll() {

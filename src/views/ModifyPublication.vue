@@ -127,6 +127,9 @@ export default {
         const publiInfo = await ApiPubliRoutes.getOnePublication(data, authPayload);
         this.textPubli = await publiInfo.data.response.text;
         this.imagePubliUrl = await publiInfo.data.response.pubImageUrl;
+    },
+    beforeUnmount() {
+        this.$store.dispatch('setCurrentPubId', this.pubId);
     }
 }
 </script>
