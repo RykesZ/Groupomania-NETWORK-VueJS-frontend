@@ -23,7 +23,16 @@ export default {
   methods: {
         overlayToggle() {
             this.overlay = !this.overlay
-        }
+        },
+        redirectMainThread() {
+            this.$router.push({ name: 'Fil' });
+        },
+        redirectProfile() {
+            this.$router.push({ name: 'Profil' });
+        },
+        redirectHome() {
+            this.$router.push({ name: 'Home' });
+        },
     },
   components: {
     LoginMenu,

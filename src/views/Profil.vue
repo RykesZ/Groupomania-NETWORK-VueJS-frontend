@@ -1,5 +1,5 @@
 <template>
-    <Header :active="active"/>
+    <Header :active="active" @emit-redirect-main-thread="redirectMainThread" @emit-redirect-profile="redirectProfile" @emit-redirect-home="redirectHome"/>
     <ProfileContent/>
 </template>
 
@@ -16,6 +16,17 @@ export default {
         active() {
             return "Profile"
         }
+    },
+    methods: {
+        redirectMainThread() {
+            this.$router.push({ name: 'Fil' });
+        },
+        redirectProfile() {
+            this.$router.push({ name: 'Profil' });
+        },
+        redirectHome() {
+            this.$router.push({ name: 'Home' });
+        },
     }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <HeaderCreatePublication @emit-send-publi="sendNewPubli" :text="bigButtonText"/>
+    <HeaderCreatePublication @emit-send-publi="sendNewPubli" :text="bigButtonText" @emit-redirect-main-thread="redirectMainThread"/>
     <div class="publicatorInfos">
         <ProfilePicture :filename="imageUrl"/>
         <p class="identity">{{ prenom }} {{ nom }}</p>
@@ -95,12 +95,14 @@ export default {
             const publishConfirmation = await ApiPubliRoutes.createPublication(data, file, authPayload);
             console.log(publishConfirmation);
             if (publishConfirmation.data.message === "publication created") {
-                this.$store.dispatch('setCurrentPubId', this.pubId);
-                this.$router.push({ name: 'PublicationDetails' });
+                this.$router.push({ name: 'Fil' });
             } else {
                 this.alert = true;
                 this.alertMessage = "Erreur du serveur, réessayez plus tard."
             }
+        },
+        redirectMainThread() {
+            this.$router.push({ name: 'Fil' });
         }
     },
     async beforeMount() {

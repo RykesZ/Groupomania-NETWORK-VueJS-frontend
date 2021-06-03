@@ -1,6 +1,6 @@
 <template>
     <div class="headerCreatePublication">
-        <button class="backToThreadButton invisibleButton" @click="backToFil"><span class="material-icons md-36">arrow_back</span></button>
+        <button class="backToThreadButton invisibleButton" @click="$emit('emit-redirect-main-thread')"><span class="material-icons md-36">arrow_back</span></button>
         <p>Créer une publication</p>
         <BigButton type="" class="publishButton" :text="text" id="publish" @click="$emit('emit-send-publi')"/>
     </div>
@@ -13,14 +13,14 @@ export default {
     props: {
         text: String
     },
-    emits: ['emit-send-publi'],
+    emits: ['emit-send-publi', 'emit-redirect-main-thread'],
     components: {
         BigButton
     },
     methods: {
-        backToFil() {
+        /*backToFil() {
             this.$router.push({ name: 'Fil' })
-        }
+        }*/
     }
 }
 </script>

@@ -51,7 +51,8 @@ export default {
             const commConfirmation = await ApiCommentRoutes.createComment(data, authPayload);
             if (commConfirmation.data.message == "comment created") {
                 this.$store.dispatch('setCurrentPubId', this.pubId);
-                console.log("ready to reload page");
+                console.log("ready to reload comments");
+                this.textComm = null;
                 this.$emit('emit-reload-comments');
             } else {
                 this.alert = true;

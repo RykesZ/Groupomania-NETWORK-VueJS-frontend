@@ -1,6 +1,7 @@
 <template>
-    <PublicationBar/>
-    <Publication v-for="publi in publiListe" :key="publi" :prenom="publi.firstname" :nom="publi.lastname" :textPubli="publi.text" :numberOfLikes="publi.likes" :numberOfComms="publi.comments" :imageUrl="publi.imageUrl" :fullDatePublication="publi.date_insertion" :fullDateModification="publi.date_modification" :media="publi.pubImageUrl" :pubId="publi.pubId" :usersLiked="publi.usersLiked" :likes="publi.likes" :comments="publi.comments" :autorId="publi.autorId" @emit-redirect-publi-details="redirectPubliDetails"/>
+    <PublicationBar @emit-go-to-create-publi="$emit('emit-go-to-create-publi')"/>
+    
+    <Publication v-for="publi in publiListe" :key="publi" :prenom="publi.firstname" :nom="publi.lastname" :textPubli="publi.text" :numberOfLikes="publi.likes" :numberOfComms="publi.comments" :imageUrl="publi.imageUrl" :fullDatePublication="publi.date_insertion" :fullDateModification="publi.date_modification" :media="publi.pubImageUrl" :pubId="publi.pubId" :usersLiked="publi.usersLiked" :likes="publi.likes" :comments="publi.comments" :autorId="publi.autorId" @emit-redirect-publi-details="redirectPubliDetails" @emit-redirect-modify-publi="$emit('emit-redirect-modify-publi')"/>
 </template>
 
 <script>
@@ -9,6 +10,7 @@ import Publication from "@/components/Frames/Publication.vue"
 import ApiPubliRoutes from "@/services/ApiPubliRoutes"
 export default {
     name: 'FilContent',
+    emits: ['emit-redirect-modify-publi'],
     data() {
         return {
             publiListe: null
@@ -36,7 +38,7 @@ export default {
         redirectPubliDetails(pubId) {
             console.log(pubId);
             this.$store.dispatch('setCurrentPubId', pubId);
-            this.$router.push({ name: 'PublicationDetails' });
+            this.$emit('emit-redirect-publi-details');
         }
     },
     async beforeMount() {

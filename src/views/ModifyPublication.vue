@@ -1,5 +1,5 @@
 <template>
-    <HeaderCreatePublication @emit-send-publi="modifyPubli" :text="bigButtonText"/>
+    <HeaderCreatePublication @emit-send-publi="modifyPubli" :text="bigButtonText" @emit-redirect-main-thread="redirectMainThread"/>
     <div class="publicatorInfos">
         <ProfilePicture :filename="imageUrl"/>
         <p class="identity">{{ prenom }} {{ nom }}</p>
@@ -133,6 +133,9 @@ export default {
                 this.fileName = null;
                 this.uploadPercentage = 0;
             }
+        },
+        redirectMainThread() {
+            this.$router.push({ name: 'Fil' });
         }
     },
     async beforeMount() {

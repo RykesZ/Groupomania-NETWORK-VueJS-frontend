@@ -1,6 +1,6 @@
 <template>
-    <Header/>
-    <Publication :prenom="publi.firstname" :nom="publi.lastname" :textPubli="publi.text" :numberOfLikes="publi.likes" :numberOfComms="publi.comments" :imageUrl="publi.imageUrl" :fullDatePublication="publi.date_insertion" :fullDateModification="publi.date_modification" :media="publi.pubImageUrl" :pubId="publi.pubId" :usersLiked="publi.usersLiked" :likes="publi.likes" :autorId="publi.autorId" :commentSwitch="true" @emit-redirect-publi-details="redirectPubliDetails"/>
+    <Header @emit-redirect-main-thread="redirectMainThread" @emit-redirect-profile="redirectProfile" @emit-redirect-home="redirectHome"/>
+    <Publication :prenom="publi.firstname" :nom="publi.lastname" :textPubli="publi.text" :numberOfLikes="publi.likes" :numberOfComms="publi.comments" :imageUrl="publi.imageUrl" :fullDatePublication="publi.date_insertion" :fullDateModification="publi.date_modification" :media="publi.pubImageUrl" :pubId="publi.pubId" :usersLiked="publi.usersLiked" :likes="publi.likes" :autorId="publi.autorId" :commentSwitch="true" @emit-redirect-publi-details="redirectPubliDetails" @emit-redirect-modify-publi="redirectModifyPubli"/>
 </template>
 
 <script>
@@ -23,6 +23,18 @@ export default {
             console.log(pubId);
             this.$store.dispatch('setCurrentPubId', pubId);
             this.$router.push({ name: 'PublicationDetails' });
+        },
+        redirectMainThread() {
+            this.$router.push({ name: 'Fil' });
+        },
+        redirectProfile() {
+            this.$router.push({ name: 'Profil' });
+        },
+        redirectHome() {
+            this.$router.push({ name: 'Home' });
+        },
+        redirectModifyPubli() {
+            this.$router.push({ name: 'ModifyPublication' });
         }
     },
     computed: {

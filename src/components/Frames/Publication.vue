@@ -8,7 +8,7 @@
             <p class="datetime" v-if="datePublication != dateModification && heurePublication != heureModification">Modifié le {{ dateModification }} à {{ heureModification }}</p>
         </div>
 
-        <PublicationOptions v-show="publiOptionsSwitch" @show-publi-options="showPubliOptions" @emit-toggle-delete="toggleDelete" @emit-redirect-modify-publi="$emit('emit-redirect-modify-publi')"/>
+        <PublicationOptions v-show="publiOptionsSwitch" @show-publi-options="showPubliOptions" @emit-toggle-delete="toggleDelete" @emit-redirect-modify-publi="redirectModifyPubli"/>
         <DeletePubli v-if="deletePopUp" @emit-toggle-delete="toggleDelete" @emit-delete-publi="deletePubli"/>
         
         <button class="publicationOptions invisibleButton" v-if="userId == autorId" @click="showPubliOptions"><span class="material-icons md-18">more_horiz</span></button>
@@ -22,7 +22,7 @@
     <div class="numberSocials">
         <span class="material-icons md-18">thumb_up</span>
         <span class="numberOfLikes">{{ numberOfLikes }}</span>
-        <button class="numberOfComms invisibleButton" @click="redirectPubliDetails" v-if="numberOfComms > 0 && commentSwitch == false"><span>voir les {{ numberOfComms }} commentaires</span></button>
+        <button class="numberOfComms invisibleButton" @click="$emit('emit-redirect-publi-details', pubId)" v-if="numberOfComms > 0 && commentSwitch == false"><span>voir les {{ numberOfComms }} commentaires</span></button>
         <span class="numberOfComms notAButton" v-else-if="numberOfComms <= 0">Aucun commentaire</span>
         <span class="numberOfComms notAButton" v-if="numberOfComms > 0 && commentSwitch == true">{{ numberOfComms }} commentaires</span>
         <span class="numberOfShares">{{ numberOfShares }} partages </span>
@@ -36,7 +36,7 @@
 
     <div v-if="commentSwitch" class="commentsBloc">
         <Comment v-for="comment in commListe" :key="comment" :prenom="comment.firstname" :nom="comment.lastname" :fullDatePublication="comment.date_insertion" :fullDateModification="comment.date_modification" :commentText="comment.text" :imageUrl="comment.imageUrl"/>
-        <CommentBar :filename="imageUrl" :pubId="pubId" @emit-reload-comments="$emit('emit-redirect-publi-details', pubId)"/>
+        <CommentBar :filename="imageUrl" :pubId="pubId" @emit-reload-comments="reloadComments"/>
     </div>
 </div>
 
@@ -138,13 +138,19 @@ export default {
                 console.log(deleteConfirmation.message);
             }
         },
-        /*async reloadComments() {
+        async reloadComments() {
             const authPayload = { userId: this.userId, token: this.token };
             const data = { pubId: this.pubId };
             const allComms = await ApiCommentRoutes.getAllComments(data, authPayload);
             this.commListe = await allComms.data.response;
             console.log(this.commListe);
-        }*/
+        },
+        redirectModifyPubli() {
+            this.publiOptionsSwitch = !this.publiOptionsSwitch
+            this.noScroll = !this.noScroll
+            this.$store.dispatch('setCurrentPubId', this.pubId);
+            this.$emit('emit-redirect-modify-publi');
+        }
     },
     computed: {
         datePublication() {

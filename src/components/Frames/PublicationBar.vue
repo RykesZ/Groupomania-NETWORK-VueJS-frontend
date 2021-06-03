@@ -1,7 +1,7 @@
 <template>
     <div class="publicationBar">
         <ProfilePicture :changePicture="changePicture" :filename="imageUrl"/>
-        <button class="publicationBarButton" @click="goToCreatePubli">Partagez vos pensées, une image, une vidéo...</button>
+        <button class="publicationBarButton" @click="$emit('emit-go-to-create-publi')">Partagez vos pensées, une image, une vidéo...</button>
     </div>
 </template>
 
@@ -16,10 +16,9 @@ export default {
             imageUrl: ""
         }
     },
+    emits: ['emit-go-to-create-publi'],
     methods: {
-        goToCreatePubli() {
-            this.$router.push({ name: 'CreatePublication' });
-        }
+        
     },
     computed: {
         userId() {
