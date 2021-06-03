@@ -8,7 +8,7 @@
             <p class="datetime" v-if="datePublication != dateModification && heurePublication != heureModification">Modifié le {{ dateModification }} à {{ heureModification }}</p>
         </div>
 
-        <PublicationOptions v-show="publiOptionsSwitch" @show-publi-options="showPubliOptions" @emit-toggle-delete="toggleDelete" @emit-redirect-modify-publi="redirectModifyPubli"/>
+        <PublicationOptions v-show="publiOptionsSwitch" @show-publi-options="showPubliOptions" @emit-toggle-delete="toggleDelete" @emit-redirect-modify-publi="$emit('emit-redirect-modify-publi')"/>
         <DeletePubli v-if="deletePopUp" @emit-toggle-delete="toggleDelete" @emit-delete-publi="deletePubli"/>
         
         <button class="publicationOptions invisibleButton" v-if="userId == autorId" @click="showPubliOptions"><span class="material-icons md-18">more_horiz</span></button>
@@ -30,13 +30,13 @@
 
     <div class="actionSocials">
         <LikeButton @emit-like-publi="likePublication" class="socialsPubliButton"/>
-        <CommentButton class="socialsPubliButton" @click="redirectPubliDetails"/>
+        <CommentButton class="socialsPubliButton" @click="$emit('emit-redirect-publi-details', pubId)"/>
         <ShareButton class="socialsPubliButton"/>
     </div>
 
     <div v-if="commentSwitch" class="commentsBloc">
         <Comment v-for="comment in commListe" :key="comment" :prenom="comment.firstname" :nom="comment.lastname" :fullDatePublication="comment.date_insertion" :fullDateModification="comment.date_modification" :commentText="comment.text" :imageUrl="comment.imageUrl"/>
-        <CommentBar :filename="imageUrl"/>
+        <CommentBar :filename="imageUrl" :pubId="pubId" @emit-reload-comments="$emit('emit-redirect-publi-details', pubId)"/>
     </div>
 </div>
 
@@ -55,6 +55,7 @@ import DeletePubli from "@/components/Frames/DeletePubli.vue"
 import ApiCommentRoutes from "@/services/ApiCommentRoutes"
 export default {
     name: 'Publication',
+    emits: ['emit-redirect-modify-publi', 'emit-redirect-publi-details'],
     data() {
         return {
             mediaPresent: false,
@@ -137,15 +138,13 @@ export default {
                 console.log(deleteConfirmation.message);
             }
         },
-        redirectModifyPubli() {
-            this.noScroll = !this.noScroll
-            this.$store.dispatch('setCurrentPubId', this.pubId);
-            this.$router.push({ name: 'ModifyPublication' });
-        },
-        redirectPubliDetails() {
-            this.$store.dispatch('setCurrentPubId', this.pubId);
-            this.$router.push({ name: 'PublicationDetails' });
-        }
+        /*async reloadComments() {
+            const authPayload = { userId: this.userId, token: this.token };
+            const data = { pubId: this.pubId };
+            const allComms = await ApiCommentRoutes.getAllComments(data, authPayload);
+            this.commListe = await allComms.data.response;
+            console.log(this.commListe);
+        }*/
     },
     computed: {
         datePublication() {
@@ -285,11 +284,14 @@ export default {
         }
         console.log(this.autorId)
 
-        const authPayload = { userId: this.userId, token: this.token };
-        const data = { pubId: this.pubId };
-        const allComms = await ApiCommentRoutes.getAllComments(data, authPayload);
-        this.commListe = await allComms.data.response;
-        console.log(this.commListe);
+
+        if (this.numberOfComms > 0) {
+            const authPayload = { userId: this.userId, token: this.token };
+            const data = { pubId: this.pubId };
+            const allComms = await ApiCommentRoutes.getAllComments(data, authPayload);
+            this.commListe = await allComms.data.response;
+            console.log(this.commListe);
+        }
     },
     watch: {
         noScroll() {

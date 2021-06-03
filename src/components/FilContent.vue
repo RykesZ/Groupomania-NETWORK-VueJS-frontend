@@ -1,6 +1,6 @@
 <template>
     <PublicationBar/>
-    <Publication v-for="publi in publiListe" :key="publi" :prenom="publi.firstname" :nom="publi.lastname" :textPubli="publi.text" :numberOfLikes="publi.likes" :numberOfComms="publi.comments" :imageUrl="publi.imageUrl" :fullDatePublication="publi.date_insertion" :fullDateModification="publi.date_modification" :media="publi.pubImageUrl" :pubId="publi.pubId" :usersLiked="publi.usersLiked" :likes="publi.likes" :comments="publi.comments" :autorId="publi.autorId"/>
+    <Publication v-for="publi in publiListe" :key="publi" :prenom="publi.firstname" :nom="publi.lastname" :textPubli="publi.text" :numberOfLikes="publi.likes" :numberOfComms="publi.comments" :imageUrl="publi.imageUrl" :fullDatePublication="publi.date_insertion" :fullDateModification="publi.date_modification" :media="publi.pubImageUrl" :pubId="publi.pubId" :usersLiked="publi.usersLiked" :likes="publi.likes" :comments="publi.comments" :autorId="publi.autorId" @emit-redirect-publi-details="redirectPubliDetails"/>
 </template>
 
 <script>
@@ -32,6 +32,11 @@ export default {
         async updatePublication() {
             const updateConfirmation = await ApiPubliRoutes.updatePubli();
             console.log(updateConfirmation);
+        },
+        redirectPubliDetails(pubId) {
+            console.log(pubId);
+            this.$store.dispatch('setCurrentPubId', pubId);
+            this.$router.push({ name: 'PublicationDetails' });
         }
     },
     async beforeMount() {

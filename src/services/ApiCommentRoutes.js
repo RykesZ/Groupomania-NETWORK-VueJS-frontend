@@ -2,7 +2,7 @@ const api = 'http://localhost:5000/api/comments'
 const axios = require('axios').default;
 
 class ApiCommentRoutes {
-    
+
     createComment = async (data, authPayload) => {
         const formData = new FormData();
         formData.append('text', data.text);

@@ -1,6 +1,6 @@
 <template>
     <Header/>
-    <Publication :prenom="publi.firstname" :nom="publi.lastname" :textPubli="publi.text" :numberOfLikes="publi.likes" :numberOfComms="publi.comments" :imageUrl="publi.imageUrl" :fullDatePublication="publi.date_insertion" :fullDateModification="publi.date_modification" :media="publi.pubImageUrl" :pubId="publi.pubId" :usersLiked="publi.usersLiked" :likes="publi.likes" :autorId="publi.autorId" :commentSwitch="true"/>
+    <Publication :prenom="publi.firstname" :nom="publi.lastname" :textPubli="publi.text" :numberOfLikes="publi.likes" :numberOfComms="publi.comments" :imageUrl="publi.imageUrl" :fullDatePublication="publi.date_insertion" :fullDateModification="publi.date_modification" :media="publi.pubImageUrl" :pubId="publi.pubId" :usersLiked="publi.usersLiked" :likes="publi.likes" :autorId="publi.autorId" :commentSwitch="true" @emit-redirect-publi-details="redirectPubliDetails"/>
 </template>
 
 <script>
@@ -19,7 +19,11 @@ export default {
         Publication
     },
     methods: {
-
+        redirectPubliDetails(pubId) {
+            console.log(pubId);
+            this.$store.dispatch('setCurrentPubId', pubId);
+            this.$router.push({ name: 'PublicationDetails' });
+        }
     },
     computed: {
         userId() {

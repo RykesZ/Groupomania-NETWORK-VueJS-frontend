@@ -95,7 +95,8 @@ export default {
             const publishConfirmation = await ApiPubliRoutes.createPublication(data, file, authPayload);
             console.log(publishConfirmation);
             if (publishConfirmation.data.message === "publication created") {
-                this.$router.push({ name: 'Fil' });
+                this.$store.dispatch('setCurrentPubId', this.pubId);
+                this.$router.push({ name: 'PublicationDetails' });
             } else {
                 this.alert = true;
                 this.alertMessage = "Erreur du serveur, réessayez plus tard."

@@ -2,6 +2,7 @@ const api = 'http://localhost:5000/api/publications'
 const axios = require('axios').default;
 
 class ApiPubliRoutes {
+
     createPublication = async (data, file, authPayload) => {
         const formData = new FormData();
         formData.append('userId', data.userId);
@@ -101,6 +102,7 @@ class ApiPubliRoutes {
         const pubId = data.pubId
         formData.append('userId', data.userId);
         formData.append('text', data.text);
+        formData.append('removeFile', data.removeFile)
         formData.append('file', file);
         try {
             const response = await axios.put(api + `/${pubId}`,
