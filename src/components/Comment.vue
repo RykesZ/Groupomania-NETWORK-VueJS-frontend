@@ -12,6 +12,7 @@
 
         <div class="commentFrame" v-if="modifyMode">
             <textarea name="modifiedComment" id="modifiedComment" cols="30" rows="10" placeholder="Modifiez votre commentaire" class="zoneTextNewComment" v-model="commentTextArea"></textarea>
+            <BigButton type="submit" class="publishButton" text="MODIFIER" id="modifyComment" @click="sendModifiedComment"/>
         </div>
 
         <CommentOptions v-show="commentOptionsSwitch" @show-comment-options="showCommentOptions" @emit-delete-comment="deleteComment" @emit-toggle-modify-comment="toggleModifyComment"/>
@@ -172,7 +173,7 @@ export default {
             const deleteConfirmation = await ApiCommentRoutes.deleteComment(data, authPayload);
             console.log(deleteConfirmation.data)
             if (deleteConfirmation.data.message == "comment deleted") {
-                this.$emit('emit-reload-comments');
+                this.$emit('emit-reload-comments', -1);
             } else {
                 console.log(deleteConfirmation.message);
             }
@@ -180,6 +181,27 @@ export default {
         toggleModifyComment() {
             this.modifyMode = true;
             this.commentOptionsSwitch = !this.commentOptionsSwitch;
+        },
+        async sendModifiedComment() {
+            const data = {
+                commId: this.commId,
+                text: this.commentTextArea,
+                userId: this.userId
+            }
+            const authPayload = {
+                userId: this.userId,
+                token: this.token
+            }
+            const modifCommConfirmation = await ApiCommentRoutes.createComment(data, authPayload);
+            if (modifCommConfirmation.data.message == "comment modified") {
+                this.$store.dispatch('setCurrentPubId', this.pubId);
+                console.log("ready to reload comments");
+                this.modifyMode = false;
+                this.$emit('emit-reload-comments');
+            } else {
+                this.alert = true;
+                this.alertMessage = "Erreur du serveur, réessayez plus tard."
+            }
         }
     },
     beforeMount() {

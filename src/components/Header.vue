@@ -2,9 +2,14 @@
     <div class="header">
         <LogoFil/>
         <div class="buttonsRow">
-            <MainThreadButton @click="$emit('emit-redirect-main-thread')" v-if="active == 'Thread'" class="active"/><MainThreadButton @click="$emit('emit-redirect-main-thread')" v-if="active != 'Thread'"/>
-            <ProfilButton @click="$emit('emit-redirect-profile')" v-if="active == 'Profile'" class="active"/><ProfilButton @click="$emit('emit-redirect-profile')" v-if="active != 'Profile'"/>
-            <LogOutButton @click="$emit('emit-redirect-home')"/>
+            <router-link to="/fil"><MainThreadButton v-if="active == 'Thread'" class="active"/><MainThreadButton  v-if="active != 'Thread'"/></router-link>
+
+            <router-link to="/profil"><ProfilButton v-if="active == 'Profile'" class="active"/><ProfilButton  v-if="active != 'Profile'"/></router-link>
+
+            <router-link to="/"><LogOutButton /></router-link>
+            
+            
+            
         </div>
     </div>
 </template>

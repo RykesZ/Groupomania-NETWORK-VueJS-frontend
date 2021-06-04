@@ -53,7 +53,7 @@ export default {
                 this.$store.dispatch('setCurrentPubId', this.pubId);
                 console.log("ready to reload comments");
                 this.textComm = null;
-                this.$emit('emit-reload-comments');
+                this.$emit('emit-reload-comments', 1);
             } else {
                 this.alert = true;
                 this.alertMessage = "Erreur du serveur, réessayez plus tard."

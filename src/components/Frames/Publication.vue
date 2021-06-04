@@ -22,9 +22,9 @@
     <div class="numberSocials">
         <span class="material-icons md-18">thumb_up</span>
         <span class="numberOfLikes">{{ numberOfLikes }}</span>
-        <button class="numberOfComms invisibleButton" @click="$emit('emit-redirect-publi-details', pubId)" v-if="numberOfComms > 0 && commentSwitch == false"><span>voir les {{ numberOfComms }} commentaires</span></button>
-        <span class="numberOfComms notAButton" v-else-if="numberOfComms <= 0">Aucun commentaire</span>
-        <span class="numberOfComms notAButton" v-if="numberOfComms > 0 && commentSwitch == true">{{ numberOfComms }} commentaires</span>
+        <button class="numberOfComms invisibleButton" @click="$emit('emit-redirect-publi-details', pubId)" v-if="commentsAmount > 0 && commentSwitch == false"><span>voir les {{ commentsAmount }} commentaires</span></button>
+        <span class="numberOfComms notAButton" v-else-if="commentsAmount <= 0">Aucun commentaire</span>
+        <span class="numberOfComms notAButton" v-if="commentsAmount > 0 && commentSwitch == true">{{ commentsAmount }} commentaires</span>
         <span class="numberOfShares">{{ numberOfShares }} partages </span>
     </div>
 
@@ -64,7 +64,8 @@ export default {
             publiOptionsSwitch: false,
             deletePopUp: false,
             noScroll: false,
-            commListe: null
+            commListe: null,
+            commentsAmount: 0
         }
     },
     props: {
@@ -138,12 +139,22 @@ export default {
                 console.log(deleteConfirmation.message);
             }
         },
-        async reloadComments() {
-            const authPayload = { userId: this.userId, token: this.token };
-            const data = { pubId: this.pubId };
-            const allComms = await ApiCommentRoutes.getAllComments(data, authPayload);
-            this.commListe = await allComms.data.response;
-            console.log(this.commListe);
+        async reloadComments(payload) {
+            if (payload) {
+                this.commentsAmount += payload;
+            }
+
+            if (this.commentsAmount > 0) {
+                const authPayload = { userId: this.userId, token: this.token };
+                const data = { pubId: this.pubId };
+                const allComms = await ApiCommentRoutes.getAllComments(data, authPayload);
+                this.commListe = await allComms.data.response;
+                console.log(this.commListe);
+            } else {
+                this.commListe = null;
+            }
+
+            
         },
         redirectModifyPubli() {
             this.publiOptionsSwitch = !this.publiOptionsSwitch
@@ -264,7 +275,7 @@ export default {
         token() {
             let token = JSON.parse(localStorage.getItem('token'));
             return token;
-        }
+        },
     },
     components: {
         ProfilePicture,
@@ -290,8 +301,9 @@ export default {
         }
         console.log(this.autorId)
 
+        this.commentsAmount = Number(this.numberOfComms);
 
-        if (this.numberOfComms > 0) {
+        if (this.commentsAmount > 0) {
             const authPayload = { userId: this.userId, token: this.token };
             const data = { pubId: this.pubId };
             const allComms = await ApiCommentRoutes.getAllComments(data, authPayload);
