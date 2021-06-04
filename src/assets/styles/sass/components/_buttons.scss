@@ -126,6 +126,23 @@ button {
             animation-timing-function: ease-in-out;
         }
     }
+    &.commentOptions {
+        color: $socials;
+        justify-self: flex-end;
+        border-radius: 100px;
+        align-self: center;
+        height: min-content;
+        animation-name: hoverOut;
+        animation-duration: 200ms;
+        animation-fill-mode: both;
+        animation-timing-function: ease-in-out;
+        &:hover {
+            animation-name: hoverIn;
+            animation-duration: 200ms;
+            animation-fill-mode: both;
+            animation-timing-function: ease-in-out;
+        }
+    }
     &.backToThreadButton {
         color: $text;
     }
@@ -188,6 +205,13 @@ button {
         font-weight: normal;
     }
     &.buttonPubliOptions {
+        background-color: $fondPanneaux;
+        border: 1px solid $strokeChamps;
+        border-radius: 0px;
+        font-size: 1em;
+        width: 100px;
+    }
+    &.buttonCommentOptions {
         background-color: $fondPanneaux;
         border: 1px solid $strokeChamps;
         border-radius: 0px;

@@ -1,7 +1,7 @@
 <template>
     <div class="commentContainer">
         <ProfilePicture :filename="imageUrl"/>
-        <div class="commentFrame">
+        <div class="commentFrame" v-if="!modifyMode">
             <div class="infoPubli">
                 <p class="identity">{{ prenom }} {{ nom }}</p>
                 <p class="datetime">Publié le {{ datePublication }} à {{ heurePublication }}</p>
@@ -9,23 +9,44 @@
             </div>
             <p class="commentText">{{ commentText }}</p>
         </div>
+
+        <div class="commentFrame" v-if="modifyMode">
+            <textarea name="modifiedComment" id="modifiedComment" cols="30" rows="10" placeholder="Modifiez votre commentaire" class="zoneTextNewComment" v-model="commentTextArea"></textarea>
+        </div>
+
+        <CommentOptions v-show="commentOptionsSwitch" @show-comment-options="showCommentOptions" @emit-delete-comment="deleteComment" @emit-toggle-modify-comment="toggleModifyComment"/>
+
+        <button class="commentOptions invisibleButton" v-if="userId == autorId" @click="showCommentOptions"><span class="material-icons md-18">more_horiz</span></button>
     </div>
 </template>
 
 <script>
 import ProfilePicture from "@/components/icons/ProfilePicture.vue"
+import CommentOptions from "@/components/Frames/CommentOptions.vue"
+import ApiCommentRoutes from "@/services/ApiCommentRoutes"
 export default {
     name: 'Comment',
+    data() {
+        return {
+            commentOptionsSwitch: false,
+            noScroll: false,
+            modifyMode: false,
+            commentTextArea: null
+        }
+    },
     props: {
         commentText: String,
         prenom: {type: String, default: "Elle"},
         nom: {type: String, default: "Hughes"},
         fullDatePublication: {type: Date},
         fullDateModification: {type: Date},
-        imageUrl: {type: String}
+        imageUrl: {type: String},
+        autorId: {type: Number},
+        commId: {type: Number}
     },
     components: {
-        ProfilePicture
+        ProfilePicture,
+        CommentOptions
     },
     computed: {
         datePublication() {
@@ -122,6 +143,47 @@ export default {
         heureModification() {
             return this.fullDateModification.split(' ')[1];
         },
+        userId() {
+            let userId = JSON.parse(localStorage.getItem('userId'));
+            return userId;
+        },
+        token() {
+            let token = JSON.parse(localStorage.getItem('token'));
+            return token;
+        }
+    },
+    methods: {
+        showCommentOptions() {
+            this.commentOptionsSwitch = !this.commentOptionsSwitch;
+            this.noScroll = !this.noScroll;
+        },
+        toggleDeleteComment() {
+            this.deletePopUp = !this.deletePopUp
+            this.commentOptionsSwitch = !this.commentOptionsSwitch
+        },
+        async deleteComment() {
+            const data = {
+                commId: this.commId
+            }
+            const authPayload = {
+                userId: this.userId,
+                token: this.token
+            }
+            const deleteConfirmation = await ApiCommentRoutes.deleteComment(data, authPayload);
+            console.log(deleteConfirmation.data)
+            if (deleteConfirmation.data.message == "comment deleted") {
+                this.$emit('emit-reload-comments');
+            } else {
+                console.log(deleteConfirmation.message);
+            }
+        },
+        toggleModifyComment() {
+            this.modifyMode = true;
+            this.commentOptionsSwitch = !this.commentOptionsSwitch;
+        }
+    },
+    beforeMount() {
+        this.commentTextArea = this.commentText;
     }
 }
 </script>

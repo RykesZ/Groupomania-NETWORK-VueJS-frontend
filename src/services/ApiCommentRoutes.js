@@ -44,7 +44,7 @@ class ApiCommentRoutes {
 
     deleteComment = async (data, authPayload) => {
         const commId = data.commId;
-        console.log({"pubId": data.pubId})
+        console.log({"commId": data.commId})
         try {
             const response = await axios.delete(api, {
                 params: {
