@@ -1,6 +1,6 @@
 <template>
-    <Header :active="active" @emit-redirect-main-thread="redirectMainThread" @emit-redirect-profile="redirectProfile" @emit-redirect-home="redirectHome"/>
-    <FilContent @emit-go-to-create-publi="goToCreatePubli" @emit-redirect-publi-details="redirectPubliDetails" @emit-redirect-modify-publi="redirectModifyPubli"/>
+    <Header :active="active" @emit-reload-main-thread="reloadMainThread"/>
+    <FilContent @emit-go-to-create-publi="goToCreatePubli" @emit-redirect-modify-publi="redirectModifyPubli" :key="reloadFilContentKey"/>
 </template>
 
 <script>
@@ -12,14 +12,19 @@ export default {
         Header,
         FilContent
     },
+    data() {
+        return {
+            reloadFilContentKey: 0
+        }
+    },
     computed: {
         active() {
             return "Thread"
         }
     },
     methods: {
-        redirectMainThread() {
-            this.$router.push({ name: 'Fil' });
+        reloadMainThread() {
+            this.reloadFilContentKey += 1;
         },
         redirectProfile() {
             this.$router.push({ name: 'Profil' });

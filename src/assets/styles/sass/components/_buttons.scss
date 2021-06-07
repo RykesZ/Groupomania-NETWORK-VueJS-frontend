@@ -46,6 +46,23 @@ button {
         }
         
     }
+    @keyframes hoverInPubliOptions {
+        from {
+            background-color: $fondPanneaux;
+        }
+        to {
+            background-color: $textDesactive;
+        }
+    }
+    @keyframes hoverOutPubliOptions {
+        from {
+            background-color: $textDesactive;
+        }
+        to {
+            background-color: $fondPanneaux;
+        }
+        
+    }
     &.login, &.unsubscribe, &.deletePubliButton, &.cancelButton {
         background-color: $groupomaniaColor;
         margin: 10px 0;
@@ -219,6 +236,16 @@ button {
         border-radius: 0px;
         font-size: 1em;
         width: 200px;
+        animation-name: hoverOutPubliOptions;
+        animation-duration: 200ms;
+        animation-fill-mode: both;
+        animation-timing-function: ease-in-out;
+        &:hover {
+            animation-name: hoverInPubliOptions;
+            animation-duration: 200ms;
+            animation-fill-mode: both;
+            animation-timing-function: ease-in-out;
+        }
     }
     &.buttonCommentOptions {
         background-color: $fondPanneaux;

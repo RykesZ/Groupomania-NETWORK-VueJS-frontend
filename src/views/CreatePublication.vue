@@ -14,8 +14,9 @@
             <span class="material-icons md-48">image</span>Image
             <progress max="100" :value.prop="uploadPercentage" v-if="uploadPercentage > 0"></progress>
             <span class="fileName">{{ fileName }}</span>
-            <input type="file" accept="image/png, image/jpg, image/jpeg" ref="inputImageFile" @change="emitNewImageFile">
-            </button>
+            <input type="file" accept="image/png, image/jpg, image/jpeg, image/gif" ref="inputImageFile" @change="emitNewImageFile">
+        </button>
+        <BigButton v-if="file" type="" class="cancelButton" text="ANNULER" id="cancelModifyComment" @click="emptyFile"/>
     </div>
     <p v-show="alert">{{ alertMessage }}</p>
 </template>
@@ -25,6 +26,7 @@ import HeaderCreatePublication from "@/components/Frames/HeaderCreatePublication
 import ProfilePicture from "@/components/icons/ProfilePicture.vue"
 import ApiUserRoutes from "@/services/ApiUserRoutes"
 import ApiPubliRoutes from "@/services/ApiPubliRoutes"
+import BigButton from "@/components/Buttons/BigButton.vue"
 export default {
     name: 'CreatePublication',
     props: {
@@ -46,6 +48,7 @@ export default {
     components: {
         HeaderCreatePublication,
         ProfilePicture,
+        BigButton
     },
     computed: {
         userId() {
@@ -71,20 +74,12 @@ export default {
                 this.file = newFile;
                 this.fileName = newFile.name;
                 this.uploadPercentage = 100;
+                this.$refs.inputImageFile.value = null;
             }
         },
         chooseVideo() {
             this.$refs.inputVideoFile.click();
         },
-        /*emitNewVideoFile() {
-            const newFile = this.$refs.inputVideoFile.files[0];
-            if (newFile.size > 200000000) {
-                this.alert = true;
-                this.alertMessage = "Fichier trop volumineux"
-            } else {
-                this.file = newFile;
-            }
-        },*/
         async sendNewPubli() {
             const data = {
                 userId: this.userId,
@@ -103,6 +98,11 @@ export default {
         },
         redirectMainThread() {
             this.$router.push({ name: 'Fil' });
+        },
+        emptyFile() {
+            this.file = null;
+            this.fileName = null;
+            this.uploadPercentage = 0;
         }
     },
     async beforeMount() {

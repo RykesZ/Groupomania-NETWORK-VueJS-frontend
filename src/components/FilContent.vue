@@ -1,7 +1,7 @@
 <template>
     <PublicationBar @emit-go-to-create-publi="$emit('emit-go-to-create-publi')"/>
     
-    <Publication v-for="publi in publiListe" :key="publi" :prenom="publi.firstname" :nom="publi.lastname" :textPubli="publi.text" :numberOfLikes="publi.likes" :numberOfComms="publi.comments" :imageUrl="publi.imageUrl" :fullDatePublication="publi.date_insertion" :fullDateModification="publi.date_modification" :media="publi.pubImageUrl" :pubId="publi.pubId" :usersLiked="publi.usersLiked" :likes="publi.likes" :comments="publi.comments" :autorId="publi.autorId" @emit-redirect-publi-details="redirectPubliDetails" @emit-redirect-modify-publi="$emit('emit-redirect-modify-publi')"/>
+    <Publication v-for="publi in publiListe" :key="publi" :prenom="publi.firstname" :nom="publi.lastname" :textPubli="publi.text" :numberOfLikes="publi.likes" :numberOfComms="publi.comments" :imageUrl="publi.imageUrl" :fullDatePublication="publi.date_insertion" :fullDateModification="publi.date_modification" :media="publi.pubImageUrl" :pubId="publi.pubId" :usersLiked="publi.usersLiked" :likes="publi.likes" :autorId="publi.autorId" @emit-redirect-publi-details="redirectPubliDetails" @emit-redirect-modify-publi="$emit('emit-redirect-modify-publi')"/>
 </template>
 
 <script>

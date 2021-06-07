@@ -18,14 +18,16 @@
     </div>
 
     <p class="textPubli" v-if="textPubli != null && textPubli != undefined && textPubli != 'null'">{{ textPubli }}</p>
+
     <div class="media" v-if="media != null && media != '' && media != undefined && mediaType == 'image'"><img :src="`${media}`" alt="Image de Publication"></div>
-    <div class="media" v-if="media != null && media != '' && media != undefined && mediaType == 'video'"><video controls autoplay muted> <source :src="`${media}`" type="video/mp4">Sorry, your browser doesn't support embedded videos.</video></div>
+    
+    <iframe :src="videoLink" frameborder="0" id="videoContent" title="Vidéo de la publication" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen v-if="videoLink != null && (media == null || media == '' || media != undefined)"></iframe>
 
 
     <div class="numberSocials">
         <span class="material-icons md-18">thumb_up</span>
         <span class="numberOfLikes">{{ numberOfLikes }}</span>
-        <button class="numberOfComms invisibleButton" @click="$emit('emit-redirect-publi-details', pubId)" v-if="commentsAmount > 0 && commentSwitch == false"><span>voir les {{ commentsAmount }} commentaires</span></button>
+        <button class="numberOfComms invisibleButton" @click="showPubliDetails" v-if="commentsAmount > 0 && commentSwitch == false"><span>voir les {{ commentsAmount }} commentaires</span></button>
         <span class="numberOfComms notAButton" v-else-if="commentsAmount <= 0">Aucun commentaire</span>
         <span class="numberOfComms notAButton" v-if="commentsAmount > 0 && commentSwitch == true">{{ commentsAmount }} commentaires</span>
         <span class="numberOfShares">{{ numberOfShares }} partages </span>
@@ -33,7 +35,7 @@
 
     <div class="actionSocials">
         <LikeButton @emit-like-publi="likePublication" class="socialsPubliButton"/>
-        <CommentButton class="socialsPubliButton" @click="$emit('emit-redirect-publi-details', pubId)"/>
+        <CommentButton class="socialsPubliButton" @click="showPubliDetails"/>
         <ShareButton class="socialsPubliButton"/>
     </div>
 
@@ -68,7 +70,9 @@ export default {
             deletePopUp: false,
             noScroll: false,
             commListe: null,
-            commentsAmount: 0
+            commentsAmount: 0,
+            commentSwitch: false,
+            videoLink: null
         }
     },
     props: {
@@ -85,7 +89,7 @@ export default {
         likes: {type: Number, default: 0},
         numberOfComms: {type: Number, default: 0},
         autorId: {type: Number},
-        commentSwitch: {type: Boolean, default: false}
+        //commentSwitch: {type: Boolean, default: false}
     },
     methods: {
         async likePublication() {
@@ -164,6 +168,15 @@ export default {
             //this.noScroll = !this.noScroll
             this.$store.dispatch('setCurrentPubId', this.pubId);
             this.$emit('emit-redirect-modify-publi');
+        },
+        showPubliDetails() {
+            this.commentSwitch = true;
+        },
+        urlRegex() {
+            if (this.textPubli.match(/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/)) {
+                this.videoLink = this.textPubli.match(/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/);
+                console.log({ "videoLink:": this.videoLink });
+            }
         }
     },
     computed: {
@@ -263,7 +276,7 @@ export default {
         },
         mediaType() {
             const type = this.media.split('.')[1];
-            if (type == 'jpg' || type == 'png') {
+            if (type == 'jpg' || type == 'png' || type == 'gif') {
                 return 'image';
             } else if (type == 'mp4' || type == 'm4v') {
                 return 'video'
@@ -278,7 +291,7 @@ export default {
         token() {
             let token = JSON.parse(localStorage.getItem('token'));
             return token;
-        },
+        }
     },
     components: {
         ProfilePicture,
@@ -291,6 +304,11 @@ export default {
         DeletePubli
     },
     async beforeMount() {
+        if (this.textPubli.match(/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/)) {
+                this.videoLink = "https://www.youtube.com/embed/" + this.textPubli.match(/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/)[1];
+        }
+
+
         if (this.media != null || this.media != '' || this.media != undefined) {
             this.mediaPresent = true;
         }

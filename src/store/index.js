@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    pubId: ""
+    pubId: null
   },
   mutations: {
     SET_AUTH_DATA(state, payload) {

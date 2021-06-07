@@ -12,7 +12,7 @@ export default {
     name: 'PublicationDetails',
     data() {
         return {
-            publi: null
+            publi: null,
         }
     },
     components: {
@@ -25,7 +25,7 @@ export default {
             this.$store.dispatch('setCurrentPubId', pubId);
             this.$router.push({ name: 'PublicationDetails' });
         },
-        redirectMainThread() {
+        /*redirectMainThread() {
             this.$router.push({ name: 'Fil' });
         },
         redirectProfile() {
@@ -33,7 +33,7 @@ export default {
         },
         redirectHome() {
             this.$router.push({ name: 'Home' });
-        },
+        },*/
         redirectModifyPubli() {
             this.$router.push({ name: 'ModifyPublication' });
         }
@@ -53,7 +53,7 @@ export default {
     },
     async beforeMount() {
         const authPayload = { userId: this.userId, token: this.token };
-        const data = { pubId: this.pubId};
+        const data = { pubId: this.pubId };
         const publi = await ApiPubliRoutes.getOnePublication(data, authPayload);
         this.publi = await publi.data.response;
     },
