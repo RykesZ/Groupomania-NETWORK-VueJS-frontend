@@ -21,7 +21,7 @@
 
     <div class="media" v-if="media != null && media != '' && media != undefined && mediaType == 'image'"><img :src="`${media}`" alt="Image de Publication"></div>
     
-    <iframe :src="videoLink" frameborder="0" id="videoContent" title="Vidéo de la publication" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen v-if="videoLink != null && (media == null || media == '' || media != undefined)"></iframe>
+    <iframe :src="videoLink" frameborder="0" id="videoContent" title="Vidéo de la publication" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen v-if="videoLink != null && mediaType == null"></iframe>
 
 
     <div class="numberSocials">

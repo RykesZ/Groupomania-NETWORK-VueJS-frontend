@@ -4,7 +4,7 @@
         <ProfilePicture :filename="imageUrl"/>
         <p class="identity">{{ prenom }} {{ nom }}</p>
     </div>
-    <textarea name="textNewPubli" id="textNewPubli" cols="30" rows="20" class="zoneTextNewPubli" placeholder="Partagez vos pensées, une image, une vidéo, un lien..." form="publish" required v-model="textPubli"></textarea>
+    <textarea name="textNewPubli" id="textNewPubli" cols="30" rows="20" class="zoneTextNewPubli" placeholder="Partagez vos pensées, avec une image ou une vidéo, un lien..." form="publish" required v-model="textPubli"></textarea>
     <div class="addMedia">
         <!--<button class="mediaButton invisibleButton" @click="chooseVideo">
             <span class="material-icons md-48">videocam</span>Vidéo
