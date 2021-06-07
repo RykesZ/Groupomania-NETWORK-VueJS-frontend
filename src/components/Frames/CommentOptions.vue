@@ -2,7 +2,7 @@
     <div class="panelCommentOptions">
         <button class="buttonCommentOptions" @click="$emit('emit-toggle-modify-comment')">Modifier</button>
         <button class="buttonCommentOptions" @click="$emit('emit-delete-comment')">Supprimer</button>
-        <button class="buttonCommentOptions" @click="$emit('show-comment-options')">Annuler</button>
+        <!--<button class="buttonCommentOptions" @click="$emit('show-comment-options')">Annuler</button>-->
     </div>
     
 </template>

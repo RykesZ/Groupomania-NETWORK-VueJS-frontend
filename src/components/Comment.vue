@@ -18,9 +18,12 @@
             </div>
         </div>
 
-        <CommentOptions v-show="commentOptionsSwitch" @show-comment-options="showCommentOptions" @emit-delete-comment="deleteComment" @emit-toggle-modify-comment="toggleModifyComment"/>
+        
 
-        <button class="commentOptions invisibleButton" v-if="userId == autorId" @click="showCommentOptions"><span class="material-icons md-18">more_horiz</span></button>
+        <button class="commentOptionsButtonMenu invisibleButton" v-if="userId == autorId" @click="showCommentOptions">
+            <span class="material-icons md-18">more_horiz</span>
+            <CommentOptions v-show="commentOptionsSwitch" @show-comment-options="showCommentOptions" @emit-delete-comment="deleteComment" @emit-toggle-modify-comment="toggleModifyComment"/>
+        </button>
     </div>
 </template>
 

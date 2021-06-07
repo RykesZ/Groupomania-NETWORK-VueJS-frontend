@@ -8,10 +8,13 @@
             <p class="datetime" v-if="datePublication != dateModification && heurePublication != heureModification">Modifié le {{ dateModification }} à {{ heureModification }}</p>
         </div>
 
-        <PublicationOptions v-show="publiOptionsSwitch" @show-publi-options="showPubliOptions" @emit-toggle-delete="toggleDelete" @emit-redirect-modify-publi="redirectModifyPubli"/>
-        <DeletePubli v-if="deletePopUp" @emit-toggle-delete="toggleDelete" @emit-delete-publi="deletePubli"/>
         
-        <button class="publicationOptions invisibleButton" v-if="userId == autorId" @click="showPubliOptions"><span class="material-icons md-18">more_horiz</span></button>
+        
+        <button class="publicationOptionsButtonMenu invisibleButton" v-if="userId == autorId" @click="showPubliOptions">
+            <span class="material-icons md-18">more_horiz</span>
+            <PublicationOptions v-show="publiOptionsSwitch" @show-publi-options="showPubliOptions" @emit-toggle-delete="toggleDelete" @emit-redirect-modify-publi="redirectModifyPubli"/>
+            <DeletePubli v-if="deletePopUp" @emit-toggle-delete="toggleDelete" @emit-delete-publi="deletePubli"/>
+        </button>
     </div>
 
     <p class="textPubli" v-if="textPubli != null && textPubli != undefined && textPubli != 'null'">{{ textPubli }}</p>
@@ -117,7 +120,7 @@ export default {
         },
         showPubliOptions() {
             this.publiOptionsSwitch = !this.publiOptionsSwitch
-            this.noScroll = !this.noScroll
+            //this.noScroll = !this.noScroll
         },
         toggleDelete() {
             this.deletePopUp = !this.deletePopUp
@@ -158,7 +161,7 @@ export default {
         },
         redirectModifyPubli() {
             this.publiOptionsSwitch = !this.publiOptionsSwitch
-            this.noScroll = !this.noScroll
+            //this.noScroll = !this.noScroll
             this.$store.dispatch('setCurrentPubId', this.pubId);
             this.$emit('emit-redirect-modify-publi');
         }

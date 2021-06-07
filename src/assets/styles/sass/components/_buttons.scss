@@ -117,7 +117,7 @@ button {
         text-align: left;
         font-weight: normal;
     }
-    &.publicationOptions {
+    &.publicationOptionsButtonMenu {
         color: $socials;
         justify-self: flex-end;
         margin-left: auto;
@@ -135,7 +135,7 @@ button {
             animation-timing-function: ease-in-out;
         }
     }
-    &.commentOptions {
+    &.commentOptionsButtonMenu {
         color: $socials;
         justify-self: flex-end;
         border-radius: 100px;
@@ -218,14 +218,14 @@ button {
         border: 1px solid $strokeChamps;
         border-radius: 0px;
         font-size: 1em;
-        width: 100px;
+        width: 200px;
     }
     &.buttonCommentOptions {
         background-color: $fondPanneaux;
         border: 1px solid $strokeChamps;
         border-radius: 0px;
         font-size: 1em;
-        width: 100px;
+        width: 150px;
     }
     &.socialsPubliButton {
         width: 100%;
