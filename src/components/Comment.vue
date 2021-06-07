@@ -11,8 +11,11 @@
         </div>
 
         <div class="commentFrame" v-if="modifyMode">
-            <textarea name="modifiedComment" id="modifiedComment" cols="30" rows="10" placeholder="Modifiez votre commentaire" class="zoneTextNewComment" v-model="commentTextArea"></textarea>
-            <BigButton type="submit" class="publishButton" text="MODIFIER" id="modifyComment" @click="sendModifiedComment"/>
+            <textarea name="modifiedComment" id="modifiedComment" cols="300" rows="10" placeholder="Modifiez votre commentaire" class="zoneTextNewComment" v-model="commentTextArea"></textarea>
+            <div>
+                <BigButton type="submit" class="publishButton" text="MODIFIER" id="modifyComment" @click="sendModifiedComment"/>
+                <BigButton type="" class="cancelButton" text="ANNULER" id="cancelModifyComment" @click="toggleModifyComment"/>
+            </div>
         </div>
 
         <CommentOptions v-show="commentOptionsSwitch" @show-comment-options="showCommentOptions" @emit-delete-comment="deleteComment" @emit-toggle-modify-comment="toggleModifyComment"/>
@@ -25,6 +28,7 @@
 import ProfilePicture from "@/components/icons/ProfilePicture.vue"
 import CommentOptions from "@/components/Frames/CommentOptions.vue"
 import ApiCommentRoutes from "@/services/ApiCommentRoutes"
+import BigButton from "@/components/Buttons/BigButton.vue"
 export default {
     name: 'Comment',
     data() {
@@ -32,7 +36,7 @@ export default {
             commentOptionsSwitch: false,
             noScroll: false,
             modifyMode: false,
-            commentTextArea: null
+            commentTextArea: null,
         }
     },
     props: {
@@ -47,7 +51,8 @@ export default {
     },
     components: {
         ProfilePicture,
-        CommentOptions
+        CommentOptions,
+        BigButton
     },
     computed: {
         datePublication() {
@@ -179,7 +184,7 @@ export default {
             }
         },
         toggleModifyComment() {
-            this.modifyMode = true;
+            this.modifyMode = !this.modifyMode;
             this.commentOptionsSwitch = !this.commentOptionsSwitch;
         },
         async sendModifiedComment() {
@@ -192,7 +197,7 @@ export default {
                 userId: this.userId,
                 token: this.token
             }
-            const modifCommConfirmation = await ApiCommentRoutes.createComment(data, authPayload);
+            const modifCommConfirmation = await ApiCommentRoutes.modifyComment(data, authPayload);
             if (modifCommConfirmation.data.message == "comment modified") {
                 this.$store.dispatch('setCurrentPubId', this.pubId);
                 console.log("ready to reload comments");

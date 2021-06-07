@@ -46,7 +46,7 @@ button {
         }
         
     }
-    &.login, &.unsubscribe, &.deletePubliButton {
+    &.login, &.unsubscribe, &.deletePubliButton, &.cancelButton {
         background-color: $groupomaniaColor;
         margin: 10px 0;
         width: 240px;
@@ -55,6 +55,15 @@ button {
         //line-height: 0px;
         &:hover {
             background-color: darken($groupomaniaColor, 10%);
+        }
+        &#cancelModifyComment {
+            color: #FFFFFF;
+            height: auto;
+            justify-self: flex-end;
+            margin-left: auto;
+            width: auto;
+            margin-right: 10px;
+            font-size: 1em;
         }
     }
     &.deletePubliButton {

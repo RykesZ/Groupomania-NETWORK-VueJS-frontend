@@ -2,7 +2,7 @@
 <div class="commentPanel">
     <div class="commentBar">
         <ProfilePicture :filename="filename"/>
-        <textarea @focus="growTextArea" @blur="shrinkTextArea" name="newComment" id="newComment" cols="30" :rows="rowsNumber" class="zoneTextNewComment" placeholder="Écrivez un commentaire..." required v-model="textComm"></textarea>
+        <textarea @focus="growTextArea" @blur="shrinkTextArea" name="newComment" id="newComment" cols="3000" :rows="rowsNumber" class="zoneTextNewComment" placeholder="Écrivez un commentaire..." required v-model="textComm"></textarea>
     </div>
     <BigButton type="submit" class="publishButton" text="PUBLIER" id="publishComment" @click="sendNewComment"/>
     <p v-show="alert">{{ alertMessage }}</p>
