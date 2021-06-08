@@ -10,7 +10,7 @@ import Publication from "@/components/Frames/Publication.vue"
 import ApiPubliRoutes from "@/services/ApiPubliRoutes"
 export default {
     name: 'FilContent',
-    emits: ['emit-redirect-modify-publi'],
+    emits: ['emit-redirect-modify-publi','emit-new-all-publi-length'],
     data() {
         return {
             publiListe: null
@@ -44,18 +44,21 @@ export default {
         },
         async updateFilContent(pageNumber) {
             const authPayload = { userId: this.userId, token: this.token };
-            const data = { pageNumber };
+            let data = { pageNumber };
             const allPublis = await ApiPubliRoutes.getAllPublications(data, authPayload);
             this.publiListe = await allPublis.data.response;
+            const allPubliLength = await allPublis.data.allPubliLength;
+            this.$emit('emit-new-all-publi-length', allPubliLength)
         }
     },
     async beforeMount() {
-        const authPayload = { userId: this.userId, token: this.token };
-        console.log(authPayload);
+        /*const authPayload = { userId: this.userId, token: this.token };
         const data = { pageNumber: 1 };
         const allPublis = await ApiPubliRoutes.getAllPublications(data, authPayload);
-        console.log(allPublis);
-        this.publiListe = await allPublis.data.response;
+        this.publiListe = await allPublis.data.response;*/
+        this.updateFilContent(1)
+
+
     }
 }
 </script>

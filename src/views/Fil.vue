@@ -1,7 +1,7 @@
 <template>
     <Header :active="active" @emit-reload-main-thread="reloadMainThread"/>
-    <FilContent ref="filContent" @emit-go-to-create-publi="goToCreatePubli" @emit-redirect-modify-publi="redirectModifyPubli" :key="reloadFilContentKey" />
-    <Pagination @emit-first-page-value="goToPage" @emit-first-button-value="goToPage" @emit-second-button-value="goToPage" @emit-last-page-value="goToPage" :firstButtonValue="firstButtonValue" :secondButtonValue="secondButtonValue" :thirdButtonValue="thirdButtonValue" />
+    <FilContent ref="filContent" @emit-go-to-create-publi="goToCreatePubli" @emit-redirect-modify-publi="redirectModifyPubli" @emit-new-all-publi-length="setNewAllPubliLength" :key="reloadFilContentKey" />
+    <Pagination @emit-first-page-value="goToPage" @emit-first-button-value="goToPage" @emit-second-button-value="goToPage" @emit-last-page-value="goToPage" :firstButtonValue="firstButtonValue" :secondButtonValue="secondButtonValue" :thirdButtonValue="thirdButtonValue" :allPubliLength="allPubliLength"/>
 </template>
 
 <script>
@@ -20,7 +20,8 @@ export default {
             reloadFilContentKey: 0,
             firstButtonValue: 1,
             secondButtonValue: 2,
-            thirdButtonValue: 3
+            thirdButtonValue: 3,
+            allPubliLength: null
         }
     },
     computed: {
@@ -60,6 +61,9 @@ export default {
                 return 1;
             }
             
+        },
+        setNewAllPubliLength(newLength) {
+            this.allPubliLength = newLength;
         }
     }
 }
