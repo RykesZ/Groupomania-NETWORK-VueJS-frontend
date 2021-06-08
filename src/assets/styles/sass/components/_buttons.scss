@@ -309,6 +309,16 @@ button {
             animation-fill-mode: both;
             animation-timing-function: ease-in-out;
         }
+        span {
+            pointer-events: none
+        }
+        &.active {
+            background-color: $fondPanneaux;
+            span {
+                font-weight: bold;
+                font-size: 1.5em;
+            }
+        }
     }
 }
 

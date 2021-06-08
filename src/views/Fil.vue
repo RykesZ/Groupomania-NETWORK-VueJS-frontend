@@ -1,7 +1,7 @@
 <template>
     <Header :active="active" @emit-reload-main-thread="reloadMainThread"/>
     <FilContent ref="filContent" @emit-go-to-create-publi="goToCreatePubli" @emit-redirect-modify-publi="redirectModifyPubli" :key="reloadFilContentKey" />
-    <Pagination @emit-first-page-value="goToPage" @emit-first-button-value="goToPage" @emit-second-button-value="goToPage" @emit-last-page-value="goToPage"/>
+    <Pagination @emit-first-page-value="goToPage" @emit-first-button-value="goToPage" @emit-second-button-value="goToPage" @emit-last-page-value="goToPage" :firstButtonValue="firstButtonValue" :secondButtonValue="secondButtonValue" :thirdButtonValue="thirdButtonValue" />
 </template>
 
 <script>
@@ -17,7 +17,10 @@ export default {
     },
     data() {
         return {
-            reloadFilContentKey: 0
+            reloadFilContentKey: 0,
+            firstButtonValue: 1,
+            secondButtonValue: 2,
+            thirdButtonValue: 3
         }
     },
     computed: {
@@ -48,6 +51,11 @@ export default {
             console.log('click');
             if (pageNumber) {
                 this.$refs.filContent.updateFilContent(pageNumber);
+                if (pageNumber > 1) {
+                    this.firstButtonValue = pageNumber - 1;
+                    this.secondButtonValue = pageNumber;
+                    this.thirdButtonValue = pageNumber + 1;
+                }
             } else {
                 return 1;
             }
