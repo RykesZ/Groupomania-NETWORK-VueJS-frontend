@@ -63,6 +63,27 @@ button {
         }
         
     }
+    @keyframes hoverInPaginationButton {
+        from {
+            background-color: rgba(0, 0, 0, 0);
+            color: $textDesactive;;
+        }
+        to {
+            background-color: $fondPanneaux;
+            color: $fondChampEcriture;
+        }
+    }
+    @keyframes hoverOutPaginationButton {
+        from {
+            background-color: $fondPanneaux;
+            color: $fondChampEcriture;
+        }
+        to {
+            background-color: rgba(0, 0, 0, 0);
+            color: $textDesactive;;
+        }
+        
+    }
     &.login, &.unsubscribe, &.deletePubliButton, &.cancelButton {
         background-color: $groupomaniaColor;
         margin: 10px 0;
@@ -265,6 +286,25 @@ button {
         animation-timing-function: ease-in-out;
         &:hover {
             animation-name: hoverIn;
+            animation-duration: 200ms;
+            animation-fill-mode: both;
+            animation-timing-function: ease-in-out;
+        }
+    }
+    &.paginationButton {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $textDesactive;
+        margin: 5px;
+        width: 2em;
+        height: 2em;
+        animation-name: hoverOutPaginationButton;
+        animation-duration: 200ms;
+        animation-fill-mode: both;
+        animation-timing-function: ease-in-out;
+        &:hover {
+            animation-name: hoverInPaginationButton;
             animation-duration: 200ms;
             animation-fill-mode: both;
             animation-timing-function: ease-in-out;

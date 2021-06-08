@@ -16,6 +16,8 @@ export default {
             publiListe: null
         }
     },
+    props: {
+    },
     components: {
         PublicationBar,
         Publication
@@ -39,6 +41,12 @@ export default {
             console.log(pubId);
             this.$store.dispatch('setCurrentPubId', pubId);
             this.$emit('emit-redirect-publi-details');
+        },
+        async updateFilContent(pageNumber) {
+            const authPayload = { userId: this.userId, token: this.token };
+            const data = { pageNumber };
+            const allPublis = await ApiPubliRoutes.getAllPublications(data, authPayload);
+            this.publiListe = await allPublis.data.response;
         }
     },
     async beforeMount() {
