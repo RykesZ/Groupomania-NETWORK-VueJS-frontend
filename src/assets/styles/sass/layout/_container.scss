@@ -22,16 +22,6 @@
         opacity: 1;
     }
 }
-@keyframes slide-left {
-    0% {
-        transform: translateX(50px);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0px);
-        opacity: 1;
-    }
-}
 
 
 .homePanel {
@@ -47,9 +37,6 @@
     padding: 10px;
     &.slideRight {
         animation-name: slide-right;
-    }
-    &.slideLeft {
-        animation-name: slide-left;
     }
     animation-duration: 1000ms;
     animation-fill-mode: both;

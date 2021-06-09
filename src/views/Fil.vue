@@ -1,7 +1,7 @@
 <template>
     <Header :active="active" @emit-reload-main-thread="reloadMainThread"/>
     <FilContent ref="filContent" @emit-go-to-create-publi="goToCreatePubli" @emit-redirect-modify-publi="redirectModifyPubli" @emit-new-all-publi-length="setNewAllPubliLength" :key="reloadFilContentKey" />
-    <Pagination @emit-first-page-value="goToPage" @emit-previous-page-value="goToPage" @emit-first-button-value="goToPage" @emit-second-button-value="goToPage" @emit-third-button-value="goToPage" @emit-search-page-value="goToPage" @emit-next-page-value="goToPage" @emit-last-page-value="goToPage" @emit-scroll-to-top="scrollToTop" :firstButtonValue="firstButtonValue" :secondButtonValue="secondButtonValue" :thirdButtonValue="thirdButtonValue" :allPubliLength="allPubliLength"/>
+    <Pagination ref="pagination" @emit-first-page-value="goToPage" @emit-previous-page-value="goToPage" @emit-first-button-value="goToPage" @emit-second-button-value="goToPage" @emit-third-button-value="goToPage" @emit-search-page-value="goToPage" @emit-next-page-value="goToPage" @emit-last-page-value="goToPage" @emit-scroll-to-top="scrollToTop" :firstButtonValue="firstButtonValue" :secondButtonValue="secondButtonValue" :thirdButtonValue="thirdButtonValue" :allPubliLength="allPubliLength"/>
 </template>
 
 <script>
@@ -31,7 +31,10 @@ export default {
     },
     methods: {
         reloadMainThread() {
-            this.reloadFilContentKey += 1;
+            //this.reloadFilContentKey += 1;
+            this.goToPage(1);
+            this.$refs.pagination.setActiveButton(1);
+            this.scrollToTop();
         },
         redirectProfile() {
             this.$router.push({ name: 'Profil' });
@@ -83,6 +86,9 @@ export default {
         scrollToTop() {
             window.scrollTo(0,0);
         }
+    },
+    beforeMount() {
+        this.scrollToTop();
     }
 }
 </script>
