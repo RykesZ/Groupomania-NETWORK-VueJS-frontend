@@ -159,6 +159,9 @@
         .material-icons {
             position: relative;
             top: 0.2em;
+            &.thumbUpActive {
+                color: $blueColor;
+            }
         }
         .numberOfLikes {
             margin-left: 3px;
@@ -191,18 +194,20 @@
         }
     }
     iframe {
-        height: 180px;
-        @media screen and (min-width: 400px) {
-            height: 360px;
-        }
-        @media screen and (min-width: 800px) {
-            height: 480px;
-        }
-        @media screen and (min-width: 1024px) {
-            height: 360px;
-        }
-        @media screen and (min-width: 1360px) {
-            height: 480px;
+        &#videoContent {
+            height: 180px;
+            @media screen and (min-width: 400px) {
+                height: 360px;
+            }
+            @media screen and (min-width: 800px) {
+                height: 480px;
+            }
+            @media screen and (min-width: 1024px) {
+                height: 360px;
+            }
+            @media screen and (min-width: 1360px) {
+                height: 480px;
+            }
         }
     }
 }

@@ -23,9 +23,12 @@
     
     <iframe :src="videoLink" frameborder="0" id="videoContent" title="Vidéo de la publication" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen v-if="videoLink != null && mediaType == null"></iframe>
 
+    <div class="media" v-if="imageLink != null && videoLink == null && mediaType == null" id="imageContent">
+        <img :src="imageLink" alt="Image du lien de publication">
+    </div>
 
     <div class="numberSocials">
-        <span class="material-icons md-18">thumb_up</span>
+        <span ref="thumbUp" class="material-icons md-18">thumb_up</span>
         <span class="numberOfLikes">{{ numberOfLikes }}</span>
         <button class="numberOfComms invisibleButton" @click="showPubliDetails" v-if="commentsAmount > 0 && commentSwitch == false"><span>voir les {{ commentsAmount }} commentaires</span></button>
         <span class="numberOfComms notAButton" v-else-if="commentsAmount <= 0">Aucun commentaire</span>
@@ -72,7 +75,8 @@ export default {
             commListe: null,
             commentsAmount: 0,
             commentSwitch: false,
-            videoLink: null
+            videoLink: null,
+            imageLink: null
         }
     },
     props: {
@@ -121,6 +125,7 @@ export default {
                 this.likersList.splice(this.likersList.indexOf(this.userId.toString(), 1));
                 console.log({"likersList": this.likersList});
             }
+            this.updateLikersList();
         },
         showPubliOptions() {
             this.publiOptionsSwitch = !this.publiOptionsSwitch
@@ -176,6 +181,13 @@ export default {
             if (this.textPubli.match(/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/)) {
                 this.videoLink = this.textPubli.match(/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/);
                 console.log({ "videoLink:": this.videoLink });
+            }
+        },
+        updateLikersList() {
+            if (this.likersList != null && this.likersList.includes(this.userId.toString())) {
+                this.$refs.thumbUp.classList.add('thumbUpActive');
+            } else {
+                this.$refs.thumbUp.classList.remove('thumbUpActive');
             }
         }
     },
@@ -307,6 +319,10 @@ export default {
         if (this.textPubli.match(/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/)) {
                 this.videoLink = "https://www.youtube.com/embed/" + this.textPubli.match(/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/)[1];
         }
+        if (this.textPubli.match(/(?:https?:\/\/)(.*?)\/(.+?)(?:\/|\?|#|$|\n)\w*.jpg/) || this.textPubli.match(/(?:https?:\/\/)(.*?)\/(.+?)(?:\/|\?|#|$|\n)\w*.png/) || this.textPubli.match(/(?:https?:\/\/)(.*?)\/(.+?)(?:\/|\?|#|$|\n)\w*.gif/)) {
+            this.imageLink = this.textPubli.match(/^(https?:)\/\/(([^:/?#]*)(?::([0-9]+))?)([/]{0,1}[^?#]*)(\?[^#]*|)(#.*|)$/)[0];
+            console.log({"imagelink": this.imageLink});
+        }
 
 
         if (this.media != null || this.media != '' || this.media != undefined) {
@@ -332,11 +348,17 @@ export default {
             console.log(this.commListe);
         }
     },
+    mounted() {
+        if (this.likersList != null && this.likersList.includes(this.userId.toString())) {
+                this.$refs.thumbUp.classList.add('thumbUpActive');
+            } else {
+                this.$refs.thumbUp.classList.remove('thumbUpActive');
+            }
+    },
     watch: {
         noScroll() {
             document.querySelector('body').style.overflow = this.noScroll ? 'hidden' : 'scroll'
         },
-        
     }
 }
 </script>
