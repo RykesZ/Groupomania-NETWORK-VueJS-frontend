@@ -1,19 +1,21 @@
 <template>
-    <PublicationBar @emit-go-to-create-publi="$emit('emit-go-to-create-publi')"/>
+    <PublicationBar @emit-go-to-create-publi="$emit('emit-go-to-create-publi')" :imageUrlUser="imageUrlUser"/>
     
-    <Publication v-for="publi in publiListe" :key="publi" :prenom="publi.firstname" :nom="publi.lastname" :textPubli="publi.text" :numberOfLikes="publi.likes" :numberOfComms="publi.comments" :imageUrl="publi.imageUrl" :fullDatePublication="publi.date_insertion" :fullDateModification="publi.date_modification" :media="publi.pubImageUrl" :pubId="publi.pubId" :usersLiked="publi.usersLiked" :likes="publi.likes" :autorId="publi.autorId" @emit-redirect-publi-details="redirectPubliDetails" @emit-redirect-modify-publi="$emit('emit-redirect-modify-publi')"/>
+    <Publication v-for="publi in publiListe" :key="publi" :prenom="publi.firstname" :nom="publi.lastname" :textPubli="publi.text" :numberOfLikes="publi.likes" :numberOfComms="publi.comments" :imageUrl="publi.imageUrl" :fullDatePublication="publi.date_insertion" :fullDateModification="publi.date_modification" :media="publi.pubImageUrl" :pubId="publi.pubId" :usersLiked="publi.usersLiked" :likes="publi.likes" :autorId="publi.autorId" @emit-redirect-publi-details="redirectPubliDetails" @emit-redirect-modify-publi="$emit('emit-redirect-modify-publi')" :imageUrlUser="imageUrlUser"/>
 </template>
 
 <script>
 import PublicationBar from "@/components/Frames/PublicationBar.vue"
 import Publication from "@/components/Frames/Publication.vue"
 import ApiPubliRoutes from "@/services/ApiPubliRoutes"
+import ApiUserRoutes from "@/services/ApiUserRoutes"
 export default {
     name: 'FilContent',
     emits: ['emit-redirect-modify-publi','emit-new-all-publi-length'],
     data() {
         return {
-            publiListe: null
+            publiListe: null,
+            imageUrlUser: ""
         }
     },
     props: {
@@ -52,11 +54,12 @@ export default {
         }
     },
     async beforeMount() {
-        /*const authPayload = { userId: this.userId, token: this.token };
-        const data = { pageNumber: 1 };
-        const allPublis = await ApiPubliRoutes.getAllPublications(data, authPayload);
-        this.publiListe = await allPublis.data.response;*/
+        // Met à jour le contenu du fil d'actualités
         this.updateFilContent(1)
+
+        const authPayload = { userId: this.userId, token: this.token }
+        const userInfo = await ApiUserRoutes.getUserInfo(authPayload);
+        this.imageUrlUser = await userInfo.data.response.imageUrl;
 
 
     }

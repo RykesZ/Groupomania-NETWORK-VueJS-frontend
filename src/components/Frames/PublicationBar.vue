@@ -1,20 +1,21 @@
 <template>
     <div class="publicationBar">
-        <ProfilePicture :changePicture="changePicture" :filename="imageUrl"/>
+        <ProfilePicture :changePicture="changePicture" :filename="imageUrlUser"/>
         <button class="publicationBarButton" @click="$emit('emit-go-to-create-publi')">Partagez vos pensées, une image, une vidéo...</button>
     </div>
 </template>
 
 <script>
 import ProfilePicture from "@/components/icons/ProfilePicture.vue"
-import ApiUserRoutes from "@/services/ApiUserRoutes"
 export default {
     name: 'PublicationBar',
     data() {
         return {
             changePicture: false,
-            imageUrl: ""
         }
+    },
+    props: {
+        imageUrlUser: {type: String}
     },
     emits: ['emit-go-to-create-publi'],
     methods: {
@@ -35,9 +36,6 @@ export default {
         ProfilePicture
     },
     async beforeMount() {
-        const authPayload = { userId: this.userId, token: this.token }
-        const userInfo = await ApiUserRoutes.getUserInfo(authPayload);
-        this.imageUrl = await userInfo.data.response.imageUrl;
     }
 }
 </script>

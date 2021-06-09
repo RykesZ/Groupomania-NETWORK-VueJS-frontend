@@ -30,18 +30,18 @@
         <button class="numberOfComms invisibleButton" @click="showPubliDetails" v-if="commentsAmount > 0 && commentSwitch == false"><span>voir les {{ commentsAmount }} commentaires</span></button>
         <span class="numberOfComms notAButton" v-else-if="commentsAmount <= 0">Aucun commentaire</span>
         <span class="numberOfComms notAButton" v-if="commentsAmount > 0 && commentSwitch == true">{{ commentsAmount }} commentaires</span>
-        <span class="numberOfShares">{{ numberOfShares }} partages </span>
+        <!--<span class="numberOfShares">{{ numberOfShares }} partages </span>-->
     </div>
 
     <div class="actionSocials">
         <LikeButton @emit-like-publi="likePublication" class="socialsPubliButton"/>
         <CommentButton class="socialsPubliButton" @click="showPubliDetails"/>
-        <ShareButton class="socialsPubliButton"/>
+        <!--<ShareButton class="socialsPubliButton"/>-->
     </div>
 
     <div v-if="commentSwitch" class="commentsBloc">
         <Comment v-for="comment in commListe" :key="comment" :prenom="comment.firstname" :nom="comment.lastname" :fullDatePublication="comment.date_insertion" :fullDateModification="comment.date_modification" :commentText="comment.text" :imageUrl="comment.imageUrl" :autorId="comment.autorId" :commId="comment.commId" @emit-reload-comments="reloadComments"/>
-        <CommentBar :filename="imageUrl" :pubId="pubId" @emit-reload-comments="reloadComments"/>
+        <CommentBar :filename="imageUrlUser" :pubId="pubId" @emit-reload-comments="reloadComments"/>
     </div>
 </div>
 
@@ -51,7 +51,7 @@
 import ProfilePicture from "@/components/icons/ProfilePicture.vue"
 import LikeButton from "@/components/Buttons/LikeButton.vue"
 import CommentButton from "@/components/Buttons/CommentButton.vue"
-import ShareButton from "@/components/Buttons/ShareButton.vue"
+//import ShareButton from "@/components/Buttons/ShareButton.vue"
 import Comment from "@/components/Comment.vue"
 import CommentBar from "@/components/Frames/CommentBar.vue"
 import ApiPubliRoutes from "@/services/ApiPubliRoutes"
@@ -89,7 +89,7 @@ export default {
         likes: {type: Number, default: 0},
         numberOfComms: {type: Number, default: 0},
         autorId: {type: Number},
-        //commentSwitch: {type: Boolean, default: false}
+        imageUrlUser: {type: String}
     },
     methods: {
         async likePublication() {
@@ -297,7 +297,7 @@ export default {
         ProfilePicture,
         LikeButton,
         CommentButton,
-        ShareButton,
+        //ShareButton,
         Comment,
         CommentBar,
         PublicationOptions,

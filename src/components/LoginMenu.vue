@@ -2,7 +2,7 @@
         <Panel>
             <ChampForm v-for="(champ, i)  in info" :key="champ" :type="champ.type" :name="champ.name" :id="champ.id" :placeholder="champ.placeholder" :required="champ.required" v-model="info[i].modelValue"/>
             <BigButton :type="loginButton.type" :class="loginButton.classe" :text="loginButton.text" @click="loginUser()"/>
-            <a href="#">Mot de passe oublié ?</a>
+            <!--<a href="#">Mot de passe oublié ?</a>-->
             <BigButton :type="signupButton.type" :class="signupButton.classe" :text="signupButton.text" @click="$emit('emit-overlay-toggle')"/>
             <p v-show="alert">{{ alertMessage }}</p>
         </Panel>
