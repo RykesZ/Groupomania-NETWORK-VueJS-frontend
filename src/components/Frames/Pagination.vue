@@ -51,7 +51,7 @@ export default {
                 // Active le 1er bouton
                 this.$refs.firstPaginationButton.classList.add('active');
                 this.activeButton = 1;
-            } else if (event.target == this.$refs.lastPagePaginationButton || (event.target == this.$refs.nextPagePaginationButton && this.thirdButtonValue == Math.ceil(this.allPubliLength / 10))) {
+            } else if (event.target == this.$refs.lastPagePaginationButton || (event.target == this.$refs.nextPagePaginationButton && this.thirdButtonValue == Math.ceil(this.allPubliLength / 10)) || (event.target == this.$refs.thirdPaginationButton && this.thirdButtonValue == Math.ceil(this.allPubliLength / 10))) {
                 // Désactive tous les boutons
                 this.$refs.firstPagePaginationButton.classList.remove('active');
                 this.$refs.firstPaginationButton.classList.remove('active');
