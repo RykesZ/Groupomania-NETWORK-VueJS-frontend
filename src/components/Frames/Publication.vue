@@ -18,6 +18,7 @@
     </div>
 
     <p class="textPubli" v-if="textPubli != null && textPubli != undefined && textPubli != 'null'">{{ textPubli }}</p>
+    
 
     <div class="media" v-if="media != null && media != '' && media != undefined && mediaType == 'image'"><img :src="`${media}`" alt="Image de Publication"></div>
     
@@ -71,12 +72,11 @@ export default {
             likersList: [],
             publiOptionsSwitch: false,
             deletePopUp: false,
-            noScroll: false,
             commListe: null,
             commentsAmount: 0,
             commentSwitch: false,
             videoLink: null,
-            imageLink: null
+            imageLink: null,
         }
     },
     props: {
@@ -129,7 +129,6 @@ export default {
         },
         showPubliOptions() {
             this.publiOptionsSwitch = !this.publiOptionsSwitch
-            //this.noScroll = !this.noScroll
         },
         toggleDelete() {
             this.deletePopUp = !this.deletePopUp
@@ -170,7 +169,6 @@ export default {
         },
         redirectModifyPubli() {
             this.publiOptionsSwitch = !this.publiOptionsSwitch
-            //this.noScroll = !this.noScroll
             this.$store.dispatch('setCurrentPubId', this.pubId);
             this.$emit('emit-redirect-modify-publi');
         },
@@ -358,9 +356,6 @@ export default {
             }
     },
     watch: {
-        noScroll() {
-            document.querySelector('body').style.overflow = this.noScroll ? 'hidden' : 'scroll'
-        },
     }
 }
 </script>

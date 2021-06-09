@@ -1,7 +1,7 @@
 <template>
     <PublicationBar @emit-go-to-create-publi="$emit('emit-go-to-create-publi')" :imageUrlUser="imageUrlUser"/>
     
-    <Publication v-for="publi in publiListe" :key="publi" :prenom="publi.firstname" :nom="publi.lastname" :textPubli="publi.text" :numberOfLikes="publi.likes" :numberOfComms="publi.comments" :imageUrl="publi.imageUrl" :fullDatePublication="publi.date_insertion" :fullDateModification="publi.date_modification" :media="publi.pubImageUrl" :pubId="publi.pubId" :usersLiked="publi.usersLiked" :likes="publi.likes" :autorId="publi.autorId" @emit-redirect-publi-details="redirectPubliDetails" @emit-redirect-modify-publi="$emit('emit-redirect-modify-publi')" :imageUrlUser="imageUrlUser"/>
+    <Publication ref="publication" class="slideRight" v-for="publi in publiListe" :key="publi" :prenom="publi.firstname" :nom="publi.lastname" :textPubli="publi.text" :numberOfLikes="publi.likes" :numberOfComms="publi.comments" :imageUrl="publi.imageUrl" :fullDatePublication="publi.date_insertion" :fullDateModification="publi.date_modification" :media="publi.pubImageUrl" :pubId="publi.pubId" :usersLiked="publi.usersLiked" :likes="publi.likes" :autorId="publi.autorId" @emit-redirect-publi-details="redirectPubliDetails" @emit-redirect-modify-publi="$emit('emit-redirect-modify-publi')" :imageUrlUser="imageUrlUser"/>
 </template>
 
 <script>
@@ -50,7 +50,7 @@ export default {
             const allPublis = await ApiPubliRoutes.getAllPublications(data, authPayload);
             this.publiListe = await allPublis.data.response;
             const allPubliLength = await allPublis.data.allPubliLength;
-            this.$emit('emit-new-all-publi-length', allPubliLength)
+            this.$emit('emit-new-all-publi-length', allPubliLength);
         }
     },
     async beforeMount() {

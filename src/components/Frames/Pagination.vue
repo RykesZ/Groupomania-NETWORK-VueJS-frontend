@@ -1,28 +1,28 @@
 <template>
     <div class="pagination">
         <!-- |< -->
-        <button ref="firstPagePaginationButton" class="paginationButton" @click="$emit('emit-first-page-value', 1), changeActiveButton($event)"><span class="material-icons">first_page</span></button>
+        <button ref="firstPagePaginationButton" class="paginationButton" @click="$emit('emit-first-page-value', 1), changeActiveButton($event), $emit('emit-scroll-to-top')"><span class="material-icons">first_page</span></button>
         <!-- < -->
-        <button v-if="activePreviousButton" ref="previousPagePaginationButton" class="paginationButton" @click="$emit('emit-previous-page-value', previousPageValue), changeActiveButton($event)"><span class="material-icons">navigate_before</span></button>
+        <button v-if="activePreviousButton" ref="previousPagePaginationButton" class="paginationButton" @click="$emit('emit-previous-page-value', previousPageValue), changeActiveButton($event), $emit('emit-scroll-to-top')"><span class="material-icons">navigate_before</span></button>
         <!-- 1 -->
-        <button ref="firstPaginationButton" class="paginationButton active" @click="$emit('emit-first-button-value', firstButtonValue), changeActiveButton($event)"><span>{{ firstButtonValue }}</span></button>
+        <button ref="firstPaginationButton" class="paginationButton active" @click="$emit('emit-first-button-value', firstButtonValue), changeActiveButton($event), $emit('emit-scroll-to-top')"><span>{{ firstButtonValue }}</span></button>
         <!-- 2 -->
-        <button v-if="activeSecondButton" ref="secondPaginationButton" class="paginationButton" @click="$emit('emit-second-button-value', secondButtonValue), changeActiveButton($event)"><span>{{ secondButtonValue }}</span></button>
+        <button v-if="activeSecondButton" ref="secondPaginationButton" class="paginationButton" @click="$emit('emit-second-button-value', secondButtonValue), changeActiveButton($event), $emit('emit-scroll-to-top')"><span>{{ secondButtonValue }}</span></button>
         <!-- 3 -->
-        <button v-if="activeThirdButton" ref="thirdPaginationButton" class="paginationButton" @click="$emit('emit-third-button-value', thirdButtonValue), changeActiveButton($event)"><span>{{ thirdButtonValue }}</span></button>
+        <button v-if="activeThirdButton" ref="thirdPaginationButton" class="paginationButton" @click="$emit('emit-third-button-value', thirdButtonValue), changeActiveButton($event), $emit('emit-scroll-to-top')"><span>{{ thirdButtonValue }}</span></button>
         <!-- ... -->
         <button v-if="activeSearchButton" class="paginationButton" @click="searchPage"><span>...</span></button>
         <!-- > -->
-        <button v-if="activeNextButton" ref="nextPagePaginationButton" class="paginationButton" @click="$emit('emit-next-page-value', nextPageValue), changeActiveButton($event)"><span class="material-icons">navigate_next</span></button>
+        <button v-if="activeNextButton" ref="nextPagePaginationButton" class="paginationButton" @click="$emit('emit-next-page-value', nextPageValue), changeActiveButton($event), $emit('emit-scroll-to-top')"><span class="material-icons">navigate_next</span></button>
         <!-- >| -->
-        <button ref="lastPagePaginationButton" class="paginationButton" @click="$emit('emit-last-page-value', 'max'), changeActiveButton($event)"><span class="material-icons">last_page</span></button>
+        <button ref="lastPagePaginationButton" class="paginationButton" @click="$emit('emit-last-page-value', 'max'), changeActiveButton($event), $emit('emit-scroll-to-top')"><span class="material-icons">last_page</span></button>
     </div>
 </template>
 
 <script>
 export default {
     name: 'Pagination',
-    emits: ['emit-first-page-value', 'emit-first-button-value', 'emit-second-button-value', 'emit-third-button-value', 'emit-last-page-value','emit-previous-page-value', 'emit-next-page-value', 'emit-search-page-value'],
+    emits: ['emit-first-page-value', 'emit-first-button-value', 'emit-second-button-value', 'emit-third-button-value', 'emit-last-page-value','emit-previous-page-value', 'emit-next-page-value', 'emit-search-page-value', 'emit-scroll-to-top'],
     data() {
         return {
             activePreviousButton: false,
@@ -77,6 +77,7 @@ export default {
             let pageNumber = prompt("Entrez le numéro de la page à laquelle vous souhaitez accéder :");
             if ((pageNumber != null || pageNumber != "") && pageNumber.match(/^[0-9]+$/) ) {
                 this.$emit('emit-search-page-value', pageNumber);
+                this.$emit('emit-scroll-to-top');
 
                 if (pageNumber == Math.ceil(this.allPubliLength / 10) || pageNumber > Math.ceil(this.allPubliLength / 10)) {
                     // Désactive tous les boutons
@@ -114,7 +115,7 @@ export default {
             } else {
                 window.alert("La valeur entrée est incorrecte")
             }
-        }
+        },
     },
     computed: {
         previousPageValue() {
