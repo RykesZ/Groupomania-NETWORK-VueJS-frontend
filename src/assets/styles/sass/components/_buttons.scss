@@ -154,6 +154,19 @@ button {
         width: 100%;
         text-align: left;
         font-weight: normal;
+
+        transform-origin: -35px;
+        transform: rotateZ(0deg);
+        transition-delay: 1000ms;
+        transition: transform 1000ms;
+        &.rotated {
+            transform: rotateZ(90deg);
+        }
+        /*animation-name: extend-right-no-transparency;
+        transform-origin: left;
+        animation-delay: 1000ms;
+        animation-duration: 1000ms;
+        animation-fill-mode: both;*/
     }
     &.publicationOptionsButtonMenu {
         color: $socials;

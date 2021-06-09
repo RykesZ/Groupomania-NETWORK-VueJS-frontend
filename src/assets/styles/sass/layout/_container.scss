@@ -22,7 +22,42 @@
         opacity: 1;
     }
 }
-
+@keyframes extend-right {
+    0% {
+        transform: scaleX(0%);
+        opacity: 0;
+    }
+    100% {
+        transform: scaleX(100%);
+        opacity: 1;
+    }
+}
+@keyframes extend-right-no-transparency {
+    0% {
+        transform: scaleX(0%);
+    }
+    100% {
+        transform: scaleX(100%);
+    }
+}
+@keyframes slide-down {
+    0% {
+        transform: translateY(-500px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+@keyframes mini-slide-down {
+    0% {
+        transform: translateY(-50px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
 
 .homePanel {
     display: flex;
@@ -233,6 +268,11 @@
     padding: 10px;
     background-color: $fondPanneaux2;
     align-content: center;
+
+    animation-name: mini-slide-down;
+    animation-duration: 1000ms;
+    animation-fill-mode: both;
+
     .PPContainer {
         display: inline-block;
         position: relative;
@@ -381,6 +421,10 @@
     display: flex;
     flex-direction: column;
     margin: 20px 0;
+
+    animation-name: slide-down;
+    animation-duration: 1000ms;
+    animation-fill-mode: both;
     .PPIdentity {
         display: flex;
         justify-content: flex-start;
