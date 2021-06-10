@@ -3,7 +3,7 @@
     <div class="headLine">
         <ProfilePicture :filename="imageUrl"/>
         <div class="infoPubli">
-            <p class="identity">{{ prenom }} {{ nom }}</p>
+            <p class="identity">{{ prenom }} {{ nom }}<span v-if="moderator" class="material-icons moderatorBadge">stars</span></p>
             <p class="datetime">Publié le {{ datePublication }} à {{ heurePublication }}</p>
             <p class="datetime" v-if="datePublication != dateModification && heurePublication != heureModification">Modifié le {{ dateModification }} à {{ heureModification }}</p>
         </div>
@@ -93,7 +93,8 @@ export default {
         likes: {type: Number, default: 0},
         numberOfComms: {type: Number, default: 0},
         autorId: {type: Number},
-        imageUrlUser: {type: String}
+        imageUrlUser: {type: String},
+        moderator: {type: Boolean, default: false}
     },
     methods: {
         async likePublication() {

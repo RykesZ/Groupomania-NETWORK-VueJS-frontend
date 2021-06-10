@@ -3,7 +3,7 @@
         <ProfilePicture :filename="imageUrl"/>
         <div class="commentFrame" v-if="!modifyMode">
             <div class="infoPubli">
-                <p class="identity">{{ prenom }} {{ nom }}</p>
+                <p class="identity">{{ prenom }} {{ nom }}<span v-if="moderator" class="material-icons moderatorBadge">stars</span></p>
                 <p class="datetime">Publié le {{ datePublication }} à {{ heurePublication }}</p>
                 <p class="datetime" v-if="datePublication != dateModification && heurePublication != heureModification">Modifié le {{ dateModification }} à {{ heureModification }}</p>
             </div>
@@ -50,7 +50,8 @@ export default {
         fullDateModification: {type: Date},
         imageUrl: {type: String},
         autorId: {type: Number},
-        commId: {type: Number}
+        commId: {type: Number},
+        moderator: {type: Boolean, default: false}
     },
     components: {
         ProfilePicture,

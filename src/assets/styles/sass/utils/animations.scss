@@ -1,0 +1,122 @@
+@keyframes hoverIn {
+    from {
+        background-color: rgba(0, 0, 0, 0);
+        color: $socials;
+    }
+    to {
+        background-color: $fondPanneaux;
+        color: $fondChampEcriture;
+    }
+}
+@keyframes hoverOut {
+    from {
+        background-color: $fondPanneaux;
+        color: $fondChampEcriture;
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0);
+        color: $socials;
+    }
+    
+}
+@keyframes hoverInHeader {
+    from {
+        background-color: rgba(0, 0, 0, 0);
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+}
+@keyframes hoverOutHeader {
+    from {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0);
+    }
+    
+}
+@keyframes hoverInPubliOptions {
+    from {
+        background-color: $fondPanneaux;
+    }
+    to {
+        background-color: $textDesactive;
+    }
+}
+@keyframes hoverOutPubliOptions {
+    from {
+        background-color: $textDesactive;
+    }
+    to {
+        background-color: $fondPanneaux;
+    }
+    
+}
+@keyframes hoverInPaginationButton {
+    from {
+        background-color: rgba(0, 0, 0, 0);
+        color: $textDesactive;;
+    }
+    to {
+        background-color: $fondPanneaux;
+        color: $fondChampEcriture;
+    }
+}
+@keyframes hoverOutPaginationButton {
+    from {
+        background-color: $fondPanneaux;
+        color: $fondChampEcriture;
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0);
+        color: $textDesactive;;
+    }
+}
+
+@keyframes slide-right {
+    0% {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+@keyframes extend-right {
+    0% {
+        transform: scaleX(0%);
+        opacity: 0;
+    }
+    100% {
+        transform: scaleX(100%);
+        opacity: 1;
+    }
+}
+@keyframes extend-right-no-transparency {
+    0% {
+        transform: scaleX(0%);
+    }
+    100% {
+        transform: scaleX(100%);
+    }
+}
+@keyframes slide-down {
+    0% {
+        transform: translateY(-500px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+@keyframes mini-slide-down {
+    0% {
+        transform: translateY(-50px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}

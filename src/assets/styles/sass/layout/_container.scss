@@ -12,53 +12,6 @@
     padding-bottom: 20px;
 }
 
-@keyframes slide-right {
-    0% {
-        transform: translateX(-50px);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0px);
-        opacity: 1;
-    }
-}
-@keyframes extend-right {
-    0% {
-        transform: scaleX(0%);
-        opacity: 0;
-    }
-    100% {
-        transform: scaleX(100%);
-        opacity: 1;
-    }
-}
-@keyframes extend-right-no-transparency {
-    0% {
-        transform: scaleX(0%);
-    }
-    100% {
-        transform: scaleX(100%);
-    }
-}
-@keyframes slide-down {
-    0% {
-        transform: translateY(-500px);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0px);
-        opacity: 1;
-    }
-}
-@keyframes mini-slide-down {
-    0% {
-        transform: translateY(-50px);
-    }
-    100% {
-        transform: translateY(0px);
-    }
-}
-
 .homePanel {
     display: flex;
     flex-direction: column;
@@ -91,6 +44,8 @@
                 font-size: 1.2em;
                 font-weight: bold;
                 color: $text;
+                display: flex;
+                align-items: center;
             }
             .datetime {
                 font-size: 0.8em;
@@ -181,6 +136,7 @@
         text-align: left;
         font-size: 1em;
         color: $text;
+        white-space: pre-wrap;
     }
     .media {
         display: flex;
@@ -594,4 +550,9 @@
     display: flex;
     justify-content: center;
     margin: 20px 0 20px 0;
+}
+
+.moderatorBadge {
+    margin-left: 5px;
+    color: $groupomaniaColor;
 }
