@@ -139,6 +139,9 @@ button {
         width: auto;
         margin-right: 10px;
         font-size: 1em;
+        &:hover {
+            background-color: darken($blueColor, 10%);
+        }
     }
     &.mediaButton {
         border-radius: 0px;
@@ -180,6 +183,9 @@ button {
         width: 90%;
         align-self: center;
         margin: 10px 30px;
+        &:hover {
+            background-color: darken($blueColor, 10%);
+        }
     }
     &.commentBarButton {
         background-color: $fondChampEcriture;
@@ -190,7 +196,7 @@ button {
         font-weight: normal;
     }
     &.buttonPubliOptions {
-        background-color: $fondPanneaux;
+        background-color: $blueColor;
         border: 1px solid $strokeChamps;
         border-radius: 0px;
         font-size: 1em;

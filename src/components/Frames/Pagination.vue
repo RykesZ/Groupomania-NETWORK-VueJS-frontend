@@ -185,7 +185,7 @@ export default {
         }
     },
     beforeMount() {
-        if (this.secondButtonValue > 1) {
+        if (this.secondButtonValue > 1 && this.activeSecondButton == true) {
             this.activeNextButton = true;
         } else {
             this.activeNextButton = false;

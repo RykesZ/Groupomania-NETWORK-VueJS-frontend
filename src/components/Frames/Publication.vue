@@ -1,5 +1,6 @@
 <template>
-<div class="publication">
+<DeletePubli v-if="deletePopUp" @emit-toggle-delete="toggleDelete" @emit-delete-publi="deletePubli"/>
+<div class="publication slideRight">
     <div class="headLine">
         <ProfilePicture :filename="imageUrl"/>
         <div class="infoPubli">
@@ -10,10 +11,10 @@
 
         
         
-        <button class="publicationOptionsButtonMenu invisibleButton" v-if="userId == autorId" @click="showPubliOptions">
+        <button class="publicationOptionsButtonMenu invisibleButton" v-if="userId == autorId || moderatorAuth == true" @click="showPubliOptions">
             <span class="material-icons md-18">more_horiz</span>
             <PublicationOptions v-show="publiOptionsSwitch" @show-publi-options="showPubliOptions" @emit-toggle-delete="toggleDelete" @emit-redirect-modify-publi="redirectModifyPubli"/>
-            <DeletePubli v-if="deletePopUp" @emit-toggle-delete="toggleDelete" @emit-delete-publi="deletePubli"/>
+            
         </button>
     </div>
 
@@ -94,7 +95,8 @@ export default {
         numberOfComms: {type: Number, default: 0},
         autorId: {type: Number},
         imageUrlUser: {type: String},
-        moderator: {type: Boolean, default: false}
+        moderator: {type: Boolean, default: false},
+        moderatorAuth: {type: Boolean, default: false}
     },
     methods: {
         async likePublication() {

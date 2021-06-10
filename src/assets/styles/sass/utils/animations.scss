@@ -4,13 +4,13 @@
         color: $socials;
     }
     to {
-        background-color: $fondPanneaux;
+        background-color: $groupomaniaColor;
         color: $fondChampEcriture;
     }
 }
 @keyframes hoverOut {
     from {
-        background-color: $fondPanneaux;
+        background-color: $groupomaniaColor;
         color: $fondChampEcriture;
     }
     to {
@@ -38,18 +38,18 @@
 }
 @keyframes hoverInPubliOptions {
     from {
-        background-color: $fondPanneaux;
+        background-color: $darkBlueColor;
     }
     to {
-        background-color: $textDesactive;
+        background-color: $groupomaniaColor;
     }
 }
 @keyframes hoverOutPubliOptions {
     from {
-        background-color: $textDesactive;
+        background-color: $groupomaniaColor;
     }
     to {
-        background-color: $fondPanneaux;
+        background-color: $darkBlueColor;
     }
     
 }

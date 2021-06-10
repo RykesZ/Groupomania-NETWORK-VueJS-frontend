@@ -44,9 +44,9 @@ export default {
                 {type: "text", name: "nom", id: "nom", placeholder: "Nom", required: false, modelValue: ""},
             ],
             info2: [
-                {type: "email", name: "email", id: "emailSignup", placeholder: "Adresse e-mail", required: false, modelValue: ""},
-                {type: "password", name: "password", id: "passwordSignup", placeholder: "Nouveau mot de passe", required: true, modelValue: ""},
-                {type: "password", name: "passwordVerif", id: "passwordSignupVerif", placeholder: "Ré-entrez le nouveau mot de passe", required: true, modelValue: ""}
+                {type: "email", name: "email", id: "emailProfile", placeholder: "Adresse e-mail", required: false, modelValue: ""},
+                {type: "password", name: "password", id: "passwordProfile", placeholder: "Nouveau mot de passe", required: true, modelValue: ""},
+                {type: "password", name: "passwordVerif", id: "passwordProfileVerif", placeholder: "Ré-entrez le nouveau mot de passe", required: true, modelValue: ""}
             ],
             updateButton: {type: "submit", classe: "updateButtonActive", text: "Mettre à jour"},
             birthdate: "",
