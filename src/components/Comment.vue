@@ -5,7 +5,7 @@
             <div class="infoPubli">
                 <p class="identity">{{ prenom }} {{ nom }}<span v-if="moderator" class="material-icons moderatorBadge">stars</span></p>
                 <p class="datetime">Publié le {{ datePublication }} à {{ heurePublication }}</p>
-                <p class="datetime" v-if="datePublication != dateModification && heurePublication != heureModification">Modifié le {{ dateModification }} à {{ heureModification }}</p>
+                <p class="datetime" v-if="datePublication != dateModification || heurePublication != heureModification">Modifié le {{ dateModification }} à {{ heureModification }}</p>
             </div>
             <p class="commentText">{{ commentText }}</p>
         </div>
@@ -20,7 +20,7 @@
 
         
 
-        <button class="commentOptionsButtonMenu invisibleButton" v-if="userId == autorId" @click="showCommentOptions">
+        <button class="commentOptionsButtonMenu invisibleButton" v-if="userId == autorId || moderatorAuth == true" @click="showCommentOptions">
             <span class="material-icons md-18">more_horiz</span>
             <CommentOptions v-show="commentOptionsSwitch" @show-comment-options="showCommentOptions" @emit-delete-comment="deleteComment" @emit-toggle-modify-comment="toggleModifyComment"/>
         </button>
@@ -51,7 +51,8 @@ export default {
         imageUrl: {type: String},
         autorId: {type: Number},
         commId: {type: Number},
-        moderator: {type: Boolean, default: false}
+        moderator: {type: Boolean, default: false},
+        moderatorAuth: {type: Boolean, default: false}
     },
     components: {
         ProfilePicture,

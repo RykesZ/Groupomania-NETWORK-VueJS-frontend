@@ -49,9 +49,10 @@ export default {
             }
             const deleteConfirmation = await ApiUserRoutes.deleteUser(payload);
             console.log(deleteConfirmation);
-            if (deleteConfirmation.message === "user deleted") {
+            if (deleteConfirmation.data.message == "user deleted") {
                 this.alert = true;
                 this.alertMessage = "Désinscription confirmée. En espérant vous revoir !";
+                localStorage.clear();
                 setTimeout(() => {
                     this.$router.push({ name: 'Home' });
                 }, 3000);

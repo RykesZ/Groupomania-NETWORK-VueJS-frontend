@@ -6,7 +6,7 @@
 
             <router-link to="/profil"><ProfilButton v-if="active == 'Profile'" class="active"/><ProfilButton  v-if="active != 'Profile'"/></router-link>
 
-            <router-link to="/"><LogOutButton /></router-link>
+            <router-link to="/"><LogOutButton @click="clearLocalStorage"/></router-link>
             
             
             
@@ -38,6 +38,9 @@ export default {
         redirectHome() {
             this.$router.push({ name: 'Home' });
         },
+        clearLocalStorage() {
+            localStorage.clear();
+        }
     }
 }
 </script>
