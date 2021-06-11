@@ -116,6 +116,7 @@
         font-size: 1em;
         color: $text;
         white-space: pre-wrap;
+        overflow-wrap: break-word;
     }
     .media {
         display: flex;

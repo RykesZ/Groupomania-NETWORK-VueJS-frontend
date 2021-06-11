@@ -144,6 +144,8 @@ button {
         }
     }
     &.mediaButton {
+        display: flex;
+        justify-content: left;
         border-radius: 0px;
         animation-name: hoverOut;
         animation-duration: 200ms;
@@ -160,14 +162,21 @@ button {
         }
         progress {
             margin-left: 20px;
+            width: 100%;
         }
         .fileName {
             overflow:hidden; 
             white-space:nowrap; 
             text-overflow: ellipsis;
+            width: 100%;
             margin-left: 10px;
             color: $text;
             font-weight: normal;
+        }
+        .textMediaButton {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
     &.updateButtonUnactive {
@@ -213,11 +222,21 @@ button {
         }
     }
     &.buttonCommentOptions {
-        background-color: $fondPanneaux;
+        background-color: $blueColor;
         border: 1px solid $strokeChamps;
         border-radius: 0px;
         font-size: 1em;
         width: 150px;
+        animation-name: hoverOutPubliOptions;
+        animation-duration: 200ms;
+        animation-fill-mode: both;
+        animation-timing-function: ease-in-out;
+        &:hover {
+            animation-name: hoverInPubliOptions;
+            animation-duration: 200ms;
+            animation-fill-mode: both;
+            animation-timing-function: ease-in-out;
+        }
     }
     &.socialsPubliButton {
         width: 100%;

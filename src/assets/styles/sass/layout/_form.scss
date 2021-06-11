@@ -78,6 +78,7 @@ input {
 
 .zoneTextNewPubli {
     resize: none;
+    font-size: 1em;
     &:focus {
         outline: none;
         border: 1px solid $strokeChamps;

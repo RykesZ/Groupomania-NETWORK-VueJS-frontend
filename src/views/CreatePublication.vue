@@ -11,9 +11,9 @@
             <input type="file" accept="video/mp4, video/mov, video/wmv" ref="inputVideoFile" @change="emitNewVideoFile">
             </button>-->
         <button class="mediaButton invisibleButton" @click="choosePicture">
-            <span class="material-icons md-48">image</span>Image
+            <span class="material-icons md-48">image</span><span class="textMediaButton">Image (.jp(e)g, .png, .gif)</span>
             <progress max="100" :value.prop="uploadPercentage" v-if="uploadPercentage > 0"></progress>
-            <span class="fileName">{{ fileName }}</span>
+            <span v-if="fileName != null" class="fileName">{{ fileName }}</span>
             <input type="file" accept="image/png, image/jpg, image/jpeg, image/gif" ref="inputImageFile" @change="emitNewImageFile">
         </button>
         <BigButton v-if="file" type="" class="cancelButton" text="ANNULER" id="cancelModifyComment" @click="emptyFile"/>

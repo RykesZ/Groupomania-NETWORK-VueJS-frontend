@@ -10,8 +10,10 @@
             <p class="commentText">{{ commentText }}</p>
         </div>
 
+
+
         <div class="commentFrame" v-if="modifyMode">
-            <textarea name="modifiedComment" id="modifiedComment" cols="300" rows="10" placeholder="Modifiez votre commentaire" class="zoneTextNewComment" v-model="commentTextArea"></textarea>
+            <textarea ref="textarea" name="modifiedComment" id="modifiedComment" cols="300" rows="10" placeholder="Modifiez votre commentaire" class="zoneTextNewComment" v-model="commentTextArea"></textarea>
             <div>
                 <BigButton type="submit" class="publishButton" text="MODIFIER" id="modifyComment" @click="sendModifiedComment"/>
                 <BigButton type="" class="cancelButton" text="ANNULER" id="cancelModifyComment" @click="toggleModifyComment"/>
@@ -20,7 +22,7 @@
 
         
 
-        <button class="commentOptionsButtonMenu invisibleButton" v-if="userId == autorId || moderatorAuth == true" @click="showCommentOptions">
+        <button ref="commentOptionsButtonMenu" class="commentOptionsButtonMenu invisibleButton" v-if="userId == autorId || moderatorAuth == true" @click="showCommentOptions">
             <span class="material-icons md-18">more_horiz</span>
             <CommentOptions v-show="commentOptionsSwitch" @show-comment-options="showCommentOptions" @emit-delete-comment="deleteComment" @emit-toggle-modify-comment="toggleModifyComment"/>
         </button>
@@ -37,7 +39,6 @@ export default {
     data() {
         return {
             commentOptionsSwitch: false,
-            noScroll: false,
             modifyMode: false,
             commentTextArea: null,
         }
@@ -60,6 +61,7 @@ export default {
         BigButton
     },
     computed: {
+        // Transforme la date Year/Month/Day-Hour:Min:Sec en date Day/MonthInLetters/Year
         datePublication() {
             const date = this.fullDatePublication.split(' ')[0];
             let YMD = date.split('-');
@@ -104,9 +106,11 @@ export default {
             let DMY = YMD.reverse();
             return DMY.join(' ');
         },
+        // Transforme la date Year/Month/Day-Hour:Min:Sec en date Hour:Min:Sec
         heurePublication() {
             return this.fullDatePublication.split(' ')[1];
         },
+        // Transforme la date Year/Month/Day-Hour:Min:Sec en date Day/MonthInLetters/Year
         dateModification() {
             const date = this.fullDateModification.split(' ')[0];
             let YMD = date.split('-');
@@ -151,13 +155,16 @@ export default {
             let DMY = YMD.reverse();
             return DMY.join(' ');
         },
+        // Transforme la date Year/Month/Day-Hour:Min:Sec en date Hour:Min:Sec
         heureModification() {
             return this.fullDateModification.split(' ')[1];
         },
+        // Récupère le userId dans le localStorage
         userId() {
             let userId = JSON.parse(localStorage.getItem('userId'));
             return userId;
         },
+        // Récupère le token d'authentification dans le localStorage
         token() {
             let token = JSON.parse(localStorage.getItem('token'));
             return token;
@@ -166,11 +173,10 @@ export default {
     methods: {
         showCommentOptions() {
             this.commentOptionsSwitch = !this.commentOptionsSwitch;
-            this.noScroll = !this.noScroll;
         },
         toggleDeleteComment() {
             this.deletePopUp = !this.deletePopUp
-            this.commentOptionsSwitch = !this.commentOptionsSwitch
+            this.commentOptionsSwitch = this.commentOptionsSwitch = false;
         },
         async deleteComment() {
             const data = {
@@ -189,8 +195,18 @@ export default {
             }
         },
         toggleModifyComment() {
-            this.modifyMode = !this.modifyMode;
-            this.commentOptionsSwitch = !this.commentOptionsSwitch;
+            if (this.modifyMode == false) {
+                this.modifyMode = !this.modifyMode;
+                setTimeout( () => {
+                this.focusTextarea();
+                this.commentOptionsSwitch = this.commentOptionsSwitch = false;
+                }, 200)
+            } else {
+                this.focusTextarea();
+                setTimeout( () => {
+                this.commentOptionsSwitch = this.commentOptionsSwitch = false;
+                }, 200)
+            } 
         },
         async sendModifiedComment() {
             const data = {
@@ -212,7 +228,11 @@ export default {
                 this.alert = true;
                 this.alertMessage = "Erreur du serveur, réessayez plus tard."
             }
-        }
+        },
+        focusTextarea() {
+            this.$refs.textarea.focus();
+            this.$refs.textarea.select();
+        },
     },
     beforeMount() {
         this.commentTextArea = this.commentText;
