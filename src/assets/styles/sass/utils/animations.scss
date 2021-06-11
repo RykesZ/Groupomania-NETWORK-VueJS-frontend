@@ -84,6 +84,16 @@
         opacity: 1;
     }
 }
+@keyframes slide-left {
+    0% {
+        transform: translateX(50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
 @keyframes extend-right {
     0% {
         transform: scaleX(0%);
@@ -118,5 +128,23 @@
     }
     100% {
         transform: translateY(0px);
+    }
+}
+
+@keyframes mini-slide-down-comment-bloc {
+    0% {
+        transform: translateY(-50%);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }

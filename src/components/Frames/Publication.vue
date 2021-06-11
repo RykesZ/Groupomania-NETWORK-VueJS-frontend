@@ -34,19 +34,19 @@
         <span class="numberOfLikes">{{ numberOfLikes }}</span>
         <button class="numberOfComms invisibleButton" @click="showPubliDetails" v-if="commentsAmount > 0 && commentSwitch == false"><span>voir les {{ commentsAmount }} commentaires</span></button>
         <span class="numberOfComms notAButton" v-else-if="commentsAmount <= 0">Aucun commentaire</span>
-        <span class="numberOfComms notAButton" v-if="commentsAmount > 0 && commentSwitch == true">{{ commentsAmount }} commentaires</span>
+        <button class="numberOfComms invisibleButton" @click="showPubliDetails" v-if="commentsAmount > 0 && commentSwitch == true">cacher les {{ commentsAmount }} commentaires</button>
         <!--<span class="numberOfShares">{{ numberOfShares }} partages </span>-->
     </div>
 
     <div class="actionSocials">
         <LikeButton @emit-like-publi="likePublication" class="socialsPubliButton"/>
-        <CommentButton class="socialsPubliButton" @click="showPubliDetails"/>
+        <CommentButton class="socialsPubliButton" @click="letsComment"/>
         <!--<ShareButton class="socialsPubliButton"/>-->
     </div>
 
     <div v-if="commentSwitch" class="commentsBloc">
         <Comment v-for="comment in commListe" :key="comment" :prenom="comment.firstname" :nom="comment.lastname" :fullDatePublication="comment.date_insertion" :fullDateModification="comment.date_modification" :commentText="comment.text" :imageUrl="comment.imageUrl" :autorId="comment.autorId" :commId="comment.commId" :moderator="comment.moderator" :moderatorAuth="moderatorAuth" @emit-reload-comments="reloadComments"/>
-        <CommentBar :filename="imageUrlUser" :pubId="pubId" @emit-reload-comments="reloadComments"/>
+        <CommentBar ref="commentBar" :filename="imageUrlUser" :pubId="pubId" @emit-reload-comments="reloadComments"/>
     </div>
 </div>
 
@@ -176,7 +176,18 @@ export default {
             this.$emit('emit-redirect-modify-publi');
         },
         showPubliDetails() {
-            this.commentSwitch = true;
+            this.commentSwitch = !this.commentSwitch;
+        },
+        letsComment() {
+            if (this.commentSwitch == false) {
+                this.commentSwitch = true;
+                setTimeout( () => {
+                    this.$refs.commentBar.focusCommentBar();
+                }, 1000)
+            } else {
+                this.$refs.commentBar.focusCommentBar();
+            }
+            
         },
         urlRegex() {
             if (this.textPubli.match(/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/)) {

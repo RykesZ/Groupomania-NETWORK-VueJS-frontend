@@ -270,9 +270,23 @@
     }
 }
 
+
+.commentsBloc {
+    animation-name: mini-slide-down-comment-bloc;
+    animation-duration: 1000ms;
+    animation-fill-mode: both;
+}
+
+
+
 .commentContainer {
     display: flex;
     margin-top: 10px;
+    animation-name: slide-right;
+    animation-duration: 500ms;
+    animation-delay: 500ms;
+    animation-fill-mode: both;
+    
     .commentFrame {
         display: flex;
         flex-direction: column;
@@ -500,10 +514,13 @@
     }
 }
 
-.commentPanel {
+.newCommentPanel {
     display: flex;
     flex-direction: column;
-    .commentBar {
+    animation-name: appear;
+    animation-duration: 1000ms;
+    animation-fill-mode: both;
+    .newCommentBar {
         display: flex;
         padding: 10px;
         background-color: $fondPanneaux2;

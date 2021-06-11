@@ -1,8 +1,8 @@
 <template>
-<div class="commentPanel">
-    <div class="commentBar">
+<div class="newCommentPanel">
+    <div class="newCommentBar">
         <ProfilePicture :filename="filename"/>
-        <textarea @focus="growTextArea" @blur="shrinkTextArea" name="newComment" id="newComment" cols="3000" :rows="rowsNumber" class="zoneTextNewComment" placeholder="Écrivez un commentaire..." required v-model="textComm"></textarea>
+        <textarea ref="textarea" @focus="growTextArea" @blur="shrinkTextArea" name="newComment" id="newComment" cols="3000" :rows="rowsNumber" class="zoneTextNewComment" placeholder="Écrivez un commentaire..." required v-model="textComm"></textarea>
     </div>
     <BigButton type="submit" class="publishButton" text="PUBLIER" id="publishComment" @click="sendNewComment"/>
     <p v-show="alert">{{ alertMessage }}</p>
@@ -44,6 +44,10 @@ export default {
         },
         shrinkTextArea() {
             this.rowsNumber = 1
+        },
+        focusCommentBar() {
+            this.$refs.textarea.focus();
+            this.$refs.textarea.select();
         },
         async sendNewComment() {
             const authPayload = { userId: this.userId, token: this.token };
