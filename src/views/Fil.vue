@@ -58,7 +58,17 @@ export default {
                     pageNumber = Math.ceil(this.allPubliLength / 10);
                 }
                 this.$refs.filContent.updateFilContent(pageNumber);
-                if (pageNumber == 1) {
+
+                this.updatePaginationButtonsValue(pageNumber);
+                
+            } else {
+                this.$refs.filContent.updateFilContent(1);
+                this.updatePaginationButtonsValue(pageNumber);
+            }
+            
+        },
+        updatePaginationButtonsValue(pageNumber) {
+            if (pageNumber == 1) {
                     this.firstButtonValue = pageNumber;
                     this.secondButtonValue = pageNumber + 1;
                     this.thirdButtonValue = pageNumber + 2;
@@ -75,10 +85,6 @@ export default {
                     this.secondButtonValue = pageNumber - 1;
                     this.thirdButtonValue = pageNumber;
                 }
-            } else {
-                return 1;
-            }
-            
         },
         setNewAllPubliLength(newLength) {
             this.allPubliLength = newLength;

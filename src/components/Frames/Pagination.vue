@@ -41,13 +41,13 @@ export default {
     },
     methods: {
         changeActiveButton(event) {
-            if ((event.target == this.$refs.firstPaginationButton && this.firstButtonValue == 1) || event.target == this.$refs.firstPagePaginationButton || (event.target == this.$refs.previousPagePaginationButton && this.secondButtonValue == 2)) {
+            if ((event.target == this.$refs.firstPaginationButton && this.firstButtonValue == 1) || event.target == this.$refs.firstPagePaginationButton || (event.target == this.$refs.previousPagePaginationButton && this.activeButton == 2 && this.secondButtonValue == 2)) {
                 this.setActiveButton(1);
+            } else if ((event.target == this.$refs.nextPagePaginationButton && this.activeButton == 1) || (event.target == this.$refs.previousPagePaginationButton && this.activeButton == 3) || ((event.target == this.$refs.thirdPaginationButton || event.target == this.$refs.nextPagePaginationButton) && this.thirdButtonValue != Math.ceil(this.allPubliLength / 10))) {
+                this.setActiveButton(2);
             } else if (event.target == this.$refs.lastPagePaginationButton || (event.target == this.$refs.nextPagePaginationButton && this.thirdButtonValue == Math.ceil(this.allPubliLength / 10)) || (event.target == this.$refs.thirdPaginationButton && this.thirdButtonValue == Math.ceil(this.allPubliLength / 10))) {
                 this.setActiveButton(3);
-            } else {
-                this.setActiveButton(2);
-            }
+            } 
         },
         searchPage() {
             let pageNumber = prompt("Entrez le numéro de la page à laquelle vous souhaitez accéder :");
@@ -56,35 +56,11 @@ export default {
                 this.$emit('emit-scroll-to-top');
 
                 if (pageNumber == Math.ceil(this.allPubliLength / 10) || pageNumber > Math.ceil(this.allPubliLength / 10)) {
-                    // Désactive tous les boutons
-                    this.$refs.firstPagePaginationButton.classList.remove('active');
-                    this.$refs.firstPaginationButton.classList.remove('active');
-                    this.$refs.secondPaginationButton.classList.remove('active');
-                    this.$refs.thirdPaginationButton.classList.remove('active');
-                    this.$refs.lastPagePaginationButton.classList.remove('active');
-                    // Active le 3eme bouton
-                    this.$refs.thirdPaginationButton.classList.add('active');
-                    this.activeButton = 3;
+                    this.setActiveButton(3);
                 } else if (pageNumber < Math.ceil(this.allPubliLength / 10) && pageNumber > 1) {
-                    // Désactive tous les boutons
-                    this.$refs.firstPagePaginationButton.classList.remove('active');
-                    this.$refs.firstPaginationButton.classList.remove('active');
-                    this.$refs.secondPaginationButton.classList.remove('active');
-                    this.$refs.thirdPaginationButton.classList.remove('active');
-                    this.$refs.lastPagePaginationButton.classList.remove('active');
-                    // Active le 2eme bouton
-                    this.$refs.secondPaginationButton.classList.add('active');
-                    this.activeButton = 2;
+                    this.setActiveButton(2);
                 } else if (pageNumber == 1) {
-                    // Désactive tous les boutons FACTORISER TOUT CA EN UNE SEULE FONCTION QUI ACTIVE/DESACTIVE
-                    this.$refs.firstPagePaginationButton.classList.remove('active');
-                    this.$refs.firstPaginationButton.classList.remove('active');
-                    this.$refs.secondPaginationButton.classList.remove('active');
-                    this.$refs.thirdPaginationButton.classList.remove('active');
-                    this.$refs.lastPagePaginationButton.classList.remove('active');
-                    // Active le 1er bouton
-                    this.$refs.firstPaginationButton.classList.add('active');
-                    this.activeButton = 1;
+                    this.setActiveButton(1);
                 }
 
 
@@ -96,34 +72,42 @@ export default {
             console.log({"ça marche bien": buttonNumber});
             if (buttonNumber == 1) {
                 // Désactive tous les boutons FACTORISER TOUT CA EN UNE SEULE FONCTION QUI ACTIVE/DESACTIVE
-                this.$refs.firstPagePaginationButton.classList.remove('active');
                 this.$refs.firstPaginationButton.classList.remove('active');
                 this.$refs.secondPaginationButton.classList.remove('active');
                 this.$refs.thirdPaginationButton.classList.remove('active');
-                this.$refs.lastPagePaginationButton.classList.remove('active');
                 // Active le 1er bouton
                 this.$refs.firstPaginationButton.classList.add('active');
                 this.activeButton = 1;
             } else if (buttonNumber == 2) {
                 // Désactive tous les boutons
-                this.$refs.firstPagePaginationButton.classList.remove('active');
                 this.$refs.firstPaginationButton.classList.remove('active');
                 this.$refs.secondPaginationButton.classList.remove('active');
                 this.$refs.thirdPaginationButton.classList.remove('active');
-                this.$refs.lastPagePaginationButton.classList.remove('active');
                 // Active le 2eme bouton
                 this.$refs.secondPaginationButton.classList.add('active');
                 this.activeButton = 2;
             } else if (buttonNumber == 3) {
                 // Désactive tous les boutons
-                this.$refs.firstPagePaginationButton.classList.remove('active');
                 this.$refs.firstPaginationButton.classList.remove('active');
                 this.$refs.secondPaginationButton.classList.remove('active');
                 this.$refs.thirdPaginationButton.classList.remove('active');
-                this.$refs.lastPagePaginationButton.classList.remove('active');
                 // Active le 3eme bouton
                 this.$refs.thirdPaginationButton.classList.add('active');
                 this.activeButton = 3;
+            }
+        },
+        testAppearNextButton() {
+            if (this.activeSecondButton == true && (this.activeButton == 2 || this.activeButton == 1)) {
+                this.activeNextButton = true;
+            } else {
+                this.activeNextButton = false;
+            }
+        },
+        testAppearPreviousButton() {
+            if (this.firstButtonValue > 1 || this.activeButton > 1) {
+                this.activePreviousButton = true;
+            } else {
+                this.activePreviousButton = false;
             }
         }
     },
@@ -162,34 +146,26 @@ export default {
                 this.activeSecondButton = false;
                 this.activeThirdButton = false;
             }
+
+            this.testAppearNextButton();
+            this.testAppearPreviousButton();
+            
         },
         firstButtonValue() {
-            if (this.firstButtonValue > 1 || this.activeButton > 1) {
-                this.activePreviousButton = true;
-            } else {
-                this.activePreviousButton = false;
-            }
+            this.testAppearNextButton();
+            this.testAppearPreviousButton();
         },
         activeButton() {
-            if (this.firstButtonValue > 1 || this.activeButton > 1) {
-                this.activePreviousButton = true;
-            } else {
-                this.activePreviousButton = false;
-            }
-
-            if (this.activeButton == 3) {
-                this.activeNextButton = false;
-            } else {
-                this.activeNextButton = true;
-            }
+            this.testAppearNextButton();
+            this.testAppearPreviousButton();
         }
     },
-    beforeMount() {
+    /*beforeMount() {
         if (this.secondButtonValue > 1 && this.activeSecondButton == true) {
             this.activeNextButton = true;
         } else {
             this.activeNextButton = false;
         }
-    }
+    }*/
 }
 </script>
