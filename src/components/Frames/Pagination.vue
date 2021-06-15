@@ -76,24 +76,36 @@ export default {
             if (buttonNumber == 1) {
                 // Désactive tous les boutons FACTORISER TOUT CA EN UNE SEULE FONCTION QUI ACTIVE/DESACTIVE
                 this.$refs.firstPaginationButton.classList.remove('active');
-                this.$refs.secondPaginationButton.classList.remove('active');
-                this.$refs.thirdPaginationButton.classList.remove('active');
+                if (this.appearSecondButton) {
+                    this.$refs.secondPaginationButton.classList.remove('active');
+                }
+                if (this.appearThirdButton) {
+                    this.$refs.thirdPaginationButton.classList.remove('active');
+                }
                 // Active le 1er bouton
                 this.$refs.firstPaginationButton.classList.add('active');
                 this.activeButton = 1;
             } else if (buttonNumber == 2) {
                 // Désactive tous les boutons
                 this.$refs.firstPaginationButton.classList.remove('active');
-                this.$refs.secondPaginationButton.classList.remove('active');
-                this.$refs.thirdPaginationButton.classList.remove('active');
+                if (this.appearSecondButton) {
+                    this.$refs.secondPaginationButton.classList.remove('active');
+                }
+                if (this.appearThirdButton) {
+                    this.$refs.thirdPaginationButton.classList.remove('active');
+                }
                 // Active le 2eme bouton
                 this.$refs.secondPaginationButton.classList.add('active');
                 this.activeButton = 2;
             } else if (buttonNumber == 3) {
                 // Désactive tous les boutons
                 this.$refs.firstPaginationButton.classList.remove('active');
-                this.$refs.secondPaginationButton.classList.remove('active');
-                this.$refs.thirdPaginationButton.classList.remove('active');
+                if (this.appearSecondButton) {
+                    this.$refs.secondPaginationButton.classList.remove('active');
+                }
+                if (this.appearThirdButton) {
+                    this.$refs.thirdPaginationButton.classList.remove('active');
+                }
                 // Active le 3eme bouton
                 this.$refs.thirdPaginationButton.classList.add('active');
                 this.activeButton = 3;
