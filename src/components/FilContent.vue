@@ -1,7 +1,7 @@
 <template>
     <PublicationBar @emit-go-to-create-publi="$emit('emit-go-to-create-publi')" :imageUrlUser="imageUrlUser"/>
     
-    <Publication ref="publication" v-for="publi in publiListe" :key="publi" :prenom="publi.firstname" :nom="publi.lastname" :moderator="publi.moderator" :moderatorAuth="moderatorAuth" :textPubli="publi.text" :numberOfLikes="publi.likes" :numberOfComms="publi.comments" :imageUrl="publi.imageUrl" :fullDatePublication="publi.date_insertion" :fullDateModification="publi.date_modification" :media="publi.pubImageUrl" :pubId="publi.pubId" :usersLiked="publi.usersLiked" :likes="publi.likes" :autorId="publi.autorId" @emit-redirect-publi-details="redirectPubliDetails" @emit-redirect-modify-publi="$emit('emit-redirect-modify-publi')" :imageUrlUser="imageUrlUser"/>
+    <Publication ref="publication" v-for="publi in publiListe" :key="publi" :prenom="publi.firstname" :nom="publi.lastname" :moderator="publi.moderator" :moderatorAuth="moderatorAuth" :textPubli="publi.text" :numberOfComms="publi.comments" :imageUrl="publi.imageUrl" :fullDatePublication="publi.date_insertion" :fullDateModification="publi.date_modification" :media="publi.pubImageUrl" :pubId="publi.pubId" :usersLiked="publi.usersLiked" :likes="publi.likes" :autorId="publi.autorId" @emit-redirect-publi-details="redirectPubliDetails" @emit-redirect-modify-publi="$emit('emit-redirect-modify-publi')" :imageUrlUser="imageUrlUser"/>
 </template>
 
 <script>
@@ -11,12 +11,12 @@ import ApiPubliRoutes from "@/services/ApiPubliRoutes"
 import ApiUserRoutes from "@/services/ApiUserRoutes"
 export default {
     name: 'FilContent',
-    emits: ['emit-redirect-modify-publi','emit-new-all-publi-length'],
+    emits: ['emit-redirect-modify-publi','emit-new-all-publi-length', 'emit-go-to-create-publi'],
     data() {
         return {
             publiListe: null,
             imageUrlUser: "",
-            moderatorAuth: false
+            moderatorAuth: 0
         }
     },
     props: {

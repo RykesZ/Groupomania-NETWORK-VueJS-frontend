@@ -3,17 +3,17 @@
         <!-- |< -->
         <button ref="firstPagePaginationButton" class="paginationButton" @click="$emit('emit-first-page-value', 1), changeActiveButton($event), $emit('emit-scroll-to-top')"><span class="material-icons">first_page</span></button>
         <!-- < -->
-        <button v-if="activePreviousButton" ref="previousPagePaginationButton" class="paginationButton" @click="$emit('emit-previous-page-value', previousPageValue), changeActiveButton($event), $emit('emit-scroll-to-top')"><span class="material-icons">navigate_before</span></button>
+        <button v-if="appearPreviousButton" ref="previousPagePaginationButton" class="paginationButton" @click="$emit('emit-previous-page-value', previousPageValue), changeActiveButton($event), $emit('emit-scroll-to-top')"><span class="material-icons">navigate_before</span></button>
         <!-- 1 -->
         <button ref="firstPaginationButton" class="paginationButton active" @click="$emit('emit-first-button-value', firstButtonValue), changeActiveButton($event), $emit('emit-scroll-to-top')"><span>{{ firstButtonValue }}</span></button>
         <!-- 2 -->
-        <button v-if="activeSecondButton" ref="secondPaginationButton" class="paginationButton" @click="$emit('emit-second-button-value', secondButtonValue), changeActiveButton($event), $emit('emit-scroll-to-top')"><span>{{ secondButtonValue }}</span></button>
+        <button v-if="appearSecondButton" ref="secondPaginationButton" class="paginationButton" @click="$emit('emit-second-button-value', secondButtonValue), changeActiveButton($event), $emit('emit-scroll-to-top')"><span>{{ secondButtonValue }}</span></button>
         <!-- 3 -->
-        <button v-if="activeThirdButton" ref="thirdPaginationButton" class="paginationButton" @click="$emit('emit-third-button-value', thirdButtonValue), changeActiveButton($event), $emit('emit-scroll-to-top')"><span>{{ thirdButtonValue }}</span></button>
+        <button v-if="appearThirdButton" ref="thirdPaginationButton" class="paginationButton" @click="$emit('emit-third-button-value', thirdButtonValue), changeActiveButton($event), $emit('emit-scroll-to-top')"><span>{{ thirdButtonValue }}</span></button>
         <!-- ... -->
-        <button v-if="activeSearchButton" class="paginationButton" @click="searchPage"><span>...</span></button>
+        <button v-if="appearSearchButton" class="paginationButton" @click="searchPage"><span>...</span></button>
         <!-- > -->
-        <button v-if="activeNextButton" ref="nextPagePaginationButton" class="paginationButton" @click="$emit('emit-next-page-value', nextPageValue), changeActiveButton($event), $emit('emit-scroll-to-top')"><span class="material-icons">navigate_next</span></button>
+        <button v-if="appearNextButton" ref="nextPagePaginationButton" class="paginationButton" @click="$emit('emit-next-page-value', nextPageValue), changeActiveButton($event), $emit('emit-scroll-to-top')"><span class="material-icons">navigate_next</span></button>
         <!-- >| -->
         <button ref="lastPagePaginationButton" class="paginationButton" @click="$emit('emit-last-page-value', 'max'), changeActiveButton($event), $emit('emit-scroll-to-top')"><span class="material-icons">last_page</span></button>
     </div>
@@ -25,11 +25,11 @@ export default {
     emits: ['emit-first-page-value', 'emit-first-button-value', 'emit-second-button-value', 'emit-third-button-value', 'emit-last-page-value','emit-previous-page-value', 'emit-next-page-value', 'emit-search-page-value', 'emit-scroll-to-top'],
     data() {
         return {
-            activePreviousButton: false,
-            activeSecondButton: false,
-            activeThirdButton: false,
-            activeSearchButton: false,
-            activeNextButton: false,
+            appearPreviousButton: false,
+            appearSecondButton: false,
+            appearThirdButton: false,
+            appearSearchButton: false,
+            appearNextButton: false,
             activeButton: 1
         }
     },
@@ -42,10 +42,13 @@ export default {
     methods: {
         changeActiveButton(event) {
             if ((event.target == this.$refs.firstPaginationButton && this.firstButtonValue == 1) || event.target == this.$refs.firstPagePaginationButton || (event.target == this.$refs.previousPagePaginationButton && this.activeButton == 2 && this.secondButtonValue == 2)) {
+                console.log("active button 1")
                 this.setActiveButton(1);
-            } else if ((event.target == this.$refs.nextPagePaginationButton && this.activeButton == 1) || (event.target == this.$refs.previousPagePaginationButton && this.activeButton == 3) || ((event.target == this.$refs.thirdPaginationButton || event.target == this.$refs.nextPagePaginationButton) && this.thirdButtonValue != Math.ceil(this.allPubliLength / 10))) {
+            } else if ((event.target == this.$refs.nextPagePaginationButton && this.activeButton == 1) || (event.target == this.$refs.previousPagePaginationButton && this.activeButton == 3) || ((event.target == this.$refs.thirdPaginationButton || event.target == this.$refs.nextPagePaginationButton) && this.thirdButtonValue != Math.ceil(this.allPubliLength / 10)) || (event.target == this.$refs.lastPagePaginationButton && !this.appearThirdButton)) {
+                console.log("active button 2")
                 this.setActiveButton(2);
             } else if (event.target == this.$refs.lastPagePaginationButton || (event.target == this.$refs.nextPagePaginationButton && this.thirdButtonValue == Math.ceil(this.allPubliLength / 10)) || (event.target == this.$refs.thirdPaginationButton && this.thirdButtonValue == Math.ceil(this.allPubliLength / 10))) {
+                console.log("active button 3")
                 this.setActiveButton(3);
             } 
         },
@@ -97,17 +100,17 @@ export default {
             }
         },
         testAppearNextButton() {
-            if (this.activeSecondButton == true && (this.activeButton == 2 || this.activeButton == 1)) {
-                this.activeNextButton = true;
+            if (this.appearSecondButton == true && (this.activeButton == 2 || this.activeButton == 1)) {
+                this.appearNextButton = true;
             } else {
-                this.activeNextButton = false;
+                this.appearNextButton = false;
             }
         },
         testAppearPreviousButton() {
             if (this.firstButtonValue > 1 || this.activeButton > 1) {
-                this.activePreviousButton = true;
+                this.appearPreviousButton = true;
             } else {
-                this.activePreviousButton = false;
+                this.appearPreviousButton = false;
             }
         }
     },
@@ -131,20 +134,20 @@ export default {
     watch: {
         allPubliLength() {
             if (this.allPubliLength > 10) {
-                this.activeSecondButton = true;
+                this.appearSecondButton = true;
                 if (this.allPubliLength > 20) {
-                    this.activeThirdButton = true;
+                    this.appearThirdButton = true;
                     if (this.allPubliLength > 30) {
-                        this.activeSearchButton = true;
+                        this.appearSearchButton = true;
                     } else {
-                        this.activeSearchButton = false;
+                        this.appearSearchButton = false;
                     }
                 } else {
-                    this.activeThirdButton = false;
+                    this.appearThirdButton = false;
                 }
             } else {
-                this.activeSecondButton = false;
-                this.activeThirdButton = false;
+                this.appearSecondButton = false;
+                this.appearThirdButton = false;
             }
 
             this.testAppearNextButton();
@@ -161,10 +164,10 @@ export default {
         }
     },
     /*beforeMount() {
-        if (this.secondButtonValue > 1 && this.activeSecondButton == true) {
-            this.activeNextButton = true;
+        if (this.secondButtonValue > 1 && this.appearSecondButton == true) {
+            this.appearNextButton = true;
         } else {
-            this.activeNextButton = false;
+            this.appearNextButton = false;
         }
     }*/
 }

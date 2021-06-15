@@ -83,8 +83,8 @@ export default {
     props: {
         prenom: {type: String, default: "Prénom"},
         nom: {type: String, default: "Nom"},
-        fullDatePublication: {type: Date},
-        fullDateModification: {type: Date},
+        fullDatePublication: {type: String},
+        fullDateModification: {type: String},
         textPubli: {type: String, default: "Lorem ipsum "},
         media: {type: String},
         numberOfShares: {type: Number, default: 0},
@@ -92,18 +92,18 @@ export default {
         pubId: {type: Number},
         usersLiked: {type: String, default: ''},
         likes: {type: Number, default: 0},
-        numberOfComms: {type: Number, default: 0},
+        numberOfComms: {type:String, default: "0"},
         autorId: {type: Number},
         imageUrlUser: {type: String},
-        moderator: {type: Boolean, default: false},
-        moderatorAuth: {type: Boolean, default: false}
+        moderator: {type: Number, default: 0},
+        moderatorAuth: {type: Number, default: 0}
     },
     methods: {
         async likePublication() {
             
             const likeValue = () => {
-                console.log(this.likersList);
-                console.log(this.userId);
+                //console.log(this.likersList);
+                //console.log(this.userId);
                 if (this.likersList.includes(this.userId.toString())) {
                     return 0;
                 } else {
@@ -116,17 +116,17 @@ export default {
                 like: like
             };
             const authPayload = { userId: this.userId, token: this.token };
-            console.log({"likers": this.usersLiked});
+            //console.log({"likers": this.usersLiked});
             const likeConfirmation = await ApiPubliRoutes.likePublication(data, authPayload);
             if (likeConfirmation.data.message == "publication liked") {
                 this.numberOfLikes += 1;
                 this.likersList.push(this.userId.toString());
-                console.log({"likersList": this.likersList});
+                //console.log({"likersList": this.likersList});
             } else if (likeConfirmation.data.message == "publication unliked") {
-                console.log({"likersListbefore-1": this.likersList});
+                //console.log({"likersListbefore-1": this.likersList});
                 this.numberOfLikes -= 1;
                 this.likersList.splice(this.likersList.indexOf(this.userId.toString(), 1));
-                console.log({"likersList": this.likersList});
+                //console.log({"likersList": this.likersList});
             }
             this.updateLikersList();
         },
@@ -146,11 +146,11 @@ export default {
                 token: this.token
             }
             const deleteConfirmation = await ApiPubliRoutes.deletePublication(data, authPayload);
-            console.log(deleteConfirmation.data)
+            //console.log(deleteConfirmation.data)
             if (deleteConfirmation.data.message == "publication deleted") {
                 window.location.reload();
             } else {
-                console.log(deleteConfirmation.message);
+                //console.log(deleteConfirmation.message);
             }
         },
         async reloadComments(payload) {
@@ -163,7 +163,7 @@ export default {
                 const data = { pubId: this.pubId };
                 const allComms = await ApiCommentRoutes.getAllComments(data, authPayload);
                 this.commListe = await allComms.data.response;
-                console.log(this.commListe);
+                //console.log(this.commListe);
             } else {
                 this.commListe = null;
             }
@@ -192,7 +192,7 @@ export default {
         urlRegex() {
             if (this.textPubli.match(/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/)) {
                 this.videoLink = this.textPubli.match(/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/);
-                console.log({ "videoLink:": this.videoLink });
+                //console.log({ "videoLink:": this.videoLink });
             }
         },
         updateLikersList() {
@@ -335,7 +335,7 @@ export default {
         // Permet d'intégrer une image hébergée sur un autre site à la publication à partir d'un lien dans le texte
         if (this.textPubli.match(/^(?:(?<scheme>[^:/?#]+):)?(?:\/\/(?<authority>[^/?#]*))?(?<path>[^?#]*\/)?(?<file>[^?#]*\.(?<extension>[Jj][Pp][Ee]?[Gg]|[Pp][Nn][Gg]|[Gg][Ii][Ff]))(?:\?(?<query>[^#]*))?(?:#(?<fragment>.*))?$/gm)) {
             this.imageLink = this.textPubli.match(/^(https?:)\/\/(([^:/?#]*)(?::([0-9]+))?)([/]{0,1}[^?#]*)(\?[^#]*|)(#.*|)$/)[0];
-            console.log({"imagelink": this.imageLink});
+            //console.log({"imagelink": this.imageLink});
         }
 
 
@@ -343,14 +343,14 @@ export default {
             this.mediaPresent = true;
         }
         this.numberOfLikes = this.likes;
-        console.log(this.usersLiked);
+        //console.log(this.usersLiked);
         if (this.usersLiked != null) {
             this.likersList = this.usersLiked.split(',');
             if (this.likersList[0] == '') {
                 this.likersList.shift();
             }
         }
-        console.log(this.autorId)
+        //console.log(this.autorId)
 
         this.commentsAmount = Number(this.numberOfComms);
 
@@ -359,7 +359,7 @@ export default {
             const data = { pubId: this.pubId };
             const allComms = await ApiCommentRoutes.getAllComments(data, authPayload);
             this.commListe = await allComms.data.response;
-            console.log(this.commListe);
+            //console.log(this.commListe);
         }
     },
     mounted() {

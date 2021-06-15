@@ -30,7 +30,7 @@ class ApiUserRoutes {
             });
             if (response.request.readyState === 4) {
                 if (response.status  === 200 || response.status === 201) {
-                    console.log(response);
+                    //console.log(response);
                     return(response);
                 }
             }
@@ -44,16 +44,16 @@ class ApiUserRoutes {
         const data = payload.data;
         let dataKeys = Object.keys(data);
         const formData = new FormData();
-        console.log(dataKeys);
+        //console.log(dataKeys);
         for (let i = 0; i < dataKeys.length; i++) {
-            console.log(data[dataKeys[i]]);
+            //console.log(data[dataKeys[i]]);
             formData.append(dataKeys[i], data[dataKeys[i]]);
         }
         formData.append('file', file);
-        console.log(file);
+        //console.log(file);
 
-        console.log(payload.data);
-        console.log(payload.authToken);
+        //console.log(payload.data);
+        //console.log(payload.authToken);
         try {
             const response = await axios.put(api + '/modify',
                 formData, {

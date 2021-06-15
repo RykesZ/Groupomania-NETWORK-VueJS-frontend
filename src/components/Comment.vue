@@ -47,13 +47,13 @@ export default {
         commentText: String,
         prenom: {type: String, default: "Elle"},
         nom: {type: String, default: "Hughes"},
-        fullDatePublication: {type: Date},
-        fullDateModification: {type: Date},
+        fullDatePublication: {type: String},
+        fullDateModification: {type: String},
         imageUrl: {type: String},
         autorId: {type: Number},
         commId: {type: Number},
-        moderator: {type: Boolean, default: false},
-        moderatorAuth: {type: Boolean, default: false}
+        moderator: {type: Number, default: 0},
+        moderatorAuth: {type: Number, default: 0}
     },
     components: {
         ProfilePicture,

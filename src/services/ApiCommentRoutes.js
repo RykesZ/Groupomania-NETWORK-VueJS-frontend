@@ -27,7 +27,7 @@ class ApiCommentRoutes {
 
     getAllComments = async (data, authPayload) => {
         const pubId = data.pubId;
-        console.log(pubId);
+        //console.log(pubId);
         try {
             const response = await axios.get(api + `/${pubId}`, {
                 params: {
@@ -35,7 +35,7 @@ class ApiCommentRoutes {
                     token: authPayload.token,
                 }
             });
-            console.log(response);
+            //console.log(response);
             return response;
         } catch (error) {
             return error;
@@ -44,7 +44,7 @@ class ApiCommentRoutes {
 
     deleteComment = async (data, authPayload) => {
         const commId = data.commId;
-        console.log({"commId": data.commId})
+        //console.log({"commId": data.commId})
         try {
             const response = await axios.delete(api, {
                 params: {
