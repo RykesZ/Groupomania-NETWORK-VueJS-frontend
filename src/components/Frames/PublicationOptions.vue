@@ -2,7 +2,7 @@
     <div class="panelPubliOptions">
         <button class="buttonPubliOptions" @click="$emit('emit-redirect-modify-publi')">Modifier</button>
         <button class="buttonPubliOptions" @click="$emit('emit-toggle-delete')">Supprimer</button>
-        <!--<button class="buttonPubliOptions" @click="$emit('show-publi-options')">Annuler</button>-->
+        <button class="buttonPubliOptions" @click="$emit('show-publi-options')">Annuler</button>
     </div>
     
 </template>

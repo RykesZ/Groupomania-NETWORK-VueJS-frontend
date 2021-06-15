@@ -42,13 +42,13 @@ export default {
     methods: {
         changeActiveButton(event) {
             if ((event.target == this.$refs.firstPaginationButton && this.firstButtonValue == 1) || event.target == this.$refs.firstPagePaginationButton || (event.target == this.$refs.previousPagePaginationButton && this.activeButton == 2 && this.secondButtonValue == 2)) {
-                console.log("active button 1")
+                //console.log("active button 1")
                 this.setActiveButton(1);
             } else if ((event.target == this.$refs.nextPagePaginationButton && this.activeButton == 1) || (event.target == this.$refs.previousPagePaginationButton && this.activeButton == 3) || ((event.target == this.$refs.thirdPaginationButton || event.target == this.$refs.nextPagePaginationButton) && this.thirdButtonValue != Math.ceil(this.allPubliLength / 10)) || (event.target == this.$refs.lastPagePaginationButton && !this.appearThirdButton)) {
-                console.log("active button 2")
+                //console.log("active button 2")
                 this.setActiveButton(2);
             } else if (event.target == this.$refs.lastPagePaginationButton || (event.target == this.$refs.nextPagePaginationButton && this.thirdButtonValue == Math.ceil(this.allPubliLength / 10)) || (event.target == this.$refs.thirdPaginationButton && this.thirdButtonValue == Math.ceil(this.allPubliLength / 10))) {
-                console.log("active button 3")
+                //console.log("active button 3")
                 this.setActiveButton(3);
             } 
         },
@@ -72,7 +72,7 @@ export default {
             }
         },
         setActiveButton(buttonNumber) {
-            console.log({"ça marche bien": buttonNumber});
+            //console.log({"ça marche bien": buttonNumber});
             if (buttonNumber == 1) {
                 // Désactive tous les boutons FACTORISER TOUT CA EN UNE SEULE FONCTION QUI ACTIVE/DESACTIVE
                 this.$refs.firstPaginationButton.classList.remove('active');

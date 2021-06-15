@@ -225,7 +225,8 @@ button {
         background-color: $blueColor;
         border: 1px solid $strokeChamps;
         border-radius: 0px;
-        font-size: 1em;
+        font-size: 0.8em;
+        padding: 5px;
         width: 150px;
         animation-name: hoverOutPubliOptions;
         animation-duration: 200ms;

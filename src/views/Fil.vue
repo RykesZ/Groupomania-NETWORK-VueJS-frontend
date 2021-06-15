@@ -52,7 +52,7 @@ export default {
             this.$router.push({ name: 'ModifyPublication' });
         },
         goToPage(pageNumber) {
-            console.log('click');
+            //console.log('click');
             if (pageNumber) {
                 if (pageNumber > Math.ceil(this.allPubliLength / 10)) {
                     pageNumber = Math.ceil(this.allPubliLength / 10);
@@ -69,22 +69,22 @@ export default {
         },
         updatePaginationButtonsValue(pageNumber) {
             if (pageNumber == 1) {
-                console.log("1ere possibilité");
+                //console.log("1ere possibilité");
                 this.firstButtonValue = Number(pageNumber);
                 this.secondButtonValue = Number(pageNumber) + 1;
                 this.thirdButtonValue = Number(pageNumber) + 2;
             } else if (pageNumber > 1 && pageNumber < Math.ceil(this.allPubliLength / 10) /*&& !(pageNumber == 2 && this.secondButtonValue == 2)*/) {
-                console.log("2eme possibilité");
+                //console.log("2eme possibilité");
                 this.firstButtonValue = Number(pageNumber) - 1;
                 this.secondButtonValue = Number(pageNumber);
                 this.thirdButtonValue = Number(pageNumber) + 1;
             } else if (pageNumber == 'max' && this.allPubliLength > 20) {
-                console.log("3eme possibilité");
+                //console.log("3eme possibilité");
                 this.thirdButtonValue = Math.ceil(this.allPubliLength / 10);
                 this.secondButtonValue = this.thirdButtonValue - 1;
                 this.firstButtonValue = this.secondButtonValue - 1;
             } else if (pageNumber > 1 && pageNumber == Math.ceil(this.allPubliLength / 10) && this.allPubliLength > 20) {
-                console.log("4eme possibilité");
+                //console.log("4eme possibilité");
                 this.firstButtonValue = Number(pageNumber) - 2;
                 this.secondButtonValue = Number(pageNumber) - 1;
                 this.thirdButtonValue = Number(pageNumber);

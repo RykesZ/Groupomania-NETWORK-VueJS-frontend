@@ -8,6 +8,7 @@
                 <p class="datetime" v-if="datePublication != dateModification || heurePublication != heureModification">Modifié le {{ dateModification }} à {{ heureModification }}</p>
             </div>
             <p class="commentText">{{ commentText }}</p>
+            <CommentOptions v-show="commentOptionsSwitch" @show-comment-options="showCommentOptions" @emit-delete-comment="deleteComment" @emit-toggle-modify-comment="toggleModifyComment"/>
         </div>
 
 
@@ -24,7 +25,7 @@
 
         <button ref="commentOptionsButtonMenu" class="commentOptionsButtonMenu invisibleButton" v-if="userId == autorId || moderatorAuth == true" @click="showCommentOptions">
             <span class="material-icons md-18">more_horiz</span>
-            <CommentOptions v-show="commentOptionsSwitch" @show-comment-options="showCommentOptions" @emit-delete-comment="deleteComment" @emit-toggle-modify-comment="toggleModifyComment"/>
+            
         </button>
     </div>
 </template>
@@ -195,18 +196,13 @@ export default {
             }
         },
         toggleModifyComment() {
-            if (this.modifyMode == false) {
-                this.modifyMode = !this.modifyMode;
+            this.modifyMode = !this.modifyMode;
+            if (this.modifyMode == true) {
                 setTimeout( () => {
                 this.focusTextarea();
                 this.commentOptionsSwitch = this.commentOptionsSwitch = false;
                 }, 200)
-            } else {
-                this.focusTextarea();
-                setTimeout( () => {
-                this.commentOptionsSwitch = this.commentOptionsSwitch = false;
-                }, 200)
-            } 
+            }
         },
         async sendModifiedComment() {
             const data = {

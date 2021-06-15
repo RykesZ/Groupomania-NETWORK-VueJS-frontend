@@ -13,12 +13,13 @@
         
         <button class="publicationOptionsButtonMenu invisibleButton" v-if="userId == autorId || moderatorAuth == true" @click="showPubliOptions">
             <span class="material-icons md-18">more_horiz</span>
-            <PublicationOptions v-show="publiOptionsSwitch" @show-publi-options="showPubliOptions" @emit-toggle-delete="toggleDelete" @emit-redirect-modify-publi="redirectModifyPubli"/>
+            
             
         </button>
     </div>
 
     <p class="textPubli" v-if="textPubli != null && textPubli != undefined && textPubli != 'null'">{{ textPubli }}</p>
+    <PublicationOptions v-show="publiOptionsSwitch" @show-publi-options="showPubliOptions" @emit-toggle-delete="toggleDelete" @emit-redirect-modify-publi="redirectModifyPubli"/>
     
 
     <div class="media" v-if="media != null && media != '' && media != undefined && mediaType == 'image'"><img :src="`${media}`" alt="Image de Publication"></div>
