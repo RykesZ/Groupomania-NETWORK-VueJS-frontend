@@ -93,7 +93,7 @@ export default {
         pubId: {type: Number},
         usersLiked: {type: String, default: ''},
         likes: {type: Number, default: 0},
-        numberOfComms: {type:String, default: "0"},
+        numberOfComms: {type: Number, default: 0},
         autorId: {type: Number},
         imageUrlUser: {type: String},
         moderator: {type: Number, default: 0},
@@ -334,8 +334,8 @@ export default {
                 this.videoLink = "https://www.youtube.com/embed/" + this.textPubli.match(/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/)[1];
         }
         // Permet d'intégrer une image hébergée sur un autre site à la publication à partir d'un lien dans le texte
-        if (this.textPubli.match(/^(?:(?<scheme>[^:/?#]+):)?(?:\/\/(?<authority>[^/?#]*))?(?<path>[^?#]*\/)?(?<file>[^?#]*\.(?<extension>[Jj][Pp][Ee]?[Gg]|[Pp][Nn][Gg]|[Gg][Ii][Ff]))(?:\?(?<query>[^#]*))?(?:#(?<fragment>.*))?$/gm)) {
-            this.imageLink = this.textPubli.match(/^(https?:)\/\/(([^:/?#]*)(?::([0-9]+))?)([/]{0,1}[^?#]*)(\?[^#]*|)(#.*|)$/)[0];
+        if (this.textPubli.match(/(?:(?<scheme>[^:/?#]+):)?(?:\/\/(?<authority>[^/?#]*))?(?<path>[^?#]*\/)?(?<file>[^?#]*\.(?<extension>[Jj][Pp][Ee]?[Gg]|[Pp][Nn][Gg]|[Gg][Ii][Ff]))(?:\?(?<query>[^#]*))?(?:#(?<fragment>.*))?/gm)) {
+            this.imageLink = this.textPubli.match(/(https?:)\/\/(([^:/?#]*)(?::([0-9]+))?)([/]{0,1}[^?#]*)(\?[^#]*|)(#.*|)/)[0];
             //console.log({"imagelink": this.imageLink});
         }
 
