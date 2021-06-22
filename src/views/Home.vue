@@ -1,7 +1,7 @@
 <template>
 <div class="homePanel">
     <LogoHome />
-    <LoginMenu v-show="!overlay" @emitOverlayToggle="overlayToggle"/>
+    <LoginMenu v-show="!overlay" @emit-overlay-toggle="overlayToggle"/>
     <SignupMenu v-show="overlay" @emit-close-pop-up="overlayToggle"/>
 </div>
 </template>
