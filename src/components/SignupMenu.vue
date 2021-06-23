@@ -26,6 +26,7 @@ export default {
         pickGender(payload) {
             this.gender = payload.pickedOption;
         },
+        // Demande l'envoi au serveur de la requête HTTP contenant les infos de l'utilisateur à créer et attend sa réponse
         async signupNewUser() {
             const data = {
                 firstname: this.info[0].modelValue,
@@ -37,10 +38,12 @@ export default {
                 gender: this.gender
             };
 
+            // Vérifie que le mdp et la confirmation de mdp correspondent
             if (data.password === data.passwordVerif) {
                 this.alert = false;
                 const isSignedUp = await ApiUserRoutes.signupNewUser(data);
                 console.log(isSignedUp);
+                // Si la réponse du serveur est la confirmation d'inscription de l'utilisateur, login celui-ci automatiquement
                 if (isSignedUp.data.message === "user added") {
                     const loginData = {
                         email: this.info[2].modelValue,

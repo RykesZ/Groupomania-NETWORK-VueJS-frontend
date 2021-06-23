@@ -36,6 +36,7 @@ export default {
         }
     },
     methods: {
+        // Demande l'envoi au serveur de la requête HTTP contenant les infos de la publication à modifier et attend sa réponse
         async updatePublication() {
             const updateConfirmation = await ApiPubliRoutes.updatePubli();
             console.log(updateConfirmation);
@@ -45,6 +46,7 @@ export default {
             this.$store.dispatch('setCurrentPubId', pubId);
             this.$emit('emit-redirect-publi-details');
         },
+        // Demande l'envoi au serveur de la requête HTTP demandant les informations des publications à afficher en fonction du numéro de la page et attend sa réponse pour les afficher 
         async updateFilContent(pageNumber) {
             const authPayload = { userId: this.userId, token: this.token };
             let data = { pageNumber };

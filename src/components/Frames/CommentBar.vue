@@ -49,6 +49,7 @@ export default {
             this.$refs.textarea.focus();
             this.$refs.textarea.select();
         },
+        // Demande l'envoi au serveur de la requête HTTP contenant les infos du commentaire à créer pour la publication et attend sa réponse pour demander l'actualisation des commentaires
         async sendNewComment() {
             const authPayload = { userId: this.userId, token: this.token };
             const data = { pubId: this.pubId, text: this.textComm, userId: this.userId};

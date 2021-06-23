@@ -85,6 +85,7 @@ export default {
         pickGender(payload) {
             this.gender = payload.pickedOption;
         },
+        // Produit un feedback visuel à l'utilisateur pour lui indiquer le chargement de sa photo de profil
         setNewFile(payload) {
             this.file = payload.file;
             this.fileName = payload.file.name;
@@ -99,6 +100,7 @@ export default {
                 this.uploadPercentage = 100;
             },1000);
         },
+        // Demande l'envoi au serveur de la requête HTTP contenant les infos de l'utilisateur à modifier et attend sa réponse
         async updateProfile() {
             const data = {
                 userId: this.userId,
@@ -124,6 +126,7 @@ export default {
             console.log(authToken);
             const payload = {data, authToken};
 
+            // Vérifie que le mdp et la confirmation de mdp correspondent
             if (data.password === data.passwordVerif) {
                 this.alert = false;
                 console.log(this.file);

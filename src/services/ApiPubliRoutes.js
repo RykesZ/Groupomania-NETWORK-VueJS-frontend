@@ -3,6 +3,7 @@ const axios = require('axios').default;
 
 class ApiPubliRoutes {
 
+    // Envoie la requête HTTP permettant à un utilisateur de créer une publication
     createPublication = async (data, file, authPayload) => {
         const formData = new FormData();
         formData.append('userId', data.userId);
@@ -25,6 +26,7 @@ class ApiPubliRoutes {
         }
     }
 
+    // Envoie la requête HTTP permettant de récupérer les infos d'une seule publication
     getOnePublication = async (data, authPayload) => {
         const pubId = data.pubId;
         try {
@@ -41,6 +43,7 @@ class ApiPubliRoutes {
         }
     };
 
+    // Envoie la requête HTTP permettant de récupérer les 10 publications correspondant au numéro de la page associé
     getAllPublications = async (data, authPayload) => {
         //console.log("until there");
         //console.log(authPayload);
@@ -60,6 +63,7 @@ class ApiPubliRoutes {
         }
     }
 
+    // Envoie la requête HTTP permettant à un utilisateur de like/dislike une publication
     likePublication = async (data, authPayload) => {
         const pubId = data.pubId;
         const like = data.like;
@@ -80,6 +84,7 @@ class ApiPubliRoutes {
         }
     }
 
+    // Envoie la requête HTTP permettant à un utilisateur de supprimer une publciation
     deletePublication = async (data, authPayload) => {
         const pubId = data.pubId;
         //console.log({"pubId": data.pubId})
@@ -97,6 +102,7 @@ class ApiPubliRoutes {
         }
     }
 
+    // Envoie la requête HTTP permettant à un utilisateur de modifier une publication
     modifyPublication = async (data, file, authPayload) => {
         const formData = new FormData();
         const pubId = data.pubId

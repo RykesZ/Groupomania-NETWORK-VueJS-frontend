@@ -172,13 +172,16 @@ export default {
         }
     },
     methods: {
+        // Montre les options de commentaire
         showCommentOptions() {
             this.commentOptionsSwitch = !this.commentOptionsSwitch;
         },
+        // Montre la pop-up de confirmation de suppression de commentaire
         toggleDeleteComment() {
             this.deletePopUp = !this.deletePopUp
             this.commentOptionsSwitch = this.commentOptionsSwitch = false;
         },
+        // Demande l'envoi au serveur de la requête HTTP demanant la suppression du commentaire et attend sa réponse
         async deleteComment() {
             const data = {
                 commId: this.commId
@@ -195,6 +198,7 @@ export default {
                 console.log(deleteConfirmation.message);
             }
         },
+        // Active le mode édition du commentaire
         toggleModifyComment() {
             this.modifyMode = !this.modifyMode;
             if (this.modifyMode == true) {
@@ -204,6 +208,7 @@ export default {
                 }, 200)
             }
         },
+        // Demande l'envoi au serveur de la requête HTTP contenant les infos du commentaire à modifier et attend sa réponse
         async sendModifiedComment() {
             const data = {
                 commId: this.commId,
@@ -225,6 +230,7 @@ export default {
                 this.alertMessage = "Erreur du serveur, réessayez plus tard."
             }
         },
+        // Place le curseur dans la zone de texte du commentaire à créer
         focusTextarea() {
             this.$refs.textarea.focus();
             this.$refs.textarea.select();

@@ -74,9 +74,11 @@ export default {
         }
     },
     methods: {
+        // Clique sur le bouton caché d'input de fichier
         choosePicture() {
             this.$refs.inputImageFile.click();
         },
+        // Limite la taille de l'image chargée par l'utilisateur et envoie un feedback visuel par la complétion de la barre de chargement
         emitNewImageFile() {
             const newFile = this.$refs.inputImageFile.files[0];
             if (newFile.size > 5000000) {
@@ -108,6 +110,7 @@ export default {
                 this.file = newFile;
             }
         },*/
+        // Envoie au serveur la requête HTTP contenant les infos de la publication à modifier
         async modifyPubli() {
             const data = {
                 pubId: this.pubId,
@@ -126,6 +129,7 @@ export default {
                 this.alertMessage = "Erreur du serveur, réessayez plus tard."
             }
         },
+        // Permet de retirer l'image actuellement enregistrée dans la publication
         removeFileCheckbox() {
             if (this.$refs.removeFileInput.checked == true) {
                 this.$refs.inputImageFile.value = null;
@@ -134,6 +138,7 @@ export default {
                 this.uploadPercentage = 0;
             }
         },
+        // Envoie sur la page de fil de publications
         redirectMainThread() {
             this.$router.push({ name: 'Fil' });
         }

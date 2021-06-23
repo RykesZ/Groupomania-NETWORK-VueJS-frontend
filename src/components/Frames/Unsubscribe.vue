@@ -41,6 +41,7 @@ export default {
     },
     emits: ['emit-toggle-unsubscribe'],
     methods: {
+        // Demande l'envoi au serveur de la requête HTTP demandant de supprimer l'utilisateur et attend sa réponse
         async unsubscribe() {
             const payload = {
                 deletePubAndComm: this.deletePubAndComms,

@@ -3,6 +3,7 @@ const axios = require('axios').default;
 
 class ApiCommentRoutes {
 
+    // Envoie la requête HTTP permettant à un utilisateur de créer un commentaire associé à une publication
     createComment = async (data, authPayload) => {
         const formData = new FormData();
         formData.append('text', data.text);
@@ -25,6 +26,7 @@ class ApiCommentRoutes {
         }
     }
 
+    // Envoie la requête HTTP permettant de récupérer tous les commentaires d'une publication
     getAllComments = async (data, authPayload) => {
         const pubId = data.pubId;
         //console.log(pubId);
@@ -42,6 +44,7 @@ class ApiCommentRoutes {
         }
     }
 
+    // Envoie la requête HTTP permettant à un utilisateur de supprimer un commentaire
     deleteComment = async (data, authPayload) => {
         const commId = data.commId;
         //console.log({"commId": data.commId})
@@ -59,6 +62,7 @@ class ApiCommentRoutes {
         }
     }
 
+    // Envoie la requête HTTP permettant à un utilisateur de modifier un commentaire
     modifyComment = async (data, authPayload) => {
         const formData = new FormData();
         const commId = data.commId;

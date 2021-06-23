@@ -1,3 +1,5 @@
+<!-- Cette page n'est pas utilisée dans la version actuelle de l'application -->
+
 <template>
     <Header @emit-redirect-main-thread="redirectMainThread" @emit-redirect-profile="redirectProfile" @emit-redirect-home="redirectHome"/>
     

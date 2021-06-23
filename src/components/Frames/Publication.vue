@@ -100,6 +100,7 @@ export default {
         moderatorAuth: {type: Number, default: 0}
     },
     methods: {
+        // Demande l'envoi au serveur de la requête HTTP permettant ) l'utilisateur de like/dislike la publication et attend sa réponse avant de modifier le nombre de likes de la publication
         async likePublication() {
             
             const likeValue = () => {
@@ -131,13 +132,16 @@ export default {
             }
             this.updateLikersList();
         },
+        // Montre les options de la publication
         showPubliOptions() {
             this.publiOptionsSwitch = !this.publiOptionsSwitch
         },
+        // Montre la pop-up de confirmation de suppression de publication
         toggleDelete() {
             this.deletePopUp = !this.deletePopUp
             this.publiOptionsSwitch = !this.publiOptionsSwitch
         },
+        // Demande l'envoi au serveur de la requête HTTP demander la suppression de la publication et attend sa réponse
         async deletePubli() {
             const data = {
                 pubId: this.pubId
@@ -154,6 +158,7 @@ export default {
                 //console.log(deleteConfirmation.message);
             }
         },
+        // Demande l'envoi au serveur de la requête HTTP demandant de récupérer les commentaires de la publication et attend sa réponse
         async reloadComments(payload) {
             if (payload) {
                 this.commentsAmount += payload;
@@ -171,14 +176,17 @@ export default {
 
             
         },
+        // Envoie vers la page de modification de publication
         redirectModifyPubli() {
             this.publiOptionsSwitch = !this.publiOptionsSwitch
             this.$store.dispatch('setCurrentPubId', this.pubId);
             this.$emit('emit-redirect-modify-publi');
         },
+        // Montre les commentaires de la publication
         showPubliDetails() {
             this.commentSwitch = !this.commentSwitch;
         },
+        // Montre les commentaires de la publication et place le curseur dans la zone de texte du commentaire à créer
         letsComment() {
             if (this.commentSwitch == false) {
                 this.commentSwitch = true;
@@ -190,12 +198,14 @@ export default {
             }
             
         },
+        // Permet de reconnaître l'URL d'une vidéo YouTube dans le texte de la publication et de la charger dans la publication
         urlRegex() {
             if (this.textPubli.match(/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/)) {
                 this.videoLink = this.textPubli.match(/(?:https?:)?(?:\/\/)?(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*?[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/);
                 //console.log({ "videoLink:": this.videoLink });
             }
         },
+        // Met à jour le nombre de likes de la publication
         updateLikersList() {
             if (this.likersList != null && this.likersList.includes(this.userId.toString())) {
                 this.$refs.thumbUp.classList.add('thumbUpActive');

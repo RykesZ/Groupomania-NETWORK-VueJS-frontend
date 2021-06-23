@@ -29,6 +29,7 @@ export default {
     },
     methods: {
         emits: ['emit-overlay-toggle'],
+        // Demande l'envoi au serveur de la requête HTTP contenant les logins de l'utilisateur voulant se connecter et attend sa réponse
         async loginUser() {
             const loginData = {
                 email: this.info[0].modelValue,

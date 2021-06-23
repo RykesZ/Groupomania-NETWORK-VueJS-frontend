@@ -62,9 +62,11 @@ export default {
         }
     },
     methods: {
+        // Clique sur le bouton caché d'input de fichier
         choosePicture() {
             this.$refs.inputImageFile.click();
         },
+        // Limite la taille de l'image chargée par l'utilisateur et envoie un feedback visuel par la complétion de la barre de chargement
         emitNewImageFile() {
             const newFile = this.$refs.inputImageFile.files[0];
             if (newFile.size > 5000000) {
@@ -80,6 +82,7 @@ export default {
         chooseVideo() {
             this.$refs.inputVideoFile.click();
         },
+        // Demande l'envoi au serveur de la requête HTTP contenant les infos de la publication à créer et attend sa réponse
         async sendNewPubli() {
             const data = {
                 userId: this.userId,
@@ -96,9 +99,11 @@ export default {
                 this.alertMessage = "Erreur du serveur, réessayez plus tard."
             }
         },
+        // Envoie sur la page de fil de publications
         redirectMainThread() {
             this.$router.push({ name: 'Fil' });
         },
+        // Retire l'image chargée par l'utilisateur
         emptyFile() {
             this.file = null;
             this.fileName = null;

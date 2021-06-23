@@ -2,6 +2,7 @@ const api = 'http://localhost:5000/api/auth'
 const axios = require('axios').default;
 
 class ApiUserRoutes {
+    // Envoie la requête HTTP permettant à un nouvel utilisateur de s'inscrire
     signupNewUser = async (data) => {
         try {
             const response = await axios.post(api + '/signup', { data });
@@ -11,6 +12,7 @@ class ApiUserRoutes {
         }
     }
 
+    // Envoie la requête HTTP permettant à un utilisateur de se connecter à l'application
     loginUser = async (data) => {
         try {
             const response = await axios.post(api + '/login', { data });
@@ -20,6 +22,7 @@ class ApiUserRoutes {
         }
     }
 
+    // Envoie la requête HTTP permettant de récupérer les informations d'un utilisateur
     getUserInfo = async (payload) => {
         try {
             const response = await axios.get(api + '/info', {
@@ -39,7 +42,7 @@ class ApiUserRoutes {
         }
     }
 
-    // le payload contient un objet data qui contient les données à entrer dans la BDD ainsi que userId et un objet authToken qui sert à s'authentifier à placer dans les paramètres de la query
+    // Envoie la requête HTTP permettant à un utilisateur de modifier ses données personnelles
     updateUser = async (payload, file) => {
         const data = payload.data;
         let dataKeys = Object.keys(data);
@@ -71,6 +74,7 @@ class ApiUserRoutes {
         }
     }
 
+    // Envoie la requête HTTP permettant à un utilisateur de supprimer son compte
     deleteUser = async (payload) => {
         try {
             const response = await axios.delete(api + '/delete', {

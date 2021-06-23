@@ -40,6 +40,7 @@ export default {
         allPubliLength: {type: Number, default: null}
     },
     methods: {
+        // Demande le changement de bouton de page active en fonction des actions ayant menée à celle-ci
         changeActiveButton(event) {
             if ((event.target == this.$refs.firstPaginationButton && this.firstButtonValue == 1) || event.target == this.$refs.firstPagePaginationButton || (event.target == this.$refs.previousPagePaginationButton && this.activeButton == 2 && this.secondButtonValue == 2)) {
                 //console.log("active button 1")
@@ -52,6 +53,7 @@ export default {
                 this.setActiveButton(3);
             } 
         },
+        // Change de page en fonction de la valeur entrée par l'utilisateur
         searchPage() {
             let pageNumber = prompt("Entrez le numéro de la page à laquelle vous souhaitez accéder :");
             if ((pageNumber != null || pageNumber != "") && pageNumber.match(/^[0-9]+$/) ) {
@@ -71,10 +73,11 @@ export default {
                 window.alert("La valeur entrée est incorrecte")
             }
         },
+        // Change le bouton de pagination apparaissant en gras en fonction du numéro de page active
         setActiveButton(buttonNumber) {
             //console.log({"ça marche bien": buttonNumber});
             if (buttonNumber == 1) {
-                // Désactive tous les boutons FACTORISER TOUT CA EN UNE SEULE FONCTION QUI ACTIVE/DESACTIVE
+                // Désactive tous les boutons
                 this.$refs.firstPaginationButton.classList.remove('active');
                 if (this.appearSecondButton) {
                     this.$refs.secondPaginationButton.classList.remove('active');
@@ -111,6 +114,7 @@ export default {
                 this.activeButton = 3;
             }
         },
+        // Teste si le bouton "next" doit apparaître ou non
         testAppearNextButton() {
             if (this.appearSecondButton == true && (this.activeButton == 2 || this.activeButton == 1)) {
                 this.appearNextButton = true;
@@ -118,6 +122,7 @@ export default {
                 this.appearNextButton = false;
             }
         },
+        // Teste si le bouton "previous" doit apparaître ou non
         testAppearPreviousButton() {
             if (this.firstButtonValue > 1 || this.activeButton > 1) {
                 this.appearPreviousButton = true;

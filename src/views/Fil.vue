@@ -30,27 +30,34 @@ export default {
         }
     },
     methods: {
+        // Retourne à la page 1
         reloadMainThread() {
             //this.reloadFilContentKey += 1;
             this.goToPage(1);
             this.$refs.pagination.setActiveButton(1);
             this.scrollToTop();
         },
+        // Envoie vers la page de profil utilisateur
         redirectProfile() {
             this.$router.push({ name: 'Profil' });
         },
+        // Déconnecte l'utilisateur
         redirectHome() {
             this.$router.push({ name: 'Home' });
         },
+        // Envoie vers la page de création de publication
         goToCreatePubli() {
             this.$router.push({ name: 'CreatePublication' });
         },
+        // Envoie vers la page contenant uniquement la publication visée
         redirectPubliDetails() {
             this.$router.push({ name: 'PublicationDetails' });
         },
+        // Envoie vers la page de modification de publication
         redirectModifyPubli() {
             this.$router.push({ name: 'ModifyPublication' });
         },
+        // Charge la page du fil de publications, indiquée par son numéro
         goToPage(pageNumber) {
             //console.log('click');
             if (pageNumber) {
@@ -67,6 +74,7 @@ export default {
             }
             
         },
+        // Change la numérotation de la pagination en fonction de la page actuelle
         updatePaginationButtonsValue(pageNumber) {
             if (pageNumber == 1) {
                 //console.log("1ere possibilité");
