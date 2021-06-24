@@ -6,7 +6,8 @@
         <div class="infoPubli">
             <p class="identity">{{ prenom }} {{ nom }}<span v-if="moderator" class="material-icons moderatorBadge">stars</span></p>
             <p class="datetime">Publié le {{ datePublication }} à {{ heurePublication }}</p>
-            <p class="datetime" v-if="datePublication != dateModification || heurePublication != heureModification">Modifié le {{ dateModification }} à {{ heureModification }}</p>
+            <p class="datetime" v-if="(datePublication != dateModification || heurePublication != heureModification) && moderationIntervention == false">Modifié le {{ dateModification }} à {{ heureModification }}</p>
+            <p class="datetime" v-if="(datePublication != dateModification || heurePublication != heureModification) && moderationIntervention == true">Modifié le {{ dateModification }} à {{ heureModification }} par Modération</p>
         </div>
 
         
@@ -97,7 +98,8 @@ export default {
         autorId: {type: Number},
         imageUrlUser: {type: String},
         moderator: {type: Number, default: 0},
-        moderatorAuth: {type: Number, default: 0}
+        moderatorAuth: {type: Number, default: 0},
+        moderationIntervention: {type: Boolean, default: false}
     },
     methods: {
         // Demande l'envoi au serveur de la requête HTTP permettant ) l'utilisateur de like/dislike la publication et attend sa réponse avant de modifier le nombre de likes de la publication
