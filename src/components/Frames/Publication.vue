@@ -47,7 +47,7 @@
     </div>
 
     <div v-if="commentSwitch" class="commentsBloc">
-        <Comment v-for="comment in commListe" :key="comment" :prenom="comment.firstname" :nom="comment.lastname" :fullDatePublication="comment.date_insertion" :fullDateModification="comment.date_modification" :commentText="comment.text" :imageUrl="comment.imageUrl" :autorId="comment.autorId" :commId="comment.commId" :moderator="comment.moderator" :moderatorAuth="moderatorAuth" @emit-reload-comments="reloadComments"/>
+        <Comment v-for="comment in commListe" :key="comment" :prenom="comment.firstname" :nom="comment.lastname" :fullDatePublication="comment.date_insertion" :fullDateModification="comment.date_modification" :commentText="comment.text" :imageUrl="comment.imageUrl" :autorId="comment.autorId" :commId="comment.commId" :moderator="comment.moderator" :moderatorAuth="moderatorAuth" :moderationIntervention="commment.moderationIntervention" @emit-reload-comments="reloadComments"/>
         <CommentBar ref="commentBar" :filename="imageUrlUser" :pubId="pubId" @emit-reload-comments="reloadComments"/>
     </div>
 </div>

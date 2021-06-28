@@ -5,7 +5,8 @@
             <div class="infoPubli">
                 <p class="identity">{{ prenom }} {{ nom }}<span v-if="moderator" class="material-icons moderatorBadge">stars</span></p>
                 <p class="datetime">Publié le {{ datePublication }} à {{ heurePublication }}</p>
-                <p class="datetime" v-if="datePublication != dateModification || heurePublication != heureModification">Modifié le {{ dateModification }} à {{ heureModification }}</p>
+                <p class="datetime" v-if="(datePublication != dateModification || heurePublication != heureModification) && moderationIntervention == false">Modifié le {{ dateModification }} à {{ heureModification }}</p>
+                <p class="datetime" v-if="(datePublication != dateModification || heurePublication != heureModification) && moderationIntervention == true">Modifié le {{ dateModification }} à {{ heureModification }} par Modération</p>
             </div>
             <p class="commentText">{{ commentText }}</p>
             <CommentOptions v-show="commentOptionsSwitch" @show-comment-options="showCommentOptions" @emit-delete-comment="deleteComment" @emit-toggle-modify-comment="toggleModifyComment"/>
